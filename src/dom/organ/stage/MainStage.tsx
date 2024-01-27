@@ -175,7 +175,9 @@ export default function MainStage() {
         <div className="pos-abs bottom-0 right-0 z-100">
             <BaseActionButtons calls={{ triggerClickedAction }} />
         </div>
-        <div className="pos-abs top-0 left-0 w-100vw h-100vh">
+        <div className="pos-abs top-0 left-0 bord-r-25 noverflow mt-2"
+                style={{height: "96vh", width: "100%"}}
+          >
             <FirstLevel state={{playerScore, selectedCountry}} calls={{ triggerSelectChange }} />
         </div>
     </>)

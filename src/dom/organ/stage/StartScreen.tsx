@@ -2,6 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import { MileiCharacterGroup } from "./MileiCharacterGroup";
+import { OrbitControls } from "@react-three/drei";
 
 
 export const StartScreen = ({ state, calls }: any) => {
@@ -16,7 +17,7 @@ export const StartScreen = ({ state, calls }: any) => {
                 Start
             </div>
             <div className="pos-abs top-0 left-0 flex-col "
-                style={{height: "92vh", width: "96vw"}}
+                style={{height: "100vh", width: "96vw", left:"0vw"}}
             >
                 <PointerFollowInit />
             </div>
@@ -27,6 +28,7 @@ export const StartScreen = ({ state, calls }: any) => {
 export const PointerFollowInit = () => {
     return (<>
         <Canvas camera={{fov:50,position:[0,0,-4]}} shadows>
+            <OrbitControls enableRotate={false} enablePan={false} enableZoom={false} />
             <pointLight position={[3, 3, -3]} castShadow />
             <ambientLight intensity={0.25} />
             <MileiCharacterGroup />
