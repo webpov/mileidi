@@ -15,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={"pa-0 ma-0 w-100vw h-100vh"}>{children}</body>
+      <body className={"pos-abs top-0 pa-0 ma-0 left-50p translate-x--50 "}
+        style={{height: "88vh", width: "96vw"}}
+      >{children}</body>
     </html>
   )
 }

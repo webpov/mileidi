@@ -15,7 +15,9 @@ export const StartScreen = ({ state, calls }: any) => {
             >
                 Start
             </div>
-            <div className="pos-abs top-0 left-0 flex-col w-100vw h-100vh">
+            <div className="pos-abs top-0 left-0 flex-col "
+                style={{height: "92vh", width: "96vw"}}
+            >
                 <PointerFollowInit />
             </div>
         </div>

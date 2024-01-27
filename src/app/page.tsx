@@ -4,7 +4,7 @@ import MainStage from '@/dom/organ/stage/MainStage'
 
 export default function Home() {
   return (
-    <main className={"h-100"} style={{background: "linear-gradient(-45deg, #6ECCF033, #6ECCF077"}}>
+    <main className={"h-100 bord-r-25 noverflow mt-4"} style={{background: "linear-gradient(-45deg, #6ECCF033, #6ECCF077"}}>
       <div className='pos-abs z-200'>
         <div id='logo' className='pa-2 '>
           <a href="/" className='nodeco tx-black flex tx-lx  tx-shadow-5 tx-bold-6'
