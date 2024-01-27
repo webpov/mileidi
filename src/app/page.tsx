@@ -22,7 +22,7 @@ export default function Home() {
               </div>
               <div>D</div>
             </div>
-            <div className='tx-altfont-1' style={{color: "#4EaCF0"}}>y</div>
+            <div className='tx-altfont-1' style={{color: "#4EaCF0"}}>I</div>
           </a>
         </div>
       </div>
