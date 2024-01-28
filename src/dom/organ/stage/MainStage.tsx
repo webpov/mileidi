@@ -112,7 +112,7 @@ export const GLOBAL_SUPER_STATE: any = {
     },
     "LOCAL_POSITION": [0, 0, 0],
     "MUTED_COLOR": '#0066FF',
-    "BASE_COLOR": "green",
+    "BASE_COLOR": "#33bb33",
     "MODEL_SHAPE": [
       [-0.35, 0.25],
       [0, 0.22],
