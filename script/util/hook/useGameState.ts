@@ -40,9 +40,8 @@ const useGameState = (initialState: GameState = DEFAULT_INITIAL_STATE, thresHold
     s__State(prevState => {
       const updatedZones = Object.keys(prevState.stats.zone).reduce((acc:any, zoneId) => {
         const currentStat = prevState.stats.zone[zoneId][field];
-        s__maxScore(maxScore + points)
         if (currentStat + points <= 0 ) {
-          alert(`You lost\n\nMax sore: ${maxScore}`)
+          alert(`You lost!\n\n ${zoneId.toUpperCase()} failed, ${field} was not found!`)
           window.location.reload()
         }
         acc[zoneId] = {
@@ -96,8 +95,25 @@ const useGameState = (initialState: GameState = DEFAULT_INITIAL_STATE, thresHold
     s__liveThresHold((state.stats.zone[zoneId]?.[field] ?? 0) + points);
     console.log("liveThresHold"), liveThresHold
     if (liveThresHold >= thresHold) { 
+      alert(`You've won!\n\n ${zoneId.toUpperCase()} overdelivered, ${field} was very productive!`)
       
-      window.location.reload()
+      let nextLevel = 0
+      if (!nextLevel) {
+        return window.location.reload()
+      }
+      if (thresHold < 25) {
+        // do window open
+        return window.location.href = "https://mileidi.vercel.app/lvl/1" 
+      }
+      if (thresHold < 50) {
+        // do window open
+        return window.location.href = "https://mileidi.vercel.app/lvl/2" 
+      }
+      if (thresHold < 75) {
+        // do window open
+        return window.location.href = "https://mileidi.vercel.app/lvl/3" 
+      }
+      
     }
     const updatedState = {
       ...state,
