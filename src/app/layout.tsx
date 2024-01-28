@@ -4,8 +4,8 @@ import './theme.css'
 
 
 export const metadata: Metadata = {
-  title: 'Mileid',
-  description: 'Mileid is a web-based game that helps you learn to make 3d browser games.',
+  title: 'MileidiChan',
+  description: '3D Economic Freedom Game inspired by the insights of Javier Milei',
 }
 
 export default function RootLayout({
