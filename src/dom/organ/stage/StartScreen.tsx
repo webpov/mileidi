@@ -1,5 +1,5 @@
 "use client";
-
+import Image from 'next/image'
 import { Canvas } from "@react-three/fiber";
 import { MileiCharacterGroup } from "./MileiCharacterGroup";
 import { OrbitControls } from "@react-three/drei";
@@ -52,7 +52,7 @@ export const PointerFollowInit = () => {
         
         {!isReadyOnClient && <>
             <div className="pos-abs bottom-0">
-                <img src="img/mileidithumb.png" style={{transform:"translateY(20px)"}} />
+                <Image alt="milei" width={298} height={360} src="/img/mileidithumb.png" style={{transform:"translateY(20px)"}} />
             </div>
         </>}
         {!!isReadyOnClient && <>
