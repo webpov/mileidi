@@ -4,6 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { MileiCharacterGroup } from "./MileiCharacterGroup";
 import { OrbitControls } from "@react-three/drei";
 import { MainContactMenu } from "./MainContactMenu";
+import { Suspense, useEffect, useState } from "react";
 
 
 export const StartScreen = ({ state, calls, showStart=true }: any) => {
@@ -39,17 +40,30 @@ export const StartScreen = ({ state, calls, showStart=true }: any) => {
 };
 
 export const PointerFollowInit = () => {
+    const [isReadyOnClient, s__isReadyOnClient] = useState(false)
+    useEffect(()=>{
+        s__isReadyOnClient(true)
+    },[])
     return (<>
     
         <div className="pos-abs top-0 mt-2 right-0 z-200">
             <MainContactMenu />
         </div>
-        <Canvas camera={{fov:50,position:[0,0,-4]}} shadows>
-            <OrbitControls enableRotate={false} enablePan={false} enableZoom={false} />
-            <pointLight position={[3, 3, -3]} castShadow />
-            <ambientLight intensity={0.25} />
-            <MileiCharacterGroup />
-        </Canvas>
+        
+        {!isReadyOnClient && <>
+            <div className="pos-abs bottom-0">
+                <img src="img/mileidithumb.png" style={{transform:"translateY(20px)"}} />
+            </div>
+        </>}
+        {!!isReadyOnClient && <>
+
+            <Canvas camera={{fov:50,position:[0,0,-4]}} shadows>
+                <OrbitControls enableRotate={false} enablePan={false} enableZoom={false} />
+                <pointLight position={[3, 3, -3]} castShadow />
+                <ambientLight intensity={0.25} />
+                <MileiCharacterGroup />
+            </Canvas>
+            </>}
     </>)
 }
 
