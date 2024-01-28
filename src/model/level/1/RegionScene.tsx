@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Box } from "@react-three/drei";
 import { Mesh } from 'three';
-import { COLOR_TO_ZONE, ZONES_COLOR_POSITIONS, POSITION_COLOR_LOOKUP } from '@/dom/organ/stage/MainStage';
+import {  ZONES_COLOR_POSITIONS, POSITION_COLOR_LOOKUP } from '@/dom/organ/stage/MainStage';
 import { ZoneContainer } from './ZoneContainer';
 
 

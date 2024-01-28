@@ -2,7 +2,7 @@
 import { useThree } from "@react-three/fiber";
 
 import { Box } from "@react-three/drei";
-import { BoxData, COLOR_TO_ZONE, ZONE_SHAPES, REGION_LOCAL_POSITIONS } from "@/dom/organ/stage/MainStage";
+import { BoxData,  ZONE_SHAPES, REGION_LOCAL_POSITIONS } from "@/dom/organ/stage/MainStage";
 import { ZoneScore } from "./ZoneScore";
 import { ExtrudedShape } from "../../core/ExtrudedShape";
 

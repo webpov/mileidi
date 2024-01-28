@@ -23,32 +23,6 @@ export interface ZoneSats {
   }
 export type StatType = 'money' | 'internet' | 'law';
 
-export const DEFAULT_INITIAL_STATE: GameState = {
-  stats: {
-    zone: {
-      "africa": {
-        "money": 3,
-        "internet": 3,
-        "law": 3,
-      },
-      "antartic": {
-        "money": 3,
-        "internet": 3,
-        "law": 3,
-      },
-      "oceania": {
-        "money": 3,
-        "internet": 3,
-        "law": 3,
-      },
-      "america": {
-        "money": 3,
-        "internet": 3,
-        "law": 3,
-      }
-    }
-  }
-};
 export const DEFAULT_ICON_LOOKUP:any = {
     '💰': 'money',
     '🌐': 'internet',
@@ -61,8 +35,19 @@ export interface BoxData {
     zone: string;
 }
 
-export const ZONE_SHAPES:any = {
-  "africa": [
+export const BASE_ZONE_LIST = ["africa", "america", "antartic", "oceania"];
+export const GLOBAL_SUPER_STATE: any = {
+  "africa": {
+    "POSITION": [0, 0, 0],
+    "INITIAL_STATS_ZONE": {
+      "money": 3,
+      "internet": 3,
+      "law": 3,
+    },
+    "LOCAL_POSITION": [0, 0, 0],
+    "MUTED_COLOR": '#FF4500',
+    "BASE_COLOR": "orange",
+    "MODEL_SHAPE": [
       [-0.4, 0.45],
       [0, 0.55],
       [0.5, 0.5],
@@ -73,7 +58,18 @@ export const ZONE_SHAPES:any = {
       [-0.15, -0.15],
       [-0.45, 0.15]
   ],
-  "america": [
+  },
+  "america": {
+    "POSITION": [-3, 0, 1.25],
+    "INITIAL_STATS_ZONE": {
+      "money": 3,
+      "internet": 3,
+      "law": 3,
+    },
+    "LOCAL_POSITION": [0, 0, 0],
+    "MUTED_COLOR": '#0066FF',
+    "BASE_COLOR": "cyan",
+    "MODEL_SHAPE": [
       [-0.15, 0.5],
       [0, 0.75],
       [0.45, 0.5],
@@ -83,8 +79,19 @@ export const ZONE_SHAPES:any = {
       [0.02, -0.5],
       [-0.02, -0.5],
       [-.2, 0]
-  ],
-  "antartic": [
+  ]
+  },
+  "antartic": {
+    "POSITION": [1, 0, -2.5],
+    "INITIAL_STATS_ZONE": {
+      "money": 3,
+      "internet": 3,
+      "law": 3,
+    },
+    "LOCAL_POSITION": [0, 0, 0],
+    "MUTED_COLOR": '#808080',
+    "BASE_COLOR": "white",
+    "MODEL_SHAPE": [
       [-0.85, 0.25],
       [0, 0.35],
       [0.85, 0.25],
@@ -94,7 +101,18 @@ export const ZONE_SHAPES:any = {
       [-0.95, -0.25],
       [-1.25, -0.1]
   ],
-  "oceania": [
+  },
+  "oceania": {
+    "POSITION":  [2.5, 0, 2],
+    "INITIAL_STATS_ZONE": {
+      "money": 3,
+      "internet": 3,
+      "law": 3,
+    },
+    "LOCAL_POSITION": [0, 0, 0],
+    "MUTED_COLOR": '#A52A2A',
+    "BASE_COLOR": "gold",
+    "MODEL_SHAPE":  [
       [-0.2, 0.2],
       [0.1, 0.25],
       [0.35, 0.1],
@@ -102,47 +120,53 @@ export const ZONE_SHAPES:any = {
       [0, -0.1],
       [-0.25, -0.05]
   ],
+  },
+
 }
-export const ZONES_TO_POSITIONS:any = {
-  
-  "africa": [0, 0, 0],
-  "antartic": [1, 0, -2.5],
-  "oceania": [2.5, 0, 2],
-  "america": [-3, 0, 1.25],
-}
-export const ZONES_COLOR_POSITIONS: BoxData[] = [
-    { position: [0, 0, 0], zone: "africa",color: "orange" },
-    { position: [1, 0, -2.5], zone: "antartic",color: "white" },
-    { position: [2.5, 0, 2], zone: "oceania",color: "gold" },
-    { position: [-3, 0, 1.25], zone: "america",color: "cyan" },
-];
-export const POSITION_COLOR_LOOKUP = ZONES_COLOR_POSITIONS.reduce((acc, { position, color }) => {
+const ZONES = Object.keys(GLOBAL_SUPER_STATE)
+
+export const DEFAULT_INITIAL_STATE: GameState = {
+  stats: {
+    zone: ZONES.reduce((acc:any, zone) => {
+      acc[zone] = GLOBAL_SUPER_STATE[zone].INITIAL_STATS_ZONE;
+      return acc;
+    }, {})
+  }
+};
+
+export const ZONE_SHAPES = ZONES.reduce((acc:any, zone) => {
+  acc[zone] = GLOBAL_SUPER_STATE[zone].MODEL_SHAPE;
+  return acc;
+}, {});
+
+export const ZONES_TO_POSITIONS = ZONES.reduce((acc:any, zone) => {
+  acc[zone] = GLOBAL_SUPER_STATE[zone].POSITION;
+  return acc;
+}, {});
+
+export const ZONES_COLOR_POSITIONS: BoxData[] = ZONES.map(zone => ({
+  position: GLOBAL_SUPER_STATE[zone].POSITION,
+  zone: zone,
+  color: GLOBAL_SUPER_STATE[zone].BASE_COLOR, // Assuming getColorForZone is a function that returns a color based on the zone
+}));
+
+
+export const POSITION_COLOR_LOOKUP = ZONES_COLOR_POSITIONS.reduce((acc:any, { position, color }:any) => {
     acc[position.join(',')] = color;
     return acc;
 }, {} as {[key: string]: string});
 
+export const ZONE_TO_MUTECOLOR = ZONES.reduce((acc:any, zone) => {
+  acc[zone] = GLOBAL_SUPER_STATE[zone].MUTED_COLOR;
+  return acc;
+}, {});
 
-// New mapping from color to zone name
-export const COLOR_TO_ZONE: {[color: string]: string} = {
-  'orange': 'africa',
-  'white': 'arctic',
-  'gold': 'oceania',
-  'cyan': 'america'
-};
-// New mapping from color to zone name
-export const ZONE_TO_MUTECOLOR: {[color: string]: string} = {
-  'africa': '#FF4500',  // orangered
-  'arctic': '#808080',  // grey
-  'oceania': '#A52A2A', // brown
-  'america': '#0066FF'  // blue
-};
 
-export const REGION_LOCAL_POSITIONS: {[color: string]: any} = {
-    'orange': [0, 0, 0],
-    'white': [0, 0, 0],
-    'gold': [0, 0, 0],
-    'cyan':[0, 0, 0]
-};
+export const REGION_LOCAL_POSITIONS = ZONES.reduce((acc:any, zone) => {
+  acc[zone] = GLOBAL_SUPER_STATE[zone].LOCAL_POSITION;
+  return acc;
+}, {});
+// New mapping from color to zone name
 export default function MainStage() {
     const [playerScore, s__playerScore, s__score]:any = useGameState();
     const [mounted, s__Mounted] = useState(false);

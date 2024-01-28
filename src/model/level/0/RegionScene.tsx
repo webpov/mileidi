@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Box, RoundedBox, useTexture } from "@react-three/drei";
 import { Mesh } from 'three';
-import { COLOR_TO_ZONE, ZONES_COLOR_POSITIONS,ZONES_TO_POSITIONS, POSITION_COLOR_LOOKUP } from '@/dom/organ/stage/MainStage';
+import {  ZONES_COLOR_POSITIONS,ZONES_TO_POSITIONS, POSITION_COLOR_LOOKUP } from '@/dom/organ/stage/MainStage';
 import { ZoneContainer } from './ZoneContainer';
 
 
