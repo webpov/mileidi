@@ -33,13 +33,16 @@ const DEFAULT_ACTION_LIST = [
 const useGameState = (initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 24): [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void] => {
   const [state, s__State] = useState<GameState>(initialState);
   const [liveThresHold, s__liveThresHold] = useState<any>(0);
+  const [maxScore, s__maxScore] = useState<any>(0);
 
   const updateStats = useCallback((field: StatType, points: number) => {
     
     s__State(prevState => {
       const updatedZones = Object.keys(prevState.stats.zone).reduce((acc:any, zoneId) => {
         const currentStat = prevState.stats.zone[zoneId][field];
+        s__maxScore(maxScore + points)
         if (currentStat + points <= 0 ) {
+          alert(`You lost\n\nMax sore: ${maxScore}`)
           window.location.reload()
         }
         acc[zoneId] = {
