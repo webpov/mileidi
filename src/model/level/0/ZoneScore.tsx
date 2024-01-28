@@ -1,4 +1,4 @@
-import { Box } from "@react-three/drei";
+import { Box, Sphere } from "@react-three/drei";
 
 
 export const ZoneScore = ({ state }: any) => {
@@ -6,18 +6,31 @@ export const ZoneScore = ({ state }: any) => {
         {!!state?.points?.money && <>
             <Box castShadow receiveShadow
                 position={[-0.35, state.points.money / 20, 0]} 
-                args={[0.2, state.points.money / 10, 0.2]}
+                args={[0.1, state.points.money / 10, 0.2]}
+            >
+                <meshStandardMaterial color={"green"} />
+            </Box>
+            
+            <Box castShadow receiveShadow
+                position={[-0.22, state.points.money / 20, 0]} 
+                args={[0.1, state.points.money / 10, 0.2]}
+            >
+                <meshStandardMaterial color={"green"} />
+            </Box>
+            <Box castShadow receiveShadow
+                position={[-0.08, state.points.money / 20, 0]} 
+                args={[0.1, state.points.money / 10, 0.2]}
             >
                 <meshStandardMaterial color={"green"} />
             </Box>
         </>}
         {!!state?.points?.internet && <>
-            <Box castShadow receiveShadow
-                position={[0, state.points.internet / 20, 0]} 
-                args={[0.2, state.points.internet / 10, 0.2]}
+            <Sphere castShadow receiveShadow 
+                position={[0.15, state.points.internet / 40, 0]} 
+                args={[state.points.internet / 20, 4, 4]}
             >
-                <meshStandardMaterial color={"blue"} />
-            </Box>
+                <meshStandardMaterial wireframe={true} color={"blue"} />
+            </Sphere>
         </>}
         {!!state?.points?.law && <>
             <Box castShadow receiveShadow

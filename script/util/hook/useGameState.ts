@@ -30,63 +30,106 @@ const DEFAULT_ACTION_LIST = [
 
 
 
-const useGameState = (initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 24): [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void] => {
+const useGameState = (
+  initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 24, reloadGame:VoidFunction):
+  [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void, s__isStarted:any] => {
   const [state, s__State] = useState<GameState>(initialState);
   const [liveThresHold, s__liveThresHold] = useState<any>(0);
   const [maxScore, s__maxScore] = useState<any>(0);
-
-  const updateStats = useCallback((field: StatType, points: number) => {
-    
-    s__State(prevState => {
-      const updatedZones = Object.keys(prevState.stats.zone).reduce((acc:any, zoneId) => {
-        const currentStat = prevState.stats.zone[zoneId][field];
-        if (currentStat + points <= 0 ) {
-          alert(`You lost!\n\n ${zoneId.toUpperCase()} failed, ${field} was not found!`)
-          window.location.reload()
-        }
-        acc[zoneId] = {
-          ...prevState.stats.zone[zoneId],
-          [field]: currentStat + points >= 0 ? currentStat + points : 0
-        };
-        return acc;
-      }, {});
-
-      return {
-        ...prevState,
-        stats: {
-          ...prevState.stats,
-          zone: updatedZones
-        }
+  const [isStarted, s__isStarted] = useState<number>(0);
+  const [isFinished, s__isFinished] = useState<number>(0);
+  const triggerFinish = (zoneId:any, field:any) => {
+    if (isFinished) { return } 
+    s__isFinished((prev:number)=>prev+1)
+    s__isStarted(0)
+    const zones:any = state.stats.zone
+    const currentStat = zones[zoneId][field]
+    alert(`You lost!\n\n ${zoneId.toUpperCase()} failed, ${field} was not found!`)
+    if (!!reloadGame) { reloadGame() }
+    else { return window.location.reload() }
+  }
+  function updateStats(zoneIds: string[], field: StatType, points: number): void {
+    if (isFinished) { return; }
+    if (!isStarted) { return; }
+    const prevState = { ...state };
+    let finishTriggered = false; // Flag to ensure triggerFinish is called only once
+  
+    zoneIds.forEach(zoneId => {
+      if (!prevState.stats.zone.hasOwnProperty(zoneId)) { return; }
+      console.log("updateStats", zoneId, field, points);
+      const currentStat = prevState.stats.zone[zoneId][field];
+  
+      if (currentStat + points <= 0 && !finishTriggered) {
+        triggerFinish(zoneId, field);
+        finishTriggered = true; // Set the flag after the first call
+      }
+      const updatedStat = currentStat + points >= 0 ? currentStat + points : 0;
+  
+      prevState.stats.zone[zoneId] = {
+        ...prevState.stats.zone[zoneId],
+        [field]: updatedStat
       };
     });
-  }, []);
+  
+    s__State({
+      ...prevState,
+      stats: {
+        ...prevState.stats
+      }
+    });
+  }
+  
+  
+  const [counter, setCounter] = useState(0); // Initialize the counter state
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (Math.random() > 0.5) { return }
-      updateStats('money', -1)
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [updateStats]);
+useEffect(() => {
+  if (!isStarted) return;
+  if (!!isFinished) return;
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (Math.random() > 0.5) { return }
-      updateStats('internet', -1)
-    }, 20000);
-    return () => clearInterval(interval);
-  }, [updateStats]);
+  const interval = setInterval(() => {
+    // console.log("interval spin")
+    const prevCounter = counter
+      const newCounter = prevCounter + 1;
+      console.log("*************prevCounter", prevCounter)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (Math.random() > 0.5) { return }
-      updateStats('law', -1)
-    }, 30000);
-    return () => clearInterval(interval);
-  }, [updateStats]);
+    const prevState = {...state}
+        // Object.keys(prevState.stats.zone).forEach(zoneId => {
+          // // Update money every 10 seconds
+          if (newCounter % 1 === 0) {
+            // console.log("zoneId", zoneId , "10s")
+            const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
+              return prevState.stats.zone[zoneId]['money'] > 0 && Math.random() > 0.5
+            })
+            if (toChange.length) {
+              updateStats(toChange, 'money', -1)
+            }
+          }
+          // if (newCounter % 1 === 0 && Math.random() > 0.5) {
+          //   updateStats(zoneId, 'money', -1);
+          // }
+          // // Update internet every 20 seconds (every 2 ticks of the 10-second interval)
+          // if (newCounter % 2 === 0 && Math.random() > 0.5) {
+          //   updateStats(zoneId, 'internet', -1);
+          // }
+          // // Update law every 30 seconds (every 3 ticks of the 10-second interval)
+          // if (newCounter % 3 === 0 && Math.random() > 0.5) {
+          //   updateStats(zoneId, 'law', -1);
+          // }
+        // })
+        // s__State( { ...prevState })
+
+      setCounter(newCounter)
+  }, 10000); // Set the interval to 10 seconds, the base unit
+
+  return () => clearInterval(interval);
+}, [updateStats, isStarted, isFinished, counter]); // Include counter in the dependency array
+
 
 
   const increaseZoneFieldPoints = (zoneId: string, field: StatType, points: number) => {
+    
+  if (!isStarted) return;
+  if (!!isFinished) return;
     // Build the updated state object
     const updatedZoneSats = {
       ...state.stats.zone[zoneId],
@@ -96,22 +139,23 @@ const useGameState = (initialState: GameState = DEFAULT_INITIAL_STATE, thresHold
     console.log("liveThresHold"), liveThresHold
     if (liveThresHold >= thresHold) { 
       alert(`You've won!\n\n ${zoneId.toUpperCase()} overdelivered, ${field} was very productive!`)
-      
+      const lvlBaseURL = process.env.NODE_ENV == "production" ? "https://mileidi.vercel.app" : "http://localhost:1234"
       let nextLevel = 0
-      if (!nextLevel) {
-        return window.location.reload()
-      }
       if (thresHold < 25) {
         // do window open
-        return window.location.href = "https://mileidi.vercel.app/lvl/1" 
+        return window.location.href = `${lvlBaseURL}/lvl/1`
       }
       if (thresHold < 50) {
         // do window open
-        return window.location.href = "https://mileidi.vercel.app/lvl/2" 
+        return window.location.href = `${lvlBaseURL}/lvl/2`
       }
       if (thresHold < 75) {
         // do window open
-        return window.location.href = "https://mileidi.vercel.app/lvl/3" 
+        return window.location.href = `${lvlBaseURL}/lvl/3`
+      }
+      if (!nextLevel) {
+        if (!!reloadGame) { reloadGame() }
+        else { return window.location.reload() }
       }
       
     }
@@ -130,7 +174,7 @@ const useGameState = (initialState: GameState = DEFAULT_INITIAL_STATE, thresHold
     s__State(updatedState);
   };
 
-  return [state, s__State, increaseZoneFieldPoints];
+  return [state, s__State, increaseZoneFieldPoints, s__isStarted];
 };
 
 export default useGameState;

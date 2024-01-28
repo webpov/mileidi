@@ -232,7 +232,12 @@ export const REGION_LOCAL_POSITIONS = ZONES.reduce((acc:any, zone) => {
 }, {});
 // New mapping from color to zone name
 export default function MainStage() {
-    const [playerScore, s__playerScore, s__score]:any = useGameState();
+    const reloadGame = () => {
+      if (window.confirm("Reload Game?")) {
+        window.location.reload()
+      }
+    }
+    const [playerScore, s__playerScore, s__score, s__isGameStared]:any = useGameState(DEFAULT_INITIAL_STATE, 24, reloadGame);
     const [mounted, s__Mounted] = useState(false);
     const [selectedZone, s__selectedZone] = useState('america'); // Default to orange (Egypt)
     const selectedPlayerScore = useMemo(() => {
@@ -255,7 +260,7 @@ export default function MainStage() {
 
     if (!mounted) return (
         <div className="w-100 h-100 flex-col ">
-            <StartScreen state={{ isPlaying: mounted }} calls={{ s__isPlaying: s__Mounted }} />
+            <StartScreen state={{ isPlaying: mounted }} calls={{ s__isPlaying: (val:boolean)=>{s__Mounted(val);s__isGameStared(val)} }} />
         </div>)
 
     return (<>
