@@ -6,9 +6,10 @@ export const PlayerScore = ({ color, score, zone }: any) => (
     <div className="bg-glass-10 bord-r-25 bg-w-50 px-2 py-1 box-shadow-i-2-b"
         style={{border: `1px solid ${color}`}}
     >
-        <div className="tx-lx tx-roman flex-center gap-1">
+        <div className="tx-roman flex-center gap-1">
             <div className="pa-1 bord-r-100p" style={{background: color}}></div>
-            {zone.toUpperCase()}
+            <div className="tx-lx Q_sm_x">{zone.toUpperCase()}</div>
+            <div className="tx-lgx Q_xs">{zone.toUpperCase()}</div>
             <div className="pa-1 bord-r-100p" style={{background: color}}></div>
         </div>
         <div className="flex flex-justify-around gap-2">

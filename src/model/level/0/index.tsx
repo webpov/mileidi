@@ -22,16 +22,24 @@ const FirstLevel = ({state, calls}:any) => {
     }
   }, [camRecorder2.isRecording])
   return (<>
-    <div className="pos-abs right-0 mr-100 z-200">
+    <div className="Q_xs pos-abs left-0 mt-8 z-200">
         <div onClick={()=>{ console.log("startRecording");startRecording(); s__startedRecording(true) }} className="tx-lx pt-1 opaci-chov--50"
           style={{textShadow: "2px 2px 2px #000000, 2px 8px 10px #003355"}}
         >
           {!camRecorder2?.isRecording ? '🎥' : '🔴'}
         </div>
     </div>
-    <Canvas camera={{fov:50,position:[0,7,isSmallDevice?15:4]}} shadows
+    <div className="Q_sm_x pos-abs right-0 mr-100 z-200">
+        <div onClick={()=>{ console.log("startRecording");startRecording(); s__startedRecording(true) }} className="tx-lx pt-1 opaci-chov--50"
+          style={{textShadow: "2px 2px 2px #000000, 2px 8px 10px #003355"}}
+        >
+          {!camRecorder2?.isRecording ? '🎥' : '🔴'}
+        </div>
+    </div>
+    <Canvas camera={{fov:50,position:[0,isSmallDevice?16:7,isSmallDevice?15:4]}} shadows
       onCreated={(state)=>{
-        state.gl.setClearColor("#448899"); state.scene.fog = new Fog("#448899",6,22)
+        state.gl.setClearColor("#448899");
+        state.scene.fog = new Fog("#448899",isSmallDevice?20:6,isSmallDevice?40:22)
         bind(state)
       }}
       gl={{
