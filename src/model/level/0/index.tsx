@@ -22,7 +22,7 @@ const FirstLevel = ({state, calls}:any) => {
     }
   }, [camRecorder2.isRecording])
   return (<>
-    <div className="Q_xs pos-abs left-0 mt-8 z-200">
+    <div className="Q_xs pos-abs left-0 mt-8 pa-4 z-200">
         <div onClick={()=>{ console.log("startRecording");startRecording(); s__startedRecording(true) }} className="tx-lx pt-1 opaci-chov--50"
           style={{textShadow: "2px 2px 2px #000000, 2px 8px 10px #003355"}}
         >
