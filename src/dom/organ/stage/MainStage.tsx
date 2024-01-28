@@ -232,7 +232,8 @@ export const REGION_LOCAL_POSITIONS = ZONES.reduce((acc:any, zone) => {
 }, {});
 // New mapping from color to zone name
 export default function MainStage() {
-    const reloadGame = () => {
+
+  const reloadGame = () => {
       if (window.confirm("Reload Game?")) {
         window.location.reload()
       }

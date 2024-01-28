@@ -26,7 +26,7 @@ export const MovingPlane = () => {
           rotation={[-Math.PI / 1.95, 0, 0]}
           position={[0, 0.25, 0]}
         >
-          <meshStandardMaterial color="#9EddFf" />
+          <meshStandardMaterial color="#a0e0Ff" />
         </Plane>
       </group>
     </>

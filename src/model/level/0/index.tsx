@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Box, Cylinder, MapControls, OrbitControls } from '@react-three/drei';
 import { useMediaQuery } from 'usehooks-ts';
@@ -6,16 +6,38 @@ import { RegionScene } from './RegionScene';
 import { Fog } from "three";
 import { MovingPlane } from '../../core/MovingPlane';
 import { MileiCharacterGroup } from '@/dom/organ/stage/MileiCharacterGroup';
+import { useRecorder } from '@/../script/hook/useRecorder';
 
 const FirstLevel = ({state, calls}:any) => {
     const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
-    
-  
-  return (
+    // @ts-ignore
+  const [bind, startRecording, camRecorder2]:any = useRecorder({ verbose: true, duration: 2, fps: 20, });
+  const [startedRecording, s__startedRecording] = useState(false)
+  useEffect(()=>{
+    if (!startedRecording) { return }
+    if (!camRecorder2.isRecording) {
+      setTimeout(()=>{
+        window.location.reload()
+      },500)
+    }
+  }, [camRecorder2.isRecording])
+  return (<>
+    <div className="pos-abs right-0 mr-100 z-200">
+        <div onClick={()=>{ console.log("startRecording");startRecording(); s__startedRecording(true) }} className="tx-lx pt-1 opaci-chov--50"
+          style={{textShadow: "2px 2px 0 #000000, 2px 8px 10px #003355"}}
+        >
+          {!camRecorder2?.isRecording ? '🎥' : '🔴'}
+        </div>
+    </div>
     <Canvas camera={{fov:50,position:[0,7,isSmallDevice?15:4]}} shadows
-      // onCreated={(state)=>{
-      //   state.gl.setClearColor("#ccf0Ff"); state.scene.fog = new Fog("#ccf0Ff",6,12)
-      // }}
+      onCreated={(state)=>{
+        state.gl.setClearColor("#448899"); state.scene.fog = new Fog("#448899",6,22)
+        bind(state)
+      }}
+      gl={{
+        preserveDrawingBuffer: true,
+      }}
+
     >
         <MapControls
         autoRotate={true}
@@ -24,11 +46,11 @@ const FirstLevel = ({state, calls}:any) => {
         rotateSpeed={0.35}
           panSpeed={0.75}
           zoomSpeed={2.5}
-          maxDistance={15}
+          maxDistance={18}
         />
       <ambientLight intensity={0.4} />
       <spotLight position={[5, 4, -5]} angle={0.65} penumbra={1} castShadow
-        color={"#FBd5b2"}
+        color={"#FBd5b2"} intensity={2}
       />
       {/* <pointLight position={[0, 2, 0]} castShadow  /> */}
       <group position={[0,-0.1,0]}>
@@ -50,7 +72,7 @@ const FirstLevel = ({state, calls}:any) => {
       />
 
     </Canvas>
-  );
+  </>);
 };
 
 export default FirstLevel;
