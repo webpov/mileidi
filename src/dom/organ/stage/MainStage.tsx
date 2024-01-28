@@ -4,11 +4,11 @@ import FirstLevel from "@/model/level/0";
 import { useMemo, useState } from "react";
 import useGameState from "@/../script/util/hook/useGameState";
 import { BaseActionButtons } from "./BaseActionButtons";
-import { MainGameMenu } from "./MainGameMenu";
+import { MainContactMenu } from "./MainContactMenu";
 import { PlayerScore } from "./PlayerScore";
 import { StartScreen } from "./StartScreen";
 
-export interface CountryStats {
+export interface ZoneSats {
     [key: string]: {
       money: number;
       internet: number;
@@ -18,33 +18,33 @@ export interface CountryStats {
   
   export interface GameState {
     stats: {
-      country: CountryStats;
+      zone: ZoneSats;
     };
   }
 export type StatType = 'money' | 'internet' | 'law';
 
 export const DEFAULT_INITIAL_STATE: GameState = {
   stats: {
-    country: {
+    zone: {
       "africa": {
-        "money": 0,
-        "internet": 0,
-        "law": 0,
+        "money": 3,
+        "internet": 3,
+        "law": 3,
       },
-      "arctic": {
-        "money": 0,
-        "internet": 0,
-        "law": 0,
+      "antartic": {
+        "money": 3,
+        "internet": 3,
+        "law": 3,
       },
       "oceania": {
-        "money": 0,
-        "internet": 0,
-        "law": 0,
+        "money": 3,
+        "internet": 3,
+        "law": 3,
       },
       "america": {
-        "money": 0,
-        "internet": 0,
-        "law": 0,
+        "money": 3,
+        "internet": 3,
+        "law": 3,
       }
     }
   }
@@ -58,10 +58,11 @@ export const DEFAULT_ICON_LOOKUP:any = {
 export interface BoxData {
     position: [number, number, number];
     color: string;
+    zone: string;
 }
 
-export const COUNTRY_SHAPES:any = {
-  "orange": [
+export const ZONE_SHAPES:any = {
+  "africa": [
       [-0.4, 0.45],
       [0, 0.55],
       [0.5, 0.5],
@@ -72,7 +73,7 @@ export const COUNTRY_SHAPES:any = {
       [-0.15, -0.15],
       [-0.45, 0.15]
   ],
-  "cyan": [
+  "america": [
       [-0.15, 0.5],
       [0, 0.75],
       [0.45, 0.5],
@@ -83,7 +84,7 @@ export const COUNTRY_SHAPES:any = {
       [-0.02, -0.5],
       [-.2, 0]
   ],
-  "white": [
+  "antartic": [
       [-0.85, 0.25],
       [0, 0.35],
       [0.85, 0.25],
@@ -93,7 +94,7 @@ export const COUNTRY_SHAPES:any = {
       [-0.95, -0.25],
       [-1.25, -0.1]
   ],
-  "gold": [
+  "oceania": [
       [-0.2, 0.2],
       [0.1, 0.25],
       [0.35, 0.1],
@@ -102,27 +103,34 @@ export const COUNTRY_SHAPES:any = {
       [-0.25, -0.05]
   ],
 }
-export const COUNTRIES_COLOR_POSITIONS: BoxData[] = [
-    { position: [0, 0, 0], color: "orange" },
-    { position: [1, 0, -2.5], color: "white" },
-    { position: [2.5, 0, 2], color: "gold" },
-    { position: [-3, 0, 1.25], color: "cyan" },
+export const ZONES_TO_POSITIONS:any = {
+  
+  "africa": [0, 0, 0],
+  "antartic": [1, 0, -2.5],
+  "oceania": [2.5, 0, 2],
+  "america": [-3, 0, 1.25],
+}
+export const ZONES_COLOR_POSITIONS: BoxData[] = [
+    { position: [0, 0, 0], zone: "africa",color: "orange" },
+    { position: [1, 0, -2.5], zone: "antartic",color: "white" },
+    { position: [2.5, 0, 2], zone: "oceania",color: "gold" },
+    { position: [-3, 0, 1.25], zone: "america",color: "cyan" },
 ];
-export const POSITION_COLOR_LOOKUP = COUNTRIES_COLOR_POSITIONS.reduce((acc, { position, color }) => {
+export const POSITION_COLOR_LOOKUP = ZONES_COLOR_POSITIONS.reduce((acc, { position, color }) => {
     acc[position.join(',')] = color;
     return acc;
 }, {} as {[key: string]: string});
 
 
-// New mapping from color to country name
-export const COLOR_TO_COUNTRY: {[color: string]: string} = {
+// New mapping from color to zone name
+export const COLOR_TO_ZONE: {[color: string]: string} = {
   'orange': 'africa',
   'white': 'arctic',
   'gold': 'oceania',
   'cyan': 'america'
 };
-// New mapping from color to country name
-export const COUNTRY_TO_MUTECOLOR: {[color: string]: string} = {
+// New mapping from color to zone name
+export const ZONE_TO_MUTECOLOR: {[color: string]: string} = {
   'africa': '#FF4500',  // orangered
   'arctic': '#808080',  // grey
   'oceania': '#A52A2A', // brown
@@ -138,39 +146,40 @@ export const REGION_LOCAL_POSITIONS: {[color: string]: any} = {
 export default function MainStage() {
     const [playerScore, s__playerScore, s__score]:any = useGameState();
     const [mounted, s__Mounted] = useState(false);
-    const [selectedCountry, s__selectedCountry] = useState('africa'); // Default to orange (Egypt)
+    const [selectedZone, s__selectedZone] = useState('africa'); // Default to orange (Egypt)
     const selectedPlayerScore = useMemo(() => {
-        return playerScore.stats.country[selectedCountry]
-    }, [playerScore.stats.country, selectedCountry]);
+        return playerScore.stats.zone[selectedZone]
+    }, [playerScore.stats.zone, selectedZone]);
     const mutedColor = useMemo(() => {
-      return COUNTRY_TO_MUTECOLOR[selectedCountry]
-    }, [selectedCountry]);
-    // Function to update selectedCountry based on color, translating it to country name
-    const triggerSelectChange = (color: string) => {
-        const country = COLOR_TO_COUNTRY[color] || color; // Fallback to the color if no country match
-        s__selectedCountry(country);
+      return ZONE_TO_MUTECOLOR[selectedZone]
+    }, [selectedZone]);
+    // Function to update selectedZone based on color, translating it to zone name
+    const triggerSelectChange = (zoneProp: string) => {
+        const zone = zoneProp
+        console.log("zone", zone)
+        s__selectedZone(zone);
     };
 
     const triggerClickedAction = (statName: StatType) => {
         console.log("triggerClickedAction", statName)
-        s__score(selectedCountry, statName, 1)
+        s__score(selectedZone, statName, 1)
     }
 
     if (!mounted) return (
-        <div className="w-100 h-100 flex-col pt-100">
+        <div className="w-100 h-100 flex-col ">
             <StartScreen state={{ isPlaying: mounted }} calls={{ s__isPlaying: s__Mounted }} />
         </div>)
 
     return (<>
         <div className="pos-abs bottom-0 left-0 z-200">
             <div className="pa-2 flex-col flex-align-start gap-1 ">
-                <PlayerScore country={selectedCountry} score={selectedPlayerScore}
+                <PlayerScore zone={selectedZone} score={selectedPlayerScore}
                   color={mutedColor}
                 />
             </div>
         </div>
         <div className="pos-abs right-0 z-200">
-            <MainGameMenu />
+            <MainContactMenu />
         </div>
         <div className="pos-abs bottom-0 right-0 z-100">
             <BaseActionButtons calls={{ triggerClickedAction }} />
@@ -178,7 +187,7 @@ export default function MainStage() {
         <div className="pos-abs top-0 left-0 bord-r-25 noverflow mt-2"
                 style={{height: "96vh", width: "100%"}}
           >
-            <FirstLevel state={{playerScore, selectedCountry}} calls={{ triggerSelectChange }} />
+            <FirstLevel state={{playerScore, selectedZone}} calls={{ triggerSelectChange }} />
         </div>
     </>)
 }

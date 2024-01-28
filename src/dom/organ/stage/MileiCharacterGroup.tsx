@@ -10,8 +10,8 @@ export const MileiCharacterGroup = () => {
 
     useFrame((state, delta) => {
         const { mouse } = state;
-        $boxRef.current.rotation.x = (mouse.y / 1) + 0.25;
-        $boxRef.current.rotation.y = (mouse.x * 1.5);
+        $boxRef.current.rotation.x = (mouse.y / 2) + 0.25;
+        $boxRef.current.rotation.y = (mouse.x);
     });
     return (
         <group position={[0, -1.35, 0]}>

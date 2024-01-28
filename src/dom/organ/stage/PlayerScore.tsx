@@ -2,13 +2,13 @@
 
 import { DEFAULT_ICON_LOOKUP } from "./MainStage";
 
-export const PlayerScore = ({ color, score, country }: any) => (
+export const PlayerScore = ({ color, score, zone }: any) => (
     <div className="bg-glass-10 bord-r-25 bg-w-50 px-2 py-1 box-shadow-i-2-b"
         style={{border: `1px solid ${color}`}}
     >
         <div className="tx-lx tx-roman flex-center gap-1">
             <div className="pa-1 bord-r-100p" style={{background: color}}></div>
-            {country.toUpperCase()}
+            {zone.toUpperCase()}
             <div className="pa-1 bord-r-100p" style={{background: color}}></div>
         </div>
         <div className="flex flex-justify-around gap-2">

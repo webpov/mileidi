@@ -1,18 +1,18 @@
 import { useRef } from 'react';
 import { Box } from "@react-three/drei";
 import { Mesh } from 'three';
-import { COLOR_TO_COUNTRY, COUNTRIES_COLOR_POSITIONS, POSITION_COLOR_LOOKUP } from '@/dom/organ/stage/MainStage';
-import { RenderBox } from './RenderBox';
+import { COLOR_TO_ZONE, ZONES_COLOR_POSITIONS, POSITION_COLOR_LOOKUP } from '@/dom/organ/stage/MainStage';
+import { ZoneContainer } from './ZoneContainer';
 
 
-interface ContinentSceneProps {
+interface RegionSceneProps {
     state: any
     calls: {
         triggerSelectChange: (color: string) => void;
     }
 }
 
-export const ContinentScene = ({ state, calls }: ContinentSceneProps) => {
+export const RegionScene = ({ state, calls }: RegionSceneProps) => {
     const $wireframeRef = useRef<Mesh>(null);
 
     const handleBoxSelect = (position: [number, number, number]) => {
@@ -25,9 +25,9 @@ export const ContinentScene = ({ state, calls }: ContinentSceneProps) => {
     };
 
     return (<>
-        {COUNTRIES_COLOR_POSITIONS.map((box, index) => (
-            <RenderBox key={index} boxData={box} handleSelect={handleBoxSelect} 
-                state={{countryScore:state.playerScore.stats.country[COLOR_TO_COUNTRY[box.color]]}}
+        {ZONES_COLOR_POSITIONS.map((box, index) => (
+            <ZoneContainer key={index} boxData={box} handleSelect={handleBoxSelect} 
+                state={{zoneScore:state.playerScore.stats.zone[box.zone]}}
              />
         ))}
         <group position={[0, 0.76, 0]} >

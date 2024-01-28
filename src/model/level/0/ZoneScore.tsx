@@ -1,9 +1,9 @@
 import { Box } from "@react-three/drei";
 
 
-export const CountriesScore = ({ state }: any) => {
+export const ZoneScore = ({ state }: any) => {
     return (<>
-        {!!state.points.money && <>
+        {!!state?.points?.money && <>
             <Box castShadow receiveShadow
                 position={[-0.25, state.points.money / 20, 0]} 
                 args={[0.2, state.points.money / 10, 0.2]}
@@ -11,7 +11,7 @@ export const CountriesScore = ({ state }: any) => {
                 <meshStandardMaterial color={"green"} />
             </Box>
         </>}
-        {!!state.points.internet && <>
+        {!!state?.points?.internet && <>
             <Box castShadow receiveShadow
                 position={[0, state.points.internet / 20, 0]} 
                 args={[0.2, state.points.internet / 10, 0.2]}
@@ -19,7 +19,7 @@ export const CountriesScore = ({ state }: any) => {
                 <meshStandardMaterial color={"blue"} />
             </Box>
         </>}
-        {!!state.points.law && <>
+        {!!state?.points?.law && <>
             <Box castShadow receiveShadow
                 position={[0.25, state.points.law / 20, 0]} 
                 args={[0.2, state.points.law / 10, 0.2]}

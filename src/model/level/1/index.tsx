@@ -20,8 +20,8 @@ const FirstLevel = ({state, calls}:any) => {
         autoRotate={true}
         autoRotateSpeed={0.1}
           maxPolarAngle={Math.PI/3.3}
-        rotateSpeed={0.35}
-          panSpeed={0.75}
+        rotateSpeed={0.15}
+          panSpeed={0.35}
           zoomSpeed={2.5}
           maxDistance={13}
         />
@@ -30,9 +30,7 @@ const FirstLevel = ({state, calls}:any) => {
         color={"#FBd5b2"}
       />
       {/* <pointLight position={[0, 2, 0]} castShadow  /> */}
-      <group position={[0,-0.1,0]}>
-        <MovingPlane />
-      </group>
+      <MovingPlane />
 
       <RegionScene 
         state={{
