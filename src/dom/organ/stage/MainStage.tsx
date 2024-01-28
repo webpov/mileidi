@@ -67,8 +67,8 @@ export const GLOBAL_SUPER_STATE: any = {
       "law": 3,
     },
     "LOCAL_POSITION": [0, 0, 0],
-    "MUTED_COLOR": '#0066FF',
-    "BASE_COLOR": "cyan",
+    "MUTED_COLOR": '#008000',
+    "BASE_COLOR": "#22dd77",
     "MODEL_SHAPE": [
       [-0.15, 0.5],
       [0, 0.75],
@@ -102,6 +102,70 @@ export const GLOBAL_SUPER_STATE: any = {
       [-1.25, -0.1]
   ],
   },
+  
+  "atlantis": {
+    "POSITION": [-3.5, 0, -0.5],
+    "INITIAL_STATS_ZONE": {
+      "money": 3,
+      "internet": 3,
+      "law": 3,
+    },
+    "LOCAL_POSITION": [0, 0, 0],
+    "MUTED_COLOR": '#0066FF',
+    "BASE_COLOR": "green",
+    "MODEL_SHAPE": [
+      [-0.35, 0.25],
+      [0, 0.22],
+      [0.5, 0.25],
+      [0.6, 0],
+      [0.5, -0.25],
+      [0.25, -0.5],
+      [-0.45, -0.25],
+      [-0.65, -0.1]
+  ],
+  },
+  
+  
+  "eurasia": {
+    "POSITION": [2.25, 0, -0.75],
+    "INITIAL_STATS_ZONE": {
+      "money": 3,
+      "internet": 3,
+      "law": 3,
+    },
+    "LOCAL_POSITION": [0, 0, 0],
+    "MUTED_COLOR": '#884400',
+    "BASE_COLOR": "#997766",
+    "MODEL_SHAPE": [
+      [-0.45, 0.27],
+      [0, 0.42],
+      [0.7, 0.35],
+      [0.8, 0],
+      [0.5, -0.35],
+      [0.25, -0.75],
+      [-0.45, -0.5],
+      [-0.65, -0.31]
+  ],
+  },
+  "europe": {
+    "POSITION":  [0.2, 0, -1],
+    "INITIAL_STATS_ZONE": {
+      "money": 3,
+      "internet": 3,
+      "law": 3,
+    },
+    "LOCAL_POSITION": [0, 0, 0],
+    "MUTED_COLOR": '#25aA7A',
+    "BASE_COLOR": "#44cc99",
+    "MODEL_SHAPE":  [
+      [-0.42, 0.2],
+      [0.1, 0.25],
+      [0.55, 0.1],
+      [0.35, -0.2],
+      [0, -0.12],
+      [-0.5, -0.18]
+  ],
+  },
   "oceania": {
     "POSITION":  [2.5, 0, 2],
     "INITIAL_STATS_ZONE": {
@@ -110,7 +174,7 @@ export const GLOBAL_SUPER_STATE: any = {
       "law": 3,
     },
     "LOCAL_POSITION": [0, 0, 0],
-    "MUTED_COLOR": '#A52A2A',
+    "MUTED_COLOR": '#A57A2A',
     "BASE_COLOR": "gold",
     "MODEL_SHAPE":  [
       [-0.2, 0.2],
@@ -170,7 +234,7 @@ export const REGION_LOCAL_POSITIONS = ZONES.reduce((acc:any, zone) => {
 export default function MainStage() {
     const [playerScore, s__playerScore, s__score]:any = useGameState();
     const [mounted, s__Mounted] = useState(false);
-    const [selectedZone, s__selectedZone] = useState('africa'); // Default to orange (Egypt)
+    const [selectedZone, s__selectedZone] = useState('america'); // Default to orange (Egypt)
     const selectedPlayerScore = useMemo(() => {
         return playerScore.stats.zone[selectedZone]
     }, [playerScore.stats.zone, selectedZone]);
@@ -195,6 +259,7 @@ export default function MainStage() {
         </div>)
 
     return (<>
+    
         <div className="pos-abs bottom-0 left-0 z-200">
             <div className="pa-2 flex-col flex-align-start gap-1 ">
                 <PlayerScore zone={selectedZone} score={selectedPlayerScore}

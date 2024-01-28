@@ -35,12 +35,15 @@ export const RegionScene = ({ state, calls }: RegionSceneProps) => {
                 state={{zoneScore:state.playerScore.stats.zone[box.zone]}}
              />
         ))}
-        <group position={[0, 0.74, 0]} >
-            <group ref={$wireframeRef} >
-                <Box  args={[0.8, 0.5, 0.25]} castShadow>
+        <group position={[0, 0.74, 0]}  >
+            <group ref={$wireframeRef} position={[-3, 0, 1.25]} scale={[0.67,0.67,0.67]}>
+            <Box  args={[0.8, 0.5, 0.25]} castShadow position={[0,-.2,0]}>
                     <meshStandardMaterial wireframe={true} color="black" />
                 </Box>
-                <RoundedBox args={[1.2, 0.2, 0.5]} castShadow position={[0, -0.33, 0]} >
+                <Box  args={[0.22, 1, 0.22]} castShadow position={[0.3,0,0]} rotation={[0,Math.PI/4,0]}>
+                    <meshStandardMaterial wireframe={true} color="black" />
+                </Box>
+                <RoundedBox args={[1, 0.2, 0.4]} castShadow position={[0, -0.33-.2, 0]} >
                     {/* <meshStandardMaterial  color="silver" /> */}
                 <meshMatcapMaterial matcap={matcapTexture}  color="#ffffff"  />
 

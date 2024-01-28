@@ -24,7 +24,7 @@ export const ZoneContainer = ({ state, boxData, handleSelect }: ZoneContainerPro
             <ZoneShape state={{color, zone}} />
             
             <group position={[0,0.45,0]}>
-                <group position={REGION_LOCAL_POSITIONS[color]}>
+                <group position={REGION_LOCAL_POSITIONS[color]} scale={[0.67,0.67,0.67]}>
                     <ZoneScore state={{points: state.zoneScore}} />
                 </group>
             </group>
@@ -46,7 +46,43 @@ export const ZoneShape = ({ state }: any) => {
                 </group>
             </group>
         }
+        {state.zone === 'america' &&
+            <group >
+                <group rotation={[-Math.PI/2,0,0]} position={[-0.15,0,.7]}>
+                    <ExtrudedShape length={.5}
+                        pointsArray={ZONE_SHAPES[state.zone]} color={state.color} 
+                    />
+                </group>
+            </group>
+        }
         {state.zone === 'antartic' &&
+            <group>
+            <group rotation={[-Math.PI/2,0,0]} position={[0,0,0]} >
+                <ExtrudedShape length={.5}
+                    pointsArray={ZONE_SHAPES[state.zone]} color={state.color} 
+                />
+            </group>
+            </group>
+        }
+        {state.zone === 'atlantis' &&
+            <group>
+            <group rotation={[-Math.PI/2,0,0]} position={[0,0,0]} >
+                <ExtrudedShape length={.5}
+                    pointsArray={ZONE_SHAPES[state.zone]} color={state.color} 
+                />
+            </group>
+            </group>
+        }
+        {state.zone === 'eurasia' &&
+            <group>
+            <group rotation={[-Math.PI/2,0,0]} position={[0,0,0]} >
+                <ExtrudedShape length={.5}
+                    pointsArray={ZONE_SHAPES[state.zone]} color={state.color} 
+                />
+            </group>
+            </group>
+        }
+        {state.zone === 'europe' &&
             <group>
             <group rotation={[-Math.PI/2,0,0]} position={[0,0,0]} >
                 <ExtrudedShape length={.5}
@@ -58,15 +94,6 @@ export const ZoneShape = ({ state }: any) => {
         {state.zone === 'oceania' &&
             <group>
                 <group rotation={[-Math.PI/2,0,0]} position={[-0.1,0,0.12]}>
-                    <ExtrudedShape length={.5}
-                        pointsArray={ZONE_SHAPES[state.zone]} color={state.color} 
-                    />
-                </group>
-            </group>
-        }
-        {state.zone === 'america' &&
-            <group >
-                <group rotation={[-Math.PI/2,0,0]} position={[-0.15,0,.7]}>
                     <ExtrudedShape length={.5}
                         pointsArray={ZONE_SHAPES[state.zone]} color={state.color} 
                     />

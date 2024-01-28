@@ -6,9 +6,10 @@ import { OrbitControls } from "@react-three/drei";
 import { MainContactMenu } from "./MainContactMenu";
 
 
-export const StartScreen = ({ state, calls }: any) => {
+export const StartScreen = ({ state, calls, showStart=true }: any) => {
     return (<>
         <div className="">
+            {showStart && <>
         <div className="z-300 pos-rel tx-xxxl opaci-chov--50 tx-altfont-1 tx-bold-8 tx-white tx-shadow-5 hover-4 mt-100"
         style={{textShadow: "2px 2px 0 #000000, 0 8px 20px #00336677"}}
                 onClick={() => {
@@ -27,6 +28,7 @@ export const StartScreen = ({ state, calls }: any) => {
             >
                 Continue
             </div>
+            </>}
             <div className="pos-abs top-0 left-0 flex-col "
                 style={{height: "94vh", width: "96vw", left:"0vw"}}
             >
