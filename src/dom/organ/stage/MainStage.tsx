@@ -35,7 +35,7 @@ export interface BoxData {
     zone: string;
 }
 
-export const BASE_ZONE_LIST = ["africa", "america", "antartic", "oceania"];
+export const BASE_ZONE_LIST = ["africa", "america", "antartic", "n.america", "oceania",];
 export const GLOBAL_SUPER_STATE: any = {
   "africa": {
     "POSITION": [0, 0, 0],
@@ -103,7 +103,7 @@ export const GLOBAL_SUPER_STATE: any = {
   ],
   },
   
-  "atlantis": {
+  "n.america": {
     "POSITION": [-3.5, 0, -0.5],
     "INITIAL_STATS_ZONE": {
       "money": 3,
@@ -126,7 +126,7 @@ export const GLOBAL_SUPER_STATE: any = {
   },
   
   
-  "eurasia": {
+  "asia": {
     "POSITION": [2.25, 0, -0.75],
     "INITIAL_STATS_ZONE": {
       "money": 3,

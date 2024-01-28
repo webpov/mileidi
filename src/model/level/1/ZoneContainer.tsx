@@ -63,6 +63,15 @@ export const ZoneShape = ({ state }: any) => {
                 </group>
             </group>
         }
+        {state.zone === 'n.america' &&
+            <group >
+                <group rotation={[-Math.PI/2,0,0]} position={[-0.15,0,.7]}>
+                    <ExtrudedShape length={.5}
+                        pointsArray={ZONE_SHAPES[state.zone]} color={state.color} 
+                    />
+                </group>
+            </group>
+        }
         {state.zone === 'america' &&
             <group >
                 <group rotation={[-Math.PI/2,0,0]} position={[-0.15,0,.7]}>
