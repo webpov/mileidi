@@ -5,7 +5,7 @@ import { Box, OrbitControls, Sparkles, useGLTF } from "@react-three/drei";
 import { RoundedBox } from "@react-three/drei";
 
 
-export const MileiCharacterGroup = ({motionRange=[4,1]}:any) => {
+export const MileiCharacterGroup = ({onClick, motionRange=[4,1]}:any) => {
     const $boxRef: any = useRef();
     const $pointer:any  = useRef();
     useFrame((state, delta) => {
@@ -16,7 +16,7 @@ export const MileiCharacterGroup = ({motionRange=[4,1]}:any) => {
         $pointer.current.position.y = (mouse.y)+1.75
     });
     return (
-        <group position={[0, -1.35, 0]}>
+        <group position={[0, -1.35, 0]} onClick={(e)=>{e.stopPropagation(); onClick()}}>
           <group  ref={$pointer} position={[0,0,-2]}>
             {/* <Box >
               <meshStandardMaterial wireframe={true} />

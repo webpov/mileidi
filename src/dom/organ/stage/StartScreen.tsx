@@ -11,10 +11,16 @@ import { useSearchParams } from 'next/navigation';
 
 
 export const StartScreen = ({ state, calls, showStart=true }: any) => {
+    const [counter, s__counter] = useState(0)
+    const onMileiFigureClick = () => {
+        // alert("asd")
+        s__counter(counter+1)
+      }
     return (<>
         <div className="">
             {showStart && <>
         <div className="z-300 pos-rel tx-xxxl opaci-chov--50 tx-altfont-1 tx-bold-8 tx-white tx-shadow-5 hover-4 mt-100"
+        title={!!counter?`${counter}`:"Start"}
         style={{textShadow: "2px 2px 0 #000000, 0 8px 20px #00336677"}}
                 onClick={() => {
                     if (state.isPlaying) { return; }
@@ -38,19 +44,23 @@ export const StartScreen = ({ state, calls, showStart=true }: any) => {
             <div className="pos-abs top-0 left-0 flex-col "
                 style={{height: "94vh", width: "96vw", left:"0vw"}}
             >
-                <PointerFollowInit />
+                <PointerFollowInit counter={counter} onMileiFigureClick={onMileiFigureClick} />
             </div>
         </div>
     </>);
 };
 
-export const PointerFollowInit = () => {
+export const PointerFollowInit = ({onMileiFigureClick, counter}:any) => {
   const searchParams = useSearchParams()
   const bloom = searchParams.has("hd")
     const [isReadyOnClient, s__isReadyOnClient] = useState(false)
     useEffect(()=>{
         s__isReadyOnClient(true)
     },[])
+    const onMileiClick = () => {
+        // alert("asd")
+        onMileiFigureClick()
+      }
     return (<>
     
     
@@ -84,13 +94,13 @@ export const PointerFollowInit = () => {
     color="white"
     size={2}
     scale={7}
-    count={100}
+    count={100+(counter*2)}
     noise={1}
     opacity={1}
     
     speed={0.3}
   />
-                <MileiCharacterGroup motionRange={[4,1]} />
+                <MileiCharacterGroup onClick={onMileiClick} motionRange={[4,1]} />
             </Canvas>
             </>}
     </>)

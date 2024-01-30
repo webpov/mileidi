@@ -34,7 +34,9 @@ const FirstLevel = ({state, calls}:any) => {
       },500)
     }
   }, [camRecorder2.isRecording])
-
+  const onMileiClick = () => {
+    alert("asd")
+  }
   return (<>
         <div className="pos-abs right-0 top-0 mt-2 z-200 mt-100 pt-8 pr-2">
           <Web3ReactContainer>
@@ -98,7 +100,7 @@ const FirstLevel = ({state, calls}:any) => {
           <meshStandardMaterial color="#bbbbee" />
         </Cylinder>
         <pointLight position={[0, 2, -1]} castShadow  distance={2} intensity={0.7} />
-        <MileiCharacterGroup motionRange={[1.5,1.2]} />
+        <MileiCharacterGroup onClick={onMileiClick} motionRange={[1.5,1.2]} />
       </group>
 
       <RegionScene 
