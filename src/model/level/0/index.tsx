@@ -52,14 +52,14 @@ const FirstLevel = ({state, calls}:any) => {
         </div>
 
     <div className="Q_xs pos-abs left-0 mt-8 pa-4 z-200">
-        <div onClick={()=>{ console.log("startRecording");startRecording(); s__startedRecording(true) }} className="tx-lx pt-1 opaci-chov--50"
+        <div onClick={()=>{ if(!window.confirm("Stop Recording?")){return};startRecording(); s__startedRecording(true) }} className="tx-lx pt-1 opaci-chov--50"
           style={{textShadow: "2px 2px 2px #000000, 2px 8px 10px #003355"}}
         >
           {!camRecorder2?.isRecording ? '🎥' : '🔴'}
         </div>
     </div>
     <div className="Q_sm_x pos-abs right-0 mr-100 z-200">
-        <div onClick={()=>{ console.log("startRecording");startRecording(); s__startedRecording(true) }} className="tx-lx pt-1 opaci-chov--50"
+        <div onClick={()=>{ if(!window.confirm("Start Recording?")){return};startRecording(); s__startedRecording(true) }} className="tx-lx pt-1 opaci-chov--50"
           style={{textShadow: "2px 2px 2px #000000, 2px 8px 10px #003355"}}
         >
           {!camRecorder2?.isRecording ? '🎥' : '🔴'}

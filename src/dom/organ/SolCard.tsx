@@ -31,6 +31,7 @@ export default function SolCard({ name}: {name: string}) {
 // const { library } = useWeb3React();
    const [solBal, s__solBal] = useState()
    const [tokBal, s__tokBal] = useState<any>()
+   const [tokBalance, s__tokBalance] = useState<any>()
    const [solAddress, s__solAddress] = useState()
   const [error, setError] = useState<Error | undefined>(undefined)
   const [connectionLabel, setConnectionLabel] = useState('Disconnected')
@@ -154,10 +155,15 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
 
   // callUpdateSupabase(publicKey.toString(),balance / LAMPORTS_PER_SOL)
   let actualVal = parseInt(info22.value.uiAmount)
+  
+  // const priceSol:any = await (await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd`)).json()
+  // console.log("priceSol", priceSol)
+  // const realpriceSol = parseFloat(priceSol.solana.usd)*actualVal
   const formatter = Intl.NumberFormat('en', {notation: 'compact'})
   let stringVal = formatter.format(actualVal)
-
+  
   s__tokBal(stringVal)
+  s__tokBalance(actualVal)
   callUpdateSupabase(connectedWallet.toString(),info22.value.uiAmount)
 
 }
@@ -309,7 +315,7 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
           </div>
           <div className='tx-lg'>{solBal ? solBal : 'N/A'}</div>
         </div>
-        <div className='flex flex-justify-between flex-aligin-center'>
+        <div className='flex flex-justify-between flex-aligin-center' title={tokBalance}>
           <div>
             💸
             <span className='Q_sm_x'>BAL: </span>
