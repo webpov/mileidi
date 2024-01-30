@@ -46,7 +46,7 @@ const useGameState = (
     const currentStat = zones[zoneId][field]
     alert(`You lost!\n\n ${zoneId.toUpperCase()} failed, ${field} was not found!`)
     if (!!reloadGame) { reloadGame() }
-    else { return window.location.reload() }
+    else { return window?.location.reload() }
   }
   function updateStats(zoneIds: string[], field: StatType, points: number): void {
     if (isFinished) { return; }
@@ -141,21 +141,21 @@ useEffect(() => {
       alert(`You've won!\n\n ${zoneId.toUpperCase()} overdelivered, ${field} was very productive!`)
       const lvlBaseURL = process.env.NODE_ENV == "production" ? "https://mileidi.vercel.app" : "http://localhost:1234"
       let nextLevel = 0
-      if (thresHold < 25) {
+      if (thresHold < 25 && !!window?.location) {
         // do window open
         return window.location.href = `${lvlBaseURL}/lvl/1`
       }
-      if (thresHold < 50) {
+      if (thresHold < 50 && !!window?.location) {
         // do window open
         return window.location.href = `${lvlBaseURL}/lvl/2`
       }
-      if (thresHold < 75) {
+      if (thresHold < 75 && !!window?.location) {
         // do window open
         return window.location.href = `${lvlBaseURL}/lvl/3`
       }
       if (!nextLevel) {
         if (!!reloadGame) { reloadGame() }
-        else { return window.location.reload() }
+        else { return window?.location.reload() }
       }
       
     }

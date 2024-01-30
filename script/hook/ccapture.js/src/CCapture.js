@@ -480,7 +480,7 @@ CCGIFEncoder.prototype.save = function( callback ) {
 	var binary_gif = this.encoder.stream().getData();
 
 	var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
-	window.location = data_url;
+	window?.location = data_url;
 	return;
 
 	var blob = new Blob( [ binary_gif ], { type: "octet/stream" } );

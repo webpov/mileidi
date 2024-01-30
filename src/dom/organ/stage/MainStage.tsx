@@ -259,8 +259,8 @@ export default function MainStage() {
   // @ts-ignore
   const isSolana = window?.solana
   const reloadGame = () => {
-      if (window.confirm("Reload Game?")) {
-        window.location.reload()
+      if (window?.location && window.confirm("Reload Game?")) {
+        window?.location.reload()
       }
     }
     const [playerScore, s__playerScore, s__score, s__isGameStared]:any = useGameState(DEFAULT_INITIAL_STATE, 24, reloadGame);

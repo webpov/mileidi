@@ -30,7 +30,7 @@ const FirstLevel = ({state, calls}:any) => {
     if (!startedRecording) { return }
     if (!camRecorder2.isRecording) {
       setTimeout(()=>{
-        window.location.reload()
+        window?.location.reload()
       },500)
     }
   }, [camRecorder2.isRecording])
