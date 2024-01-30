@@ -45,7 +45,19 @@ export const StartScreen = ({ state, calls, showStart=true }: any) => {
 export const PointerFollowInit = () => {
     const [currentSpeech, s__currentSpeech] = useState<any>()
     const [currentSpeechBg, s__currentSpeechBg] = useState<any>()
+ // Function to adjust speech volume
+ const adjustSpeechVolume = (volume: number) => {
+    if (currentSpeech) {
+        currentSpeech.volume = volume;
+    }
+};
 
+// Function to adjust background audio volume
+const adjustBgVolume = (volume: number) => {
+    if (currentSpeechBg) {
+        currentSpeechBg.volume = volume;
+    }
+};
   const audioBgNotification = (src = "", ) => {
     if (!!currentSpeechBg) {
         currentSpeechBg.pause()
@@ -99,11 +111,15 @@ export const PointerFollowInit = () => {
                                 Speech
                             {!!currentSpeech ? "🔊" : "🔇" }
                         </button>
+                        <input type="range" min="0" max="1" step="0.01" onChange={(e) => adjustSpeechVolume(parseFloat(e.target.value))} />
+                            
                         <button className='nowrap opaci-chov--50 py-2  px-3 bg-b-50 bord-r-10 tx-white border-white ' onClick={()=>{
                             audioBgNotification("../sound/bg.mp3", )}}>
                                 Background
                             {!!currentSpeechBg ? "🔊" : "🔇" }
                         </button>
+                        <input type="range" min="0" max="1" step="0.01" onChange={(e) => adjustBgVolume(parseFloat(e.target.value))} />
+                        
                     </div>
                 </div>
             </details>

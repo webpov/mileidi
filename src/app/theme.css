@@ -21,12 +21,15 @@
     20.2% {filter: invert(0); /* Thunder-like effect */}
     20.9% {filter: invert(0); /* Thunder-like effect */}
     21% {filter: invert(.5); /* Transition to grey */}
-    22% {filter: invert(0) grayscale(.5); /* Transition to grey */}
-    25% {filter: grayscale(0) invert(.3); /* Complete inversion */}
+    22% {filter: invert(0) grayscale(0); /* Transition to grey */}
+    25% {filter: grayscale(0.25) invert(.3); /* Complete inversion */}
     30% {filter: grayscale(0.5) invert(0); /* Start reverting with some grey */}
     60% {filter: grayscale(0) invert(1); /* Start reverting with some grey */}
-    80% {filter: invert(.2); /* Start reverting with some grey */}
-    80% {filter: invert(.6); /* Start reverting with some grey */}
+    80% {filter: invert(1); /* Start reverting with some grey */}
+    85% {filter: invert(.6); /* Start reverting with some grey */}
+    85.1% {filter: invert(0); /* Start reverting with some grey */}
+    85.2% {filter: invert(1); /* Start reverting with some grey */}
+    85.3% {filter: invert(.2); /* Start reverting with some grey */}
     90% {filter: invert(.1); /* Start reverting with some grey */}
     100% {filter: invert(0); /* Back to original */}
 }
