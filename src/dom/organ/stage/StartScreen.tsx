@@ -45,43 +45,6 @@ export const StartScreen = ({ state, calls, showStart=true }: any) => {
 };
 
 export const PointerFollowInit = () => {
-    const [currentSpeech, s__currentSpeech] = useState<any>()
-    const [currentSpeechBg, s__currentSpeechBg] = useState<any>()
- // Function to adjust speech volume
- const adjustSpeechVolume = (volume: number) => {
-    if (currentSpeech) {
-        currentSpeech.volume = volume;
-    }
-};
-
-// Function to adjust background audio volume
-const adjustBgVolume = (volume: number) => {
-    if (currentSpeechBg) {
-        currentSpeechBg.volume = volume;
-    }
-};
-  const audioBgNotification = (src = "", ) => {
-    if (!!currentSpeechBg) {
-        currentSpeechBg.pause()
-        s__currentSpeechBg(null)
-        return
-    }
-    const audioBg = new Audio(src);
-    audioBg.volume = 0.33
-    audioBg.play();
-    s__currentSpeechBg(audioBg)
-}
-    const audioNotification = (src = "") => {
-    if (!!currentSpeech) {
-        currentSpeech.pause()
-        s__currentSpeech(null)
-        return
-    }
-    const audio = new Audio(src);
-    audio.volume = 0.66
-    audio.play();
-    s__currentSpeech(audio)
-  };
   const searchParams = useSearchParams()
   const bloom = searchParams.has("hd")
     const [isReadyOnClient, s__isReadyOnClient] = useState(false)
@@ -91,44 +54,7 @@ const adjustBgVolume = (volume: number) => {
     return (<>
     
     
-        
-    <div className="pos-abs   mt-6 tx-shadow-5 bord-r-100 bg-w-50 border-white hover-jump z-200  audioIcon"
-    
-    onClick={
-        ()=>{
-            
-        }}>
-            
-            <details className='pos-rel z-200'>
-                <summary className='flex opaci-chov--50 tx-xl  '
-                onClick={()=>{
-                    if (!currentSpeech && !currentSpeechBg) {
-                        audioNotification("../sound/speech.mp3", )
-                        audioBgNotification("../sound/bg.mp3", )
-                    }
-                }}
-                ><div>🔊</div></summary>
-                <div className='pos-abs right-0 mt-2'>
-                    <div className='flex-col gap-2 flex-align-end bg-w-10 bord-r-25 border-white-50 bg-glass-10 pa-1 py-2'>
-                    
-                        <button className='nowrap opaci-chov--50 py-2  px-3 bg-b-50 bord-r-10 tx-white border-white ' onClick={()=>{
-                            audioNotification("../sound/speech.mp3", )}}>
-                                Speech
-                            {!!currentSpeech ? "🔊" : "🔇" }
-                        </button>
-                        <input type="range" min="0" max="1" step="0.01" defaultValue={0.3} onChange={(e) => adjustSpeechVolume(parseFloat(e.target.value))} />
-                            
-                        <button className='nowrap opaci-chov--50 py-2  px-3 bg-b-50 bord-r-10 tx-white border-white ' onClick={()=>{
-                            audioBgNotification("../sound/bg.mp3", )}}>
-                                Background
-                            {!!currentSpeechBg ? "🔊" : "🔇" }
-                        </button>
-                        <input type="range" min="0" max="1" step="0.01" defaultValue={0.6} onChange={(e) => adjustBgVolume(parseFloat(e.target.value))} />
-                        
-                    </div>
-                </div>
-            </details>
-        </div>
+     
         <div className="pos-abs top-0 mt-2 right-0 z-200">
             <MainContactMenu />
         </div>
