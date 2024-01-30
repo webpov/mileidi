@@ -60,11 +60,11 @@ export const MainContactMenu = () => {
                           <div className='bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 pa-2'>Twitter: @mileidichan</div>
                         </button>
                     </a>
-                    <a href="https://wpack.vercel.app/">
+                    <a href="https://wpov.vercel.app/" target="_blank">
                         <button className="noborder bg-glass-10 bg-w-50 bord-r-25  opaci-chov--50 "
                           style={{background: "linear-gradient(45deg, cyan, #66aaff)", padding: "2px !important"}}
                         >
-                          <div className='bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 pa-2'>WebPOV</div>
+                          <div className='bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 pa-2'>About | WebPOV</div>
                         </button>
                     </a>
                 </div>

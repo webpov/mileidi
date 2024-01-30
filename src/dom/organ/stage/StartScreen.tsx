@@ -2,9 +2,12 @@
 import Image from 'next/image'
 import { Canvas } from "@react-three/fiber";
 import { MileiCharacterGroup } from "./MileiCharacterGroup";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Sparkles } from "@react-three/drei";
 import { MainContactMenu } from "./MainContactMenu";
 import { Suspense, useEffect, useState } from "react";
+import { UnrealBloomPass } from 'three-stdlib'
+import { EffectComposer, Bloom } from '@react-three/postprocessing'
+import { useSearchParams } from 'next/navigation';
 
 
 export const StartScreen = ({ state, calls, showStart=true }: any) => {
@@ -40,12 +43,71 @@ export const StartScreen = ({ state, calls, showStart=true }: any) => {
 };
 
 export const PointerFollowInit = () => {
+    const [currentSpeech, s__currentSpeech] = useState<any>()
+    const [currentSpeechBg, s__currentSpeechBg] = useState<any>()
+
+  const audioBgNotification = (src = "", ) => {
+    if (!!currentSpeechBg) {
+        currentSpeechBg.pause()
+        s__currentSpeechBg(null)
+        return
+    }
+    const audioBg = new Audio(src);
+    audioBg.volume = 0.15
+    audioBg.play();
+    s__currentSpeechBg(audioBg)
+}
+    const audioNotification = (src = "") => {
+    if (!!currentSpeech) {
+        currentSpeech.pause()
+        s__currentSpeech(null)
+        return
+    }
+    const audio = new Audio(src);
+    audio.play();
+    s__currentSpeech(audio)
+  };
+  const searchParams = useSearchParams()
+  const bloom = searchParams.has("hd")
     const [isReadyOnClient, s__isReadyOnClient] = useState(false)
     useEffect(()=>{
         s__isReadyOnClient(true)
     },[])
     return (<>
     
+    
+        
+    <div className="pos-abs top-50p  mt-6 tx-shadow-5 bord-r-100 bg-w-50 border-white right-25p hover-6 z-200 " onClick={
+        ()=>{
+            
+        }}>
+            
+            <details className='pos-rel'>
+                <summary className='flex opaci-chov--50 tx-xl '
+                onClick={()=>{
+                    if (!currentSpeech && !currentSpeechBg) {
+                        audioNotification("../sound/speech.mp3", )
+                        audioBgNotification("../sound/bg.mp3", )
+                    }
+                }}
+                ><div>🔊</div></summary>
+                <div className='pos-abs right-0 mt-2'>
+                    <div className='flex-col gap-2 flex-align-end'>
+                    
+                        <button className='nowrap opaci-chov--50 py-2  px-3 bg-b-50 bord-r-10 tx-white border-white ' onClick={()=>{
+                            audioNotification("../sound/speech.mp3", )}}>
+                                Speech
+                            {!!currentSpeech ? "🔊" : "🔇" }
+                        </button>
+                        <button className='nowrap opaci-chov--50 py-2  px-3 bg-b-50 bord-r-10 tx-white border-white ' onClick={()=>{
+                            audioBgNotification("../sound/bg.mp3", )}}>
+                                Background
+                            {!!currentSpeechBg ? "🔊" : "🔇" }
+                        </button>
+                    </div>
+                </div>
+            </details>
+        </div>
         <div className="pos-abs top-0 mt-2 right-0 z-200">
             <MainContactMenu />
         </div>
@@ -58,9 +120,26 @@ export const PointerFollowInit = () => {
         {!!isReadyOnClient && <>
 
             <Canvas camera={{fov:50,position:[0,0,-4]}} shadows>
+                         
+          {!!bloom &&
+            <EffectComposer multisampling={4}>
+              <Bloom kernelSize={2} luminanceThreshold={0} luminanceSmoothing={0} intensity={0.5} />
+            </EffectComposer>
+          }
                 <OrbitControls enableRotate={false} enablePan={false} enableZoom={false} />
                 <pointLight position={[3, 3, -3]} castShadow />
                 <ambientLight intensity={0.25} />
+                
+            <Sparkles
+    color="white"
+    size={2}
+    scale={7}
+    count={100}
+    noise={1}
+    opacity={1}
+    
+    speed={0.3}
+  />
                 <MileiCharacterGroup />
             </Canvas>
             </>}

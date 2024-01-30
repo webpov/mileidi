@@ -1,20 +1,27 @@
 "use client";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { Box, OrbitControls, Sparkles, useGLTF } from "@react-three/drei";
 import { RoundedBox } from "@react-three/drei";
 
 
 export const MileiCharacterGroup = () => {
     const $boxRef: any = useRef();
-
+    const $pointer:any  = useRef();
     useFrame((state, delta) => {
         const { mouse } = state;
         $boxRef.current.rotation.x = (mouse.y / 2) + 0.25;
         $boxRef.current.rotation.y = (mouse.x);
+        $pointer.current.position.x = -(mouse.x)*1.5
+        $pointer.current.position.y = (mouse.y)+1.75
     });
     return (
         <group position={[0, -1.35, 0]}>
+          <group  ref={$pointer} position={[0,0,-2]}>
+            {/* <Box >
+              <meshStandardMaterial wireframe={true} />
+            </Box> */}
+          </group>
 
             <group ref={$boxRef}>
                 <MileiHead />

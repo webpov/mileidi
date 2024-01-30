@@ -7,3 +7,27 @@
 .tx-altfont-3 { font-family: 'Gajraj One', cursive !important}
 .tx-altfont-4 {     font-family: 'Marko One', serif !important}
 .tx-altfont-5 {     font-family: 'Lobster', serif !important}
+
+.mainbgchange {
+    background: linear-gradient(-45deg, #C2E6F4, #9CDAF2);
+}
+.invertbgchange {
+    background: linear-gradient(-45deg, #C2E6F4, #9CDAF2);
+    animation: invbgchange 60s;  animation-iteration-count: infinite;
+}
+@keyframes invbgchange {
+    0%, 20% {filter: invert(0);}
+    20.1% {filter: invert(.2); /* Thunder-like effect */}
+    20.2% {filter: invert(0); /* Thunder-like effect */}
+    20.9% {filter: invert(0); /* Thunder-like effect */}
+    21% {filter: invert(.5); /* Transition to grey */}
+    22% {filter: invert(0) grayscale(.5); /* Transition to grey */}
+    25% {filter: grayscale(0) invert(.3); /* Complete inversion */}
+    30% {filter: grayscale(0.5) invert(0); /* Start reverting with some grey */}
+    60% {filter: grayscale(0) invert(1); /* Start reverting with some grey */}
+    80% {filter: invert(.2); /* Start reverting with some grey */}
+    80% {filter: invert(.6); /* Start reverting with some grey */}
+    90% {filter: invert(.1); /* Start reverting with some grey */}
+    100% {filter: invert(0); /* Back to original */}
+}
+.hover-6{animation: hover 6s;  animation-iteration-count: infinite }
