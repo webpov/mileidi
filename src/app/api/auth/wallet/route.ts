@@ -41,6 +41,13 @@ async function createOrUpdateWallet(supabase: any, publicKey: any, amount:any, i
         return updatedWallet;
     }
 }
+
+// KyPv5ltJS3W9NXyKAUwG9OFSxf5HEI4r
+// https://solana-mainnet.g.alchemy.com/v2/KyPv5ltJS3W9NXyKAUwG9OFSxf5HEI4r
+// wss://solana-mainnet.g.alchemy.com/v2/KyPv5ltJS3W9NXyKAUwG9OFSxf5HEI4r
+
+// {"jsonrpc":"2.0","id": 2, "method": "eth_subscribe", "params": ["alchemy_pendingTransactions", {"toAddress": ["0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", "0xdAC17F958D2ee523a2206206994597C13D831ec7"], "hashesOnly": false}]}
+
 export async function POST(req: any) {  
 
 

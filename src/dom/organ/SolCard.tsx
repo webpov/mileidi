@@ -2,7 +2,18 @@
 import { useEffect, useState } from 'react'
 import { Web3ReactSelectedHooks, useWeb3React } from '@web3-react/core'
 import { Connector } from '@web3-react/types'
-import { Connection, Keypair, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { Connection, Keypair, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import { getAccount, getMint } from '@solana/spl-token'
+import * as bs58 from "bs58";
+
+import {
+  getAssociatedTokenAddress,
+  mintTo,
+  createMint,
+} from "@solana/spl-token";
+
+import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
+
 
 export default function SolCard({ name}: {name: string}) {
   const { connector, hooks } = useWeb3React();
@@ -60,6 +71,86 @@ export default function SolCard({ name}: {name: string}) {
   
 
   }
+  async function getTokenBalanceWeb3(connection:any, tokenAccount:any) {
+    const info = await connection.getTokenAccountBalance(tokenAccount);
+    if (!info.value.uiAmount) throw new Error('No balance found');
+    console.log('Balance (using Solana-Web3.js): ', info.value.uiAmount);
+    return info.value.uiAmount;
+}
+async function getTokenBalanceSpl(connection:any, connectedWallet:any) {
+  
+// const tokenAccoun123t = await getAssociatedTokenAddress(
+//   connection,
+//   connectedWallet,
+// );
+// console.log("asd", tokenAccoun123t)
+// let MY_WALLET  = connectedWallet.toString()
+// const payload = {
+//   "id": 1,
+//   "jsonrpc": "2.0",
+//   "method": "getTokenAccountsByOwner",
+//   "params": [
+//       MY_WALLET,
+//       {"mint": MY_TOKEN},
+//       {"encoding": "jsonParsed"},
+//   ],
+// }
+// const resres = await fetch("https://solana-mainnet.g.alchemy.com/v2/KyPv5ltJS3W9NXyKAUwG9OFSxf5HEI4r",{
+//   method:"GET",
+//   body: JSON.stringify(payload)
+// })
+// console.log("resres",resres)
+
+let MY_TOKEN:any  = 'dHzMLx2RLS9s33iPghRt6kb4xv88z9qE1shqkcuaMXq'
+// let MY_TOKEN:any  = '8AG4ZFCu8V3C2zkmyLtSorgGT6odFbKLFWnqykTiijZ6'
+const mintAccountPublicKey = new PublicKey(MY_TOKEN);
+// let mintAccount = await getMint(connection, mintAccountPublicKey);
+
+  // console.log("bs58.decodebs58.decode", mintAccount)
+  // let balance = await connection.getTokenAccountsByOwner(connectedWallet,{mint:mintAccount});
+  // console.log(`${balance / LAMPORTS_PER_SOL} SOL`);
+  // callUpdateSupabase(connectedWallet.toString(),balance / LAMPORTS_PER_SOL)
+
+//   console.log("asd connection.getParsedProgramAccounts", )
+//   const filters:any[] = [
+//     {
+//       dataSize: 165,    //size of account (bytes)
+//     },
+//     {
+//       memcmp: {
+//         offset: 32,     //location of our query in the account (bytes)
+//         bytes: connectedWallet.toString(),  //our search criteria, a base58 encoded string
+//       }            
+//     }
+//  ];
+
+const info22 = await connection.getTokenAccountBalance(new PublicKey(MY_TOKEN));
+    if (!info22.value.uiAmount) throw new Error('No balance found');
+    console.log('Balance (using Solana-Web3.js): ', info22.value.uiAmount);
+    // return info22.value.uiAmount;
+
+//   const accounts = await connection.getParsedProgramAccounts(
+//     new PublicKey("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"),   //SPL Token Program, new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA")
+//     {filters: filters}
+// );
+//   console.log("asd accounts", accounts)
+    
+
+
+
+  // const info = await getAccount(connection, mintAccountPublicKey);
+  // console.log("asd info", info)
+  // const amount = Number(info.amount);
+  // const mint = await getMint(connection, info.mint);
+  // const balance = amount / (10 ** mint.decimals);
+  // console.log('Balance (using Solana-Web3.js): ', balance);
+  // return balance;
+
+  // callUpdateSupabase(publicKey.toString(),balance / LAMPORTS_PER_SOL)
+  callUpdateSupabase(connectedWallet.toString(),info22.value.uiAmount)
+
+}
+
   const getSolBalance = async (provider:any, publicKey:any) => {
     // ts-ignore
     var phantom = await provider;
@@ -68,14 +159,18 @@ export default function SolCard({ name}: {name: string}) {
 
     console.log("Phantom Wallet Found, Connecting..", phantom);
     // const connection123 = new Connection("https://api.mainnet-beta.solana.com");
-    const connection123 = new Connection("https://api.devnet.solana.com");
+    // const connection123 = new Connection("https://api.devnet.solana.com");
+    const connection123 = new Connection("https://solana-mainnet.g.alchemy.com/v2/KyPv5ltJS3W9NXyKAUwG9OFSxf5HEI4r");
     // const connection123 = new Connection("https://api-mainnet.magiceden.dev/v2");
     (async () => {
       let balance = await connection123.getBalance(publicKey);
       console.log(`${balance / LAMPORTS_PER_SOL} SOL`);
-      callUpdateSupabase(publicKey.toString(),balance / LAMPORTS_PER_SOL)
+      // callUpdateSupabase(publicKey.toString(),balance / LAMPORTS_PER_SOL)
     })();
-    // (async () => {
+    (async () => {
+      console.log("await getTokenBalanceWeb3", publicKey, )
+      let asd = await getTokenBalanceSpl(connection123, publicKey)
+      console.log("token balance asd", publicKey, asd)
     //   // @ts-ignore
     //   let balance = await window.solana.request({
     //       method: "getBalance",
@@ -87,7 +182,7 @@ export default function SolCard({ name}: {name: string}) {
     //       ],
     //     });
     //   console.log(`${balance / LAMPORTS_PER_SOL} SOL`);
-    // })();
+    })();
   // Connect to Solana
   var connect_wallet = phantom.connect();
   // var balancebalancebalancebalance = await phantom?.getSolBalance()
