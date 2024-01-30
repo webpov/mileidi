@@ -7,8 +7,21 @@ import { Fog } from "three";
 import { MovingPlane } from '../../core/MovingPlane';
 import { MileiCharacterGroup } from '@/dom/organ/stage/MileiCharacterGroup';
 import { useRecorder } from '@/../script/hook/useRecorder';
+import { useWeb3React } from '@web3-react/core';
+import SolCard from '@/dom/organ/SolCard';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount, useConnect } from 'wagmi';
+import { polygon } from 'wagmi/chains';
+import { phantomWallet } from '@rainbow-me/rainbowkit/wallets';
+import { Web3ReactContainer } from '@/dom/Web3ReactContainer';
 
 const FirstLevel = ({state, calls}:any) => {
+
+  // const { address } = useAccount()
+  // const { connect, connectors, isLoading, pendingConnector } = useConnect()
+
+
+
     const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
     // @ts-ignore
   const [bind, startRecording, camRecorder2]:any = useRecorder({ verbose: true, duration: 2, fps: 20, });
@@ -21,7 +34,23 @@ const FirstLevel = ({state, calls}:any) => {
       },500)
     }
   }, [camRecorder2.isRecording])
+
   return (<>
+        <div className="pos-abs right-0 top-50p z-200">
+          <Web3ReactContainer>
+        <SolCard  name='phantom' />
+        <hr className='w-100' />
+        </Web3ReactContainer>
+        {/* <ConnectButton />  */}
+         {/* {connectors.map((connector) => (
+  <button disabled={!connector.ready} key={connector.id} onClick={() => connect({ connector, chainId: polygon.id })}>
+    Connect to {connector.name}
+    {isLoading && pendingConnector?.id === connector.id && ' (connecting)'}
+  </button>
+ ))}
+ <p>Connected to: {address ? address : 'not connected yet'}</p> */}
+        </div>
+
     <div className="Q_xs pos-abs left-0 mt-8 pa-4 z-200">
         <div onClick={()=>{ console.log("startRecording");startRecording(); s__startedRecording(true) }} className="tx-lx pt-1 opaci-chov--50"
           style={{textShadow: "2px 2px 2px #000000, 2px 8px 10px #003355"}}

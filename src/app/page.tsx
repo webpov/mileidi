@@ -28,7 +28,9 @@ export default function Home() {
         </div>
       </div>
       <div>
-        <MainStage />
+        {// @ts-ignore
+          <MainStage />
+        }
       </div>
     </main>
   )

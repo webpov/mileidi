@@ -7,6 +7,30 @@ import { BaseActionButtons } from "./BaseActionButtons";
 import { MainContactMenu } from "./MainContactMenu";
 import { PlayerScore } from "./PlayerScore";
 import { StartScreen } from "./StartScreen";
+import { WagmiContainer } from "@/dom/WagmiContainer";
+
+
+
+
+
+
+
+
+
+
+// import '@rainbow-me/rainbowkit/styles.css';
+// import { connectorsForWallets, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
+// import { phantomWallet } from '@rainbow-me/rainbowkit/wallets';
+// // #ts-ignore
+// import {configureChains,createClient,goerli,WagmiConfig,} from 'wagmi';
+// import { publicProvider } from 'wagmi/providers/public';
+
+
+
+
+
+
+
 
 export interface ZoneSats {
     [key: string]: {
@@ -232,7 +256,8 @@ export const REGION_LOCAL_POSITIONS = ZONES.reduce((acc:any, zone) => {
 }, {});
 // New mapping from color to zone name
 export default function MainStage() {
-
+  // @ts-ignore
+  const isSolana = window?.solana
   const reloadGame = () => {
       if (window.confirm("Reload Game?")) {
         window.location.reload()
@@ -258,6 +283,30 @@ export default function MainStage() {
         console.log("triggerClickedAction", statName)
         s__score(selectedZone, statName, 1)
     }
+    
+// =============================================================================
+// Rainbowkit Configuration
+// =============================================================================
+// initalize which chains your dapp will use, and set up a provider
+// if (!publicProvider()) return (<></>)
+try {
+  // configureChains([goerli], [publicProvider()])
+} catch (error) {
+  return (<></>)
+}
+// // #ts-ignore
+// const { chains, provider } = configureChains([goerli], [publicProvider()]);
+// const connectors = connectorsForWallets([
+//   {
+//     groupName: 'Phantom',
+//     wallets: [phantomWallet({ chains })],
+//   },
+// ]);
+
+// const wagmiClient = createClient({
+//   connectors,
+//   provider,
+// });
 
     if (!mounted) return (
         <div className="w-100 h-100 flex-col ">
@@ -265,7 +314,9 @@ export default function MainStage() {
         </div>)
 
     return (<>
-    
+
+
+
         <div className="pos-abs bottom-0 left-0 z-200">
             <div className="pa-2 flex-col flex-align-start gap-1 ">
                 <PlayerScore zone={selectedZone} score={selectedPlayerScore}
@@ -282,8 +333,13 @@ export default function MainStage() {
         <div className="pos-abs top-0 left-0 bord-r-25 noverflow mt-2"
                 style={{height: "96vh", width: "100%"}}
           >
+{/* {isSolana && <WagmiContainer > */}
             <FirstLevel state={{playerScore, selectedZone}} calls={{ triggerSelectChange }} />
+        {/* </WagmiContainer>} */}
         </div>
+
+
+
     </>)
 }
 

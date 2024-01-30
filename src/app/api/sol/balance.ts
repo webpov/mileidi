@@ -1,7 +1,7 @@
 import web3 from '@solana/web3.js';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const network = 'https://api.mainnet-beta.solana.com'; // or use a testnet if desired
+const network = 'https://api.devnet-beta.solana.com'; // or use a testnet if desired
 const LAMPORTS_PER_SOL = 1000000000; // Number of lamports in one SOL
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
