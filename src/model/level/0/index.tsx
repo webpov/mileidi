@@ -36,10 +36,10 @@ const FirstLevel = ({state, calls}:any) => {
   }, [camRecorder2.isRecording])
 
   return (<>
-        <div className="pos-abs right-0 top-50p z-200">
+        <div className="pos-abs right-0 top-0 mt-2 z-200 mt-100 pt-8 pr-2">
           <Web3ReactContainer>
         <SolCard  name='phantom' />
-        <hr className='w-100' />
+        {/* <hr className='w-100' /> */}
         </Web3ReactContainer>
         {/* <ConnectButton />  */}
          {/* {connectors.map((connector) => (

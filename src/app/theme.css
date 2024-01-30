@@ -16,22 +16,49 @@
     animation: invbgchange 60s;  animation-iteration-count: infinite;
 }
 @keyframes invbgchange {
-    0%, 20% {filter: invert(0);}
+    0%, 10% {filter: invert(0); }
+    18% {filter: invert(0); /* Thunder-like effect */}
+    18.1% {filter: invert(1); /* Thunder-like effect */}
+    18.2% {filter: invert(.3); /* Thunder-like effect */}
+    19% {filter: invert(.1); /* Thunder-like effect */}
     20.1% {filter: invert(.2); /* Thunder-like effect */}
-    20.2% {filter: invert(0); /* Thunder-like effect */}
-    20.9% {filter: invert(0); /* Thunder-like effect */}
-    21% {filter: invert(.5); /* Transition to grey */}
-    22% {filter: invert(0) grayscale(0); /* Transition to grey */}
-    25% {filter: grayscale(0.25) invert(.3); /* Complete inversion */}
-    30% {filter: grayscale(0.5) invert(0); /* Start reverting with some grey */}
-    60% {filter: grayscale(0) invert(1); /* Start reverting with some grey */}
-    80% {filter: invert(1); /* Start reverting with some grey */}
-    85% {filter: invert(.6); /* Start reverting with some grey */}
-    85.1% {filter: invert(0); /* Start reverting with some grey */}
-    85.2% {filter: invert(1); /* Start reverting with some grey */}
-    85.3% {filter: invert(.2); /* Start reverting with some grey */}
-    90% {filter: invert(.1); /* Start reverting with some grey */}
-    100% {filter: invert(0); /* Back to original */}
+
+
+    22.2% {filter: invert(.1); /* Thunder-like effect */}
+    22.3% {filter: invert(1); /* Thunder-like effect */}
+    22.9% {filter: invert(.3); /* Thunder-like effect */}
+    23% {filter: invert(.5); /* Transition to grey */}
+    23.2% {filter: invert(.2); /* Transition to grey */}
+    23.8% {filter:invert(1); /* Complete inversion */}
+    23.9% {filter:  invert(.8); /* Complete inversion */}
+    24% {filter: invert(.3); /* Complete inversion */}
+    24.1% {filter: invert(1); /* Start reverting with some grey */}
+
+    25.1% {filter: invert(1); /* Start reverting with some grey */}
+    26% {filter: invert(1) brightness(100%); /* Start reverting with some grey */}
+    29% {filter: invert(1) brightness(66%); /* Start reverting with some grey */}
+    31% {filter: invert(1) brightness(100%); /* Start reverting with some grey */}
+    32% {filter: invert(1) brightness(90%); /* Start reverting with some grey */}
+    32.1% {filter: invert(0) brightness(10%); /* Start reverting with some grey */}
+    32.2% {filter: invert(1) brightness(100%); /* Start reverting with some grey */}
+    
+    
+    
+    40% {filter: invert(1); /* Start reverting with some grey */}
+    41% {filter: invert(.9); /* Start reverting with some grey */}
+    41.1% {filter: invert(0); /* Start reverting with some grey */}
+    41.2% {filter: invert(1); /* Start reverting with some grey */}
+    41.3% {filter: invert(.2); /* Start reverting with some grey */}
+    42% {filter: invert(.1); /* Start reverting with some grey */}
+    43% {filter: invert(0); /* Start reverting with some grey */}
+
+    50% {filter: invert(0); opacity: 1;/* Start reverting with some grey */}
+    71% {filter: invert(0); opacity: 0; }
+    81% {filter: invert(0); /* Start reverting with some grey */}
+
+
+
+    100% {filter: invert(0); opacity: 1; /* Back to original */}
 }
 .hover-6{animation: hover 6s;  animation-iteration-count: infinite }
 

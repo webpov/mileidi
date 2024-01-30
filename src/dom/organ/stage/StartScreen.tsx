@@ -67,7 +67,7 @@ const adjustBgVolume = (volume: number) => {
         return
     }
     const audioBg = new Audio(src);
-    audioBg.volume = 0.15
+    audioBg.volume = 0.33
     audioBg.play();
     s__currentSpeechBg(audioBg)
 }
@@ -78,6 +78,7 @@ const adjustBgVolume = (volume: number) => {
         return
     }
     const audio = new Audio(src);
+    audio.volume = 0.66
     audio.play();
     s__currentSpeech(audio)
   };
@@ -115,14 +116,14 @@ const adjustBgVolume = (volume: number) => {
                                 Speech
                             {!!currentSpeech ? "🔊" : "🔇" }
                         </button>
-                        <input type="range" min="0" max="1" step="0.01" onChange={(e) => adjustSpeechVolume(parseFloat(e.target.value))} />
+                        <input type="range" min="0" max="1" step="0.01" defaultValue={0.3} onChange={(e) => adjustSpeechVolume(parseFloat(e.target.value))} />
                             
                         <button className='nowrap opaci-chov--50 py-2  px-3 bg-b-50 bord-r-10 tx-white border-white ' onClick={()=>{
                             audioBgNotification("../sound/bg.mp3", )}}>
                                 Background
                             {!!currentSpeechBg ? "🔊" : "🔇" }
                         </button>
-                        <input type="range" min="0" max="1" step="0.01" onChange={(e) => adjustBgVolume(parseFloat(e.target.value))} />
+                        <input type="range" min="0" max="1" step="0.01" defaultValue={0.6} onChange={(e) => adjustBgVolume(parseFloat(e.target.value))} />
                         
                     </div>
                 </div>
@@ -139,14 +140,17 @@ const adjustBgVolume = (volume: number) => {
         </>}
         {!!isReadyOnClient && <>
 
-            <Canvas camera={{fov:50,position:[0,0,-4]}} shadows>
+            <Canvas camera={{fov:50,position:[-2,0,-4]}} shadows>
                          
           {!!bloom &&
             <EffectComposer multisampling={4}>
               <Bloom kernelSize={2} luminanceThreshold={0} luminanceSmoothing={0} intensity={0.5} />
             </EffectComposer>
           }
-                <OrbitControls enableRotate={false} enablePan={false} enableZoom={false} />
+                <OrbitControls autoRotateSpeed={0.3} autoRotate={true} enablePan={false} enableZoom={false} maxPolarAngle={Math.PI/2+.4} minPolarAngle={Math.PI/2} 
+                    maxAzimuthAngle={Math.PI+0.5}
+                    minAzimuthAngle={Math.PI-0.5}
+                />
                 <pointLight position={[3, 3, -3]} castShadow />
                 <ambientLight intensity={0.25} />
                 

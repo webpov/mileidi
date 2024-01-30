@@ -13,6 +13,7 @@ import {
 } from "@solana/spl-token";
 
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
+import { shortWeb3Address } from '../../../script/util/webhelp';
 
 
 export default function SolCard({ name}: {name: string}) {
@@ -28,9 +29,11 @@ export default function SolCard({ name}: {name: string}) {
   const chain = useSelectedChainId(connector)
 // const store = useSelectedStore(connector)
 // const { library } = useWeb3React();
+   const [solBal, s__solBal] = useState()
+   const [tokBal, s__tokBal] = useState<any>()
    const [solAddress, s__solAddress] = useState()
   const [error, setError] = useState<Error | undefined>(undefined)
-  const [connectionStatus, setConnectionStatus] = useState('Disconnected')
+  const [connectionLabel, setConnectionLabel] = useState('Disconnected')
   const trySolAddress = async () => {
     // @ts-ignore
     let ggg =  window.solana.connect()
@@ -43,7 +46,10 @@ export default function SolCard({ name}: {name: string}) {
     console.log("gg22110", JSON.stringify(gg22))
     console.log(gg22.publicKey, "gg22123", JSON.stringify(gg22.publicKey))
     console.log(gg22.publicKey.toString(), "gg2224455", gg22)
-    s__solAddress(gg22.publicKey.toString())
+    let solAd = gg22.publicKey.toString()
+    s__solAddress(solAd)
+    setConnectionLabel("✅ "+shortAd(solAd))
+
     getSolBalance(gg244442, gg22.publicKey)
   }
   const callUpdateSupabase = async (publicKey:string, amount:number) => {
@@ -124,7 +130,7 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
 //     }
 //  ];
 
-const info22 = await connection.getTokenAccountBalance(new PublicKey(MY_TOKEN));
+  const info22 = await connection.getTokenAccountBalance(new PublicKey(MY_TOKEN));
     if (!info22.value.uiAmount) throw new Error('No balance found');
     console.log('Balance (using Solana-Web3.js): ', info22.value.uiAmount);
     // return info22.value.uiAmount;
@@ -147,6 +153,11 @@ const info22 = await connection.getTokenAccountBalance(new PublicKey(MY_TOKEN));
   // return balance;
 
   // callUpdateSupabase(publicKey.toString(),balance / LAMPORTS_PER_SOL)
+  let actualVal = parseInt(info22.value.uiAmount)
+  const formatter = Intl.NumberFormat('en', {notation: 'compact'})
+  let stringVal = formatter.format(actualVal)
+
+  s__tokBal(stringVal)
   callUpdateSupabase(connectedWallet.toString(),info22.value.uiAmount)
 
 }
@@ -164,7 +175,9 @@ const info22 = await connection.getTokenAccountBalance(new PublicKey(MY_TOKEN));
     // const connection123 = new Connection("https://api-mainnet.magiceden.dev/v2");
     (async () => {
       let balance = await connection123.getBalance(publicKey);
-      console.log(`${balance / LAMPORTS_PER_SOL} SOL`);
+      // console.log(`${balance / LAMPORTS_PER_SOL} SOL`);
+      let solBale:any = parseFloat((balance / LAMPORTS_PER_SOL).toFixed(4))
+      s__solBal(solBale)
       // callUpdateSupabase(publicKey.toString(),balance / LAMPORTS_PER_SOL)
     })();
     (async () => {
@@ -251,11 +264,17 @@ const info22 = await connection.getTokenAccountBalance(new PublicKey(MY_TOKEN));
 
     if (isActive) {
         // console.log("watchAsset", connector, "***" , )
-        await handleContractCall()
+        // await handleContractCall()
+        if(connector?.deactivate) {
+          void connector.deactivate()
+        } else {
+          void connector.resetState()
+        }
+  
       
     }
     else if (!isActivating) {
-      setConnectionStatus('Connecting..')
+      setConnectionLabel('Connecting..')
         Promise.resolve(connector.activate(1))
         .catch((e) => {
           connector.resetState()
@@ -266,24 +285,48 @@ const info22 = await connection.getTokenAccountBalance(new PublicKey(MY_TOKEN));
   useEffect(() => {
     
     if(isActive) {
-      setConnectionStatus('Connected')
+      setConnectionLabel('🏦')
       trySolAddress()
     } else {
-      setConnectionStatus('Disconnected')
+      setConnectionLabel('Wallet')
     }
   }
   ,[isActive])
-
+  
   return (
-    <div>
-      <p>{name.toUpperCase()}</p>
-      <h4>Sol: {solAddress || "n/a"}</h4>
-      <h3>Status - {(error?.message) ? ("Error: " + error.message) : connectionStatus}</h3>
-      <h3>Address - {account ? account : "No Account Detected"}</h3>
-      <h3>ChainId -  {chain ? chain : 'No Chain Connected'}</h3>
-      <button onClick={handleToggleConnect} disabled={false}>
-        {isActive ? "Disconnect" : "Connect"}
-      </button>
-    </div>
+    <details className='tx-altfont-1  bord-r-25 border-white bg-b-50 bg-glass-10 tx-white'>
+      <summary className='tx-xsm opaci-chov--50 tx-center flex-wrap py-2 px-2'>{(error?.message) ? ("Error: " + error.message) : connectionLabel}</summary>
+      <div className='px-2 pb-2'>
+        <hr className=' opaci-10' />
+        {/* <div>{name.toUpperCase()}</div> */}
+        <div>☀️ <span className='opaci-50 Q_sm_x'>SOL: </span><span>{solAddress ? shortWeb3Address(solAddress) : 'N/A'}</span></div>
+        <div>💎 <span className='opaci-50 Q_sm_x'>EVM: </span><span>{account ? shortWeb3Address(account) : 'N/A'}</span></div>
+        <hr className=' opaci-10' />
+        <div className='flex flex-justify-between flex-aligin-center'>
+          <div>
+            🏦
+            <span className='Q_sm_x'>QTY: </span>
+          </div>
+          <div className='tx-lg'>{solBal ? solBal : 'N/A'}</div>
+        </div>
+        <div className='flex flex-justify-between flex-aligin-center'>
+          <div>
+            💸
+            <span className='Q_sm_x'>BAL: </span>
+          </div>
+          <div className='tx-lg'>{tokBal ? tokBal : 'N/A'}</div>
+        </div>
+        {/* <div>Address - {account ? account : "No Account Detected"}</div>
+        <div>ChainId -  {chain ? chain : 'No Chain Connected'}</div> */}
+        <hr className=' opaci-10' />
+        <button className='bord-r-10 opaci-chov--50 border-white py-1 w-100' onClick={handleToggleConnect} disabled={false}>
+          {isActive ? "Disconnect" : "Connect"}
+        </button>
+      </div>
+    </details>
   )
+}
+export function shortAd(address:string)
+{
+  return address.substr(0,2)+"-"+address.substr(address.length-2,address.length)
 }

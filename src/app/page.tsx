@@ -6,6 +6,9 @@ export default function Home() {
   return (
     <main className={"h-100 bord-r-25 noverflow mt-2 "} 
     >
+      <div className='pos-abs bord-r-25 w-100 h-100 '
+        style={{background:"linear-gradient(-25deg, #ffff66, #ff9933, #88ddff, #0066aa)"}}
+      ></div>
       <div className='pos-abs bord-r-25 invertbgchange mainbgchange w-100 h-100 '></div>
       <div className='pos-abs z-200'>
         <div id='logo' className='pa-2 '>
