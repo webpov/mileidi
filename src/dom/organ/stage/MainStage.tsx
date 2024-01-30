@@ -257,7 +257,7 @@ export const REGION_LOCAL_POSITIONS = ZONES.reduce((acc:any, zone) => {
 // New mapping from color to zone name
 export default function MainStage() {
   // @ts-ignore
-  const isSolana = !!window ? window?.solana : null
+  // const isSolana = !!window ? window?.solana : null
   const reloadGame = () => {
       if (!!window && window.confirm("Reload Game?")) {
         window?.location.reload()
