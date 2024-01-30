@@ -98,7 +98,7 @@ const FirstLevel = ({state, calls}:any) => {
           <meshStandardMaterial color="#bbbbee" />
         </Cylinder>
         <pointLight position={[0, 2, -1]} castShadow  distance={2} intensity={0.7} />
-        <MileiCharacterGroup />
+        <MileiCharacterGroup motionRange={[1.5,1.2]} />
       </group>
 
       <RegionScene 

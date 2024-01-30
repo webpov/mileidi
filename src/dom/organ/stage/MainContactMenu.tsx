@@ -32,13 +32,13 @@ export const MainContactMenu = () => {
       
     return (
         <div className="pa-2 z-200">
-            <details className="">
-                <summary className="opaci-chov--50 tx-end flex flex-justify-end">
-                    <button className="noclick noborder bg-w-50 border-white-50 bord-r-25 py-2 tx-lg px-2">
-                        <div className="opaci-40">ℹ️</div>
+            <details className="flex  flex-align-end">
+                <summary className=" opaci-chov--50 tx-end flex flex-justify-end">
+                    <button className="noclick flex-col noborder bg-w-50 border-white-50 bord-r-100 pa-4 tx-lg ">
+                        <div className="pos-abs opaci-40 tx-roman tx-lx tx-bold-8 tx-white tx-shadow-5">i</div>
                     </button>
                 </summary>
-                <div className="flex-col flex-align-end gap-1 pa-1">
+                <div className="flex-col flex-align-end gap-1 pa-1 mt-1">
                 {/* <button
     onClick={handleCheckBalance}
     className="px-6 bg-blue-500 text-white font-semibold rounded-r-md focus:outline-none hover:bg-blue-600"
@@ -47,7 +47,7 @@ export const MainContactMenu = () => {
  </button> */}
  
  {false && balance && (
-        <div className="mt-8">
+        <div className="mt-8 py">
           <p className="text-xl font-medium">Wallet Balance:</p>
           <p className="text-4xl font-semibold text-green-600">{balance} SOL</p>
         </div>
@@ -57,14 +57,14 @@ export const MainContactMenu = () => {
                         <button className="noborder bg-glass-10 bg-w-50 bord-r-25  opaci-chov--50 "
                           style={{background: "linear-gradient(45deg, cyan, #66aaff)", padding: "2px !important"}}
                         >
-                          <div className='bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 pa-2'>Twitter: @mileidichan</div>
+                          <div className='bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 py-1 pa-2'>Twitter: @mileidichan</div>
                         </button>
                     </a>
                     <a href="https://wpov.vercel.app/" target="_blank">
                         <button className="noborder bg-glass-10 bg-w-50 bord-r-25  opaci-chov--50 "
                           style={{background: "linear-gradient(45deg, cyan, #66aaff)", padding: "2px !important"}}
                         >
-                          <div className='bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 pa-2'>About | WebPOV</div>
+                          <div className='bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 py-1 pa-2'>About | WebPOV</div>
                         </button>
                     </a>
                 </div>

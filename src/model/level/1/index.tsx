@@ -11,6 +11,7 @@ const FirstLevel = ({state, calls}:any) => {
     
   
   return (
+    <>
     <Canvas camera={{fov:50,position:[0,7,isSmallDevice?13:4]}} shadows
       // onCreated={(state)=>{
       //   state.gl.setClearColor("#ccf0Ff"); state.scene.fog = new Fog("#ccf0Ff",6,12)
@@ -40,6 +41,7 @@ const FirstLevel = ({state, calls}:any) => {
       />
 
     </Canvas>
+    </>
   );
 };
 

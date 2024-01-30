@@ -90,7 +90,7 @@ export const PointerFollowInit = () => {
     
     speed={0.3}
   />
-                <MileiCharacterGroup />
+                <MileiCharacterGroup motionRange={[4,1]} />
             </Canvas>
             </>}
     </>)

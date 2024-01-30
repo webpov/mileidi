@@ -5,13 +5,13 @@ import { Box, OrbitControls, Sparkles, useGLTF } from "@react-three/drei";
 import { RoundedBox } from "@react-three/drei";
 
 
-export const MileiCharacterGroup = () => {
+export const MileiCharacterGroup = ({motionRange=[4,1]}:any) => {
     const $boxRef: any = useRef();
     const $pointer:any  = useRef();
     useFrame((state, delta) => {
         const { mouse } = state;
-        $boxRef.current.rotation.x = (mouse.y / 2) + 0.25;
-        $boxRef.current.rotation.y = (mouse.x);
+        $boxRef.current.rotation.x = (mouse.y / motionRange[0])
+        $boxRef.current.rotation.y = (mouse.x)*motionRange[1];
         $pointer.current.position.x = -(mouse.x)*1.5
         $pointer.current.position.y = (mouse.y)+1.75
     });
