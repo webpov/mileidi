@@ -65,6 +65,9 @@ const useGameState = (
     if (!!isFinished) return;
 
     const interval = setInterval(() => {
+      if (document.hidden) {
+        return
+      }
       const prevCounter = counter
       const newCounter = prevCounter + 1;
       let oldAvail = { ...avail }
