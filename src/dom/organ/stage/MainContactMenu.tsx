@@ -33,7 +33,7 @@ export const MainContactMenu = () => {
     return (
         <div className="pa-2 z-200">
             <details className="flex  flex-align-end">
-                <summary className=" opaci-chov--50 tx-end flex flex-justify-end">
+                <summary className="noselect opaci-chov--50 tx-end flex flex-justify-end">
                     <button className="noclick flex-col noborder bg-w-50 border-white-50 bord-r-100 pa-4 tx-lg ">
                         <div className="pos-abs opaci-40 tx-roman tx-lx tx-bold-8 tx-white tx-shadow-5">i</div>
                     </button>
@@ -54,7 +54,7 @@ export const MainContactMenu = () => {
       )}
       {/* <hr className='w-50' /> */}
                     <a href="https://x.com/mileidichan" target="_blank">
-                        <button className="noborder bg-glass-10 bg-w-50 bord-r-25  opaci-chov--50 "
+                        <button className="noborder  bg-glass-10 bg-w-50 bord-r-25  opaci-chov--50 "
                           style={{background: "linear-gradient(45deg, cyan, #66aaff)", padding: "2px !important"}}
                         >
                           <div className='bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 py-1 pa-2'>Twitter: @mileidichan</div>
@@ -64,7 +64,7 @@ export const MainContactMenu = () => {
                         <button className="noborder bg-glass-10 bg-w-50 bord-r-25  opaci-chov--50 "
                           style={{background: "linear-gradient(45deg, cyan, #66aaff)", padding: "2px !important"}}
                         >
-                          <div className='bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 py-1 pa-2'>About | WebPOV</div>
+                          <div className='noselect bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 py-1 pa-2'>About | WebPOV</div>
                         </button>
                     </a>
                 </div>

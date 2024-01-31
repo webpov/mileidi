@@ -201,7 +201,9 @@ const $solCard:any = useRef()
 
       <RegionScene 
         state={{
+          selectedPlayerScore: state.selectedPlayerScore,
           playerScore: state.playerScore,
+          selectedZone: state.selectedZone
         }}
         calls={{triggerSelectChange: calls.triggerSelectChange}}
       />

@@ -256,7 +256,7 @@ export const REGION_LOCAL_POSITIONS = ZONES.reduce((acc:any, zone) => {
   return acc;
 }, {});
 // New mapping from color to zone name
-export default function MainStage() {
+export default function MainStage({mainAction}:any) {
   const [isWinScreen, s__isWinScreen] = useState(null)
   const [isLoseScreen, s__isLoseScreen] = useState<any>(null)
   const [finals, s__finals] = useState<any>([])
@@ -292,7 +292,11 @@ export default function MainStage() {
         console.log("zone", zone)
         s__selectedZone(zone);
     };
-
+    const mainActionClick = () => {
+      mainAction()
+      // s__Mounted(true);
+      // s__isGameStared(true)      
+    }
     const triggerClickedAction = (statName: StatType) => {
         console.log("triggerClickedAction", statName)
         s__score(selectedZone, statName, 1)
@@ -324,7 +328,7 @@ try {
 
     if (!mounted) return (
         <div className="w-100 h-100 flex-col ">
-            <StartScreen state={{ isPlaying: mounted }} calls={{ s__isPlaying: (val:boolean)=>{s__Mounted(val);s__isGameStared(val)} }} />
+            <StartScreen mainActionClick={mainActionClick} state={{ isPlaying: mounted }} calls={{ s__isPlaying: (val:boolean)=>{s__Mounted(val);s__isGameStared(val)} }} />
         </div>)
 
     return (<>
@@ -395,7 +399,7 @@ try {
                 style={{height: "96vh", width: "100%"}}
           >
 {/* {isSolana && <WagmiContainer > */}
-            <FirstLevel state={{playerScore, selectedZone}} calls={{ triggerSelectChange }} />
+            <FirstLevel state={{selectedPlayerScore, playerScore, selectedZone}} calls={{ triggerSelectChange }} />
         {/* </WagmiContainer>} */}
         </div>
 

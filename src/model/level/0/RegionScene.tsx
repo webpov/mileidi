@@ -1,8 +1,9 @@
 import { useRef } from 'react';
-import { Box, RoundedBox, useTexture } from "@react-three/drei";
+import { Box, Plane, RoundedBox, useTexture } from "@react-three/drei";
 import { Mesh } from 'three';
 import {  ZONES_COLOR_POSITIONS,ZONES_TO_POSITIONS, POSITION_COLOR_LOOKUP } from '@/dom/organ/stage/MainStage';
 import { ZoneContainer } from './ZoneContainer';
+import DynaText from '@/model/text/DynaText';
 
 
 interface RegionSceneProps {
@@ -29,6 +30,7 @@ export const RegionScene = ({ state, calls }: RegionSceneProps) => {
         calls.triggerSelectChange(zone);
     };
 
+
     return (<>
         {ZONES_COLOR_POSITIONS.map((box, index) => (
             <ZoneContainer key={index} boxData={box} handleSelect={handleBoxSelect} 
@@ -37,6 +39,36 @@ export const RegionScene = ({ state, calls }: RegionSceneProps) => {
         ))}
         <group position={[0, 0.74, 0]}  >
             <group ref={$wireframeRef} position={[-3, 0, 1.25]} scale={[0.67,0.67,0.67]}>
+                <Box position={[0.2,0.6,0]} args={[0.01,4.3,0.01]}
+                    rotation={[0,0,-.44]}
+                ></Box>
+                <group position={[1.5, 2, 1]} rotation={[-1,0,0]}>
+                    <Plane position={[0,0.6,-0.01]} args={[1,1.2]}>
+                        <meshStandardMaterial opacity={0.6} transparent  />
+                    </Plane>
+            <DynaText  onClick={()=>{}}
+           text={`${state.selectedZone.toUpperCase()}`} color="#115522" font={0.2}
+          position={[-0.0, 1, 0]} rotation={[0, 0, 0]}
+        >
+        </DynaText>
+            <DynaText  onClick={()=>{}}
+           text={`m = ${state.selectedPlayerScore["money"]}`} color="#115522" font={0.3}
+          position={[-0.0, 0.75, 0]} rotation={[0, 0, 0]}
+        >
+        </DynaText>
+        
+        <DynaText  onClick={()=>{}}
+           text={`i = ${state.selectedPlayerScore["internet"]}`} color="#002255" font={0.3}
+          position={[0, 0.5, 0]} rotation={[0, 0, 0]}
+        >
+        </DynaText>
+        
+        <DynaText  onClick={()=>{}}
+           text={`L = ${state.selectedPlayerScore["law"]}`} color="#552200" font={0.3}
+          position={[0, 0.25, 0]} rotation={[0, 0, 0]}
+        >
+        </DynaText>
+        </group>
             <Box  args={[0.8, 0.5, 0.25]} castShadow position={[0,-.2,0]}>
                     <meshStandardMaterial wireframe={true} color="#555555" />
                 </Box>
