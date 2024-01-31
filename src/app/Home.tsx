@@ -5,6 +5,7 @@ import { AudioProvider } from '../../script/state/context/AudioContext';
 
 export function Home() {
 
+  const [isFirstPlayed, s__isFirstPlayed] = useState<any>(false);
   const [currentSpeech, s__currentSpeech] = useState<any>();
   const [currentSpeechBg, s__currentSpeechBg] = useState<any>();
   // Function to adjust speech volume
@@ -90,7 +91,9 @@ export function Home() {
           <details className='pos-rel z-200'>
             <summary className='flex opaci-chov--50 tx-xl  '
               onClick={() => {
+                if (isFirstPlayed) return
                 if (!currentSpeech && !currentSpeechBg) {
+                  s__isFirstPlayed(true)
                   audioNotification("../sound/speech1min.mp3");
                   audioBgNotification("../sound/bg.mp3");
                 }
