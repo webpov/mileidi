@@ -92,8 +92,8 @@ export function Home() {
             <summary className='flex opaci-chov--50 tx-xl  '
               onClick={() => {
                 if (isFirstPlayed) return
-                if (!currentSpeech && !currentSpeechBg) {
-                  s__isFirstPlayed(true)
+                s__isFirstPlayed(true)
+                if (!currentSpeech && !currentSpeechBg) {                  
                   audioNotification("../sound/speech1min.mp3");
                   audioBgNotification("../sound/bg.mp3");
                 }

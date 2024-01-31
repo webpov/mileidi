@@ -1,39 +1,11 @@
 import { AudioContext } from "@/../script/state/context/AudioContext";
 import { ZoneSats, DEFAULT_INITIAL_STATE, GameState, StatType, STATS_SFX_MAIN } from '@/dom/organ/stage/MainStage';
-import { useState, useEffect, Dispatch, SetStateAction, useCallback, useContext } from 'react';
-
-const DEFAULT_ACTION_LIST = [
-  {"increment": "money", "decrement": null, "action_name": "Financial Growth Initiative"},
-  {"increment": "internet", "decrement": null, "action_name": "Digital Revolution Drive"},
-  {"increment": "law", "decrement": null, "action_name": "Judicial Enhancement Program"},
-  {"increment": "money, internet", "decrement": null, "action_name": "Economic-Tech Synergy Project"},
-  {"increment": "money, law", "decrement": null, "action_name": "Fiscal-Legal Reform Strategy"},
-  {"increment": "internet, law", "decrement": null, "action_name": "Cyber-Governance Alliance"},
-  {"increment": "money, internet, law", "decrement": null, "action_name": "Comprehensive Development Plan"},
-  {"increment": null, "decrement": "money", "action_name": "Economic Contraction Measure"},
-  {"increment": null, "decrement": "internet", "action_name": "Digital Infrastructure Setback"},
-  {"increment": null, "decrement": "law", "action_name": "Legal System Deterioration"},
-  {"increment": null, "decrement": "money, internet", "action_name": "Financial-Digital Decline"},
-  {"increment": null, "decrement": "money, law", "action_name": "Economic-Judicial Recession"},
-  {"increment": null, "decrement": "internet, law", "action_name": "Tech-Legal Setback"},
-  {"increment": null, "decrement": "money, internet, law", "action_name": "Nationwide Regression"},
-  {"increment": "money", "decrement": "internet", "action_name": "Asset Liquidation Focus"},
-  {"increment": "money", "decrement": "internet, law", "action_name": "Fiscal Focus over Digital-Legal"},
-  {"increment": "internet", "decrement": "money", "action_name": "Tech Over Economy Shift"},
-  {"increment": "internet", "decrement": "money, law", "action_name": "Digital Dominance Strategy"},
-  {"increment": "law", "decrement": "money", "action_name": "Regulatory Emphasis over Economy"},
-  {"increment": "law", "decrement": "money, internet", "action_name": "Governance over Growth"},
-  {"increment": "money, internet", "decrement": "law", "action_name": "Market-Tech Expansion at Legal Cost"},
-  {"increment": "money, law", "decrement": "internet", "action_name": "Fiscal-Legal Priority over Tech"},
-  {"increment": "internet, law", "decrement": "money", "action_name": "Cyber-Legal Advancement with Economic Sacrifice"},
-  {"increment": "money, internet, law", "decrement": null, "action_name": "All-Inclusive Progression"}
-]
-
+import { useState, useEffect, Dispatch, SetStateAction, useContext } from 'react';
 
 
 const useGameState = (
-  initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 12, addFinalObj:any,):
-  [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void, s__isStarted:any,maxScores:any, avail:any, isFinished:any] => {
+  initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 12, addFinalObj: any,):
+  [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void, s__isStarted: any, maxScores: any, avail: any, isFinished: any] => {
   const [avail, s__avail] = useState<any>(initialState.stats.available);
   const [state, s__State] = useState<GameState>(initialState);
   const [liveThresHold, s__liveThresHold] = useState<any>(0);
@@ -43,71 +15,40 @@ const useGameState = (
   const [isStarted, s__isStarted] = useState<number>(0);
   const [isFinished, s__isFinished] = useState<number>(0);
   const audioCtx = useContext(AudioContext)
-  const triggerFinish = (zoneId:any, field:any) => {
-    if (isFinished) { return } 
-    s__isFinished((prev:number)=>prev+1)
+  const triggerFinish = (zoneId: any, field: any) => {
+    if (isFinished) { return }
+    s__isFinished((prev: number) => prev + 1)
     s__isStarted(0)
-    const zones:any = state.stats.zone
-    const currentStat = zones[zoneId][field]
-    let alertmsg:any = `You lost!\n\n ${zoneId.toUpperCase()} failed, ${field} was not found!`
+    let alertmsg: any = `You lost!\n\n ${zoneId.toUpperCase()} failed, ${field} was not found!`
     if (!!addFinalObj) {
       addFinalObj({
-          win:false,
-          alertmsg
+        win: false,
+        alertmsg
       })
     }
-    // if (!!addFinalObj) { addFinalObj(0,alertmsg) }
-    // else { return window?.location.reload() }
   }
   function updateStats(zoneIds: string[], field: StatType, points: number): void {
     if (isFinished) { return; }
     if (!isStarted) { return; }
     const prevState = { ...state };
-    let finishTriggered = false; // Flag to ensure triggerFinish is called only once
-  
+    let finishTriggered = false
+
     zoneIds.forEach(zoneId => {
       if (!prevState.stats.zone.hasOwnProperty(zoneId)) { return; }
-      // console.log("updateStats", zoneId, field, points);
       const currentStat = prevState.stats.zone[zoneId][field];
-  
+
       if (currentStat + points <= 0 && !finishTriggered) {
         triggerFinish(zoneId, field);
-        finishTriggered = true; // Set the flag after the first call
+        finishTriggered = true
       }
       const updatedStat = currentStat + points >= 0 ? currentStat + points : 0;
-      
+
       prevState.stats.zone[zoneId] = {
         ...prevState.stats.zone[zoneId],
         [field]: updatedStat
       };
     });
 
-    // let oldAvail = null
-    // switch (field) {
-    //   case 'money':
-    //     console.log('less money')
-        
-    //     break;
-    //     case 'internet':
-    //       console.log('less internet')
-    //       oldAvail = {...avail}
-    // console.log(oldAvail["money"])
-    // if(!!oldAvail["money"]) {
-    //   oldAvail["money"] += 1
-    //   s__avail(oldAvail)
-    // }
-    //       break;
-    //       case 'law':
-    //         console.log('less law')
-    //         oldAvail = {...avail}
-    //   console.log(oldAvail["money"])
-    //   if(!!oldAvail["money"]) {
-    //     oldAvail["money"] += 1
-    //     s__avail(oldAvail)
-    //   }
-    //         break;
-    // }
-  
     s__State({
       ...prevState,
       stats: {
@@ -115,166 +56,133 @@ const useGameState = (
       }
     });
   }
-  
-  
-  const [counter, setCounter] = useState(0); // Initialize the counter state
 
-useEffect(() => {
-  if (!isStarted) return;
-  if (!!isFinished) return;
 
-  const interval = setInterval(() => {
-    // console.log("interval spin")
-    const prevCounter = counter
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    if (!isStarted) return;
+    if (!!isFinished) return;
+
+    const interval = setInterval(() => {
+      const prevCounter = counter
       const newCounter = prevCounter + 1;
-      // console.log("*************prevCounter", prevCounter)
-      let oldAvail = {...avail}
+      let oldAvail = { ...avail }
 
-    const prevState = {...state}
-        // Object.keys(prevState.stats.zone).forEach(zoneId => {
-          // // Update money every 10 seconds
-          if (newCounter % 1 === 0) {
-      // console.log("*******************money**********************")
-            
-      // console.log(oldAvail["money"])
-      if(!oldAvail["money"]) {
-        oldAvail["money"] = oldAvail["money"]+1
-        s__avail(oldAvail)
-      // console.log("*******************money**********************", avail)
-    }
+      const prevState = { ...state }
+      if (newCounter % 1 === 0) {
+        if (!oldAvail["money"]) {
+          oldAvail["money"] = oldAvail["money"] + 1
+          s__avail(oldAvail)
+        }
 
-            // console.log("zoneId", zoneId , "10s")
-            const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
-              return prevState.stats.zone[zoneId]['money'] > 0 && Math.random() > 0.5
-            })
-            if (toChange.length) {
-              // s__maxScore1(maxScore1+1)
-              audioCtx.play("../sound/bridge.wav")
-              updateStats(toChange, 'money', -1)
-            }
-          }
-          if (newCounter % 2 === 0) {
-            
-      // console.log(oldAvail["internet"])
-      if(!oldAvail["internet"] && Math.random() > 0.75) {
-        oldAvail["internet"] += 1
-        s__avail(oldAvail)
+        const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
+          return prevState.stats.zone[zoneId]['money'] > 0 && Math.random() > 0.5
+        })
+        if (toChange.length) {
+          audioCtx.play("../sound/bridge.wav")
+          updateStats(toChange, 'money', -1)
+        }
       }
-            // console.log("zoneId", zoneId , "10s")
-            const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
-              return prevState.stats.zone[zoneId]['internet'] > 0 && Math.random() > 0.5
-            })
-            if (toChange.length) {
-              // s__maxScore2(maxScore2+1)
-              audioCtx.play("../sound/bridge.wav")
-              updateStats(toChange, 'internet', -1)
-            }
-          }
-          if (newCounter % 3 === 0) {
-            
-      // console.log(oldAvail["law"])
-      if(!oldAvail["law"] && Math.random() > 0.9) {
-        oldAvail["law"] += 1
-        s__avail(oldAvail)
+      if (newCounter % 2 === 0) {
+
+        if (!oldAvail["internet"] && Math.random() > 0.75) {
+          oldAvail["internet"] += 1
+          s__avail(oldAvail)
+        }
+        const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
+          return prevState.stats.zone[zoneId]['internet'] > 0 && Math.random() > 0.5
+        })
+        if (toChange.length) {
+          audioCtx.play("../sound/bridge.wav")
+          updateStats(toChange, 'internet', -1)
+        }
       }
-            // console.log("zoneId", zoneId , "10s")
-            const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
-              return prevState.stats.zone[zoneId]['law'] > 0 && Math.random() > 0.5
-            })
-            if (toChange.length) {
-              // s__maxScore3(maxScore3+1)
-              audioCtx.play("../sound/bridge.wav")
-              updateStats(toChange, 'law', -1)
-            }
-          }
-          // if (newCounter % 1 === 0 && Math.random() > 0.5) {
-          //   updateStats(zoneId, 'money', -1);
-          // }
-          // // Update internet every 20 seconds (every 2 ticks of the 10-second interval)
-          // if (newCounter % 2 === 0 && Math.random() > 0.5) {
-          //   updateStats(zoneId, 'internet', -1);
-          // }
-          // // Update law every 30 seconds (every 3 ticks of the 10-second interval)
-          // if (newCounter % 3 === 0 && Math.random() > 0.5) {
-          //   updateStats(zoneId, 'law', -1);
-          // }
-        // })
-        // s__State( { ...prevState })
+      if (newCounter % 3 === 0) {
+
+        if (!oldAvail["law"] && Math.random() > 0.9) {
+          oldAvail["law"] += 1
+          s__avail(oldAvail)
+        }
+        const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
+          return prevState.stats.zone[zoneId]['law'] > 0 && Math.random() > 0.5
+        })
+        if (toChange.length) {
+          audioCtx.play("../sound/bridge.wav")
+          updateStats(toChange, 'law', -1)
+        }
+      }
 
       setCounter(newCounter)
-  }, 10000); // Set the interval to 10 seconds, the base unit
+    }, 10000);
 
-  return () => clearInterval(interval);
-}, [updateStats, isStarted, isFinished, counter]); // Include counter in the dependency array
+    return () => clearInterval(interval);
+  }, [updateStats, isStarted, isFinished, counter]);
 
 
 
   const increaseZoneFieldPoints = (zoneId: string, field: StatType, points: number) => {
-    
-  if (!isStarted) return;
-  if (!!isFinished) return;
-  const oldAvail = {...avail}
-    // console.log(oldAvail[field])
-    if(!oldAvail[field]) {
+
+    if (!isStarted) return;
+    if (!!isFinished) return;
+    const oldAvail = { ...avail }
+    if (!oldAvail[field]) {
       audioCtx.play("../sound/404.wav")
 
       return
     }
     let maxOfMax = 0
     switch (field) {
-      case("money"):
-        s__maxScore1(maxScore1+1);
-        maxOfMax = maxScore1+1
-      break;
-      case("internet"):
-        s__maxScore2(maxScore2+1);
-        maxOfMax = maxScore2+1
-      break;
-      case("law"):
-        s__maxScore3(maxScore3+1);
-        maxOfMax = maxScore3+1
-      break;
+      case ("money"):
+        s__maxScore1(maxScore1 + 1);
+        maxOfMax = maxScore1 + 1
+        break;
+      case ("internet"):
+        s__maxScore2(maxScore2 + 1);
+        maxOfMax = maxScore2 + 1
+        break;
+      case ("law"):
+        s__maxScore3(maxScore3 + 1);
+        maxOfMax = maxScore3 + 1
+        break;
     }
     audioCtx.play(STATS_SFX_MAIN[field])
 
     oldAvail[field] -= 1
     s__avail(oldAvail)
-    // Build the updated state object
     const updatedZoneSats = {
       ...state.stats.zone[zoneId],
       [field]: (state.stats.zone[zoneId]?.[field] ?? 0) + points
     };
     s__liveThresHold((state.stats.zone[zoneId]?.[field] ?? 0) + points);
-    console.log("liveThresHold", liveThresHold, maxOfMax, thresHold)
-    if (maxOfMax >= thresHold) { 
-    // if (liveThresHold >= thresHold) { 
+    
+    if (maxOfMax >= thresHold) {
       let msg = (`You've won!\n\n ${zoneId.toUpperCase()} overdelivered, ${field} was very productive!`)
       const lvlBaseURL = process.env.NODE_ENV == "production" ? "https://mileidi.vercel.app" : "http://localhost:1234"
       let nextLevel = 0
       let window_location_href = ""
       triggerFinish(zoneId, field);
       if (thresHold < 25 && !!window?.location) {
-        // do window open
         window_location_href = `${lvlBaseURL}/lvl/1`
       }
       if (thresHold < 50 && !!window?.location) {
-        // do window open
         window_location_href = `${lvlBaseURL}/lvl/2`
       }
       if (thresHold < 75 && !!window?.location) {
-        // do window open
         window_location_href = `${lvlBaseURL}/lvl/3`
       }
       if (!nextLevel) {
-        if (!!addFinalObj) { addFinalObj({
-          win:true,
-          points: 1,
-          msg,
-          window_location_href
-        }) }
+        if (!!addFinalObj) {
+          addFinalObj({
+            win: true,
+            points: 1,
+            msg,
+            window_location_href
+          })
+        }
         else { return window?.location.reload() }
       }
-      
+
     }
     const updatedState = {
       ...state,
@@ -287,13 +195,41 @@ useEffect(() => {
       }
     };
 
-    // Set the updated state
     s__State(updatedState);
   };
 
-  return [state, s__State, increaseZoneFieldPoints, s__isStarted, {maxScore1,
+  return [state, s__State, increaseZoneFieldPoints, s__isStarted, {
+    maxScore1,
     maxScore2,
-    maxScore3},avail,isFinished];
+    maxScore3
+  }, avail, isFinished];
 };
 
 export default useGameState;
+
+export const DEFAULT_ACTION_LIST = [
+  { "increment": "money", "decrement": null, "action_name": "Financial Growth Initiative" },
+  { "increment": "internet", "decrement": null, "action_name": "Digital Revolution Drive" },
+  { "increment": "law", "decrement": null, "action_name": "Judicial Enhancement Program" },
+  { "increment": "money, internet", "decrement": null, "action_name": "Economic-Tech Synergy Project" },
+  { "increment": "money, law", "decrement": null, "action_name": "Fiscal-Legal Reform Strategy" },
+  { "increment": "internet, law", "decrement": null, "action_name": "Cyber-Governance Alliance" },
+  { "increment": "money, internet, law", "decrement": null, "action_name": "Comprehensive Development Plan" },
+  { "increment": null, "decrement": "money", "action_name": "Economic Contraction Measure" },
+  { "increment": null, "decrement": "internet", "action_name": "Digital Infrastructure Setback" },
+  { "increment": null, "decrement": "law", "action_name": "Legal System Deterioration" },
+  { "increment": null, "decrement": "money, internet", "action_name": "Financial-Digital Decline" },
+  { "increment": null, "decrement": "money, law", "action_name": "Economic-Judicial Recession" },
+  { "increment": null, "decrement": "internet, law", "action_name": "Tech-Legal Setback" },
+  { "increment": null, "decrement": "money, internet, law", "action_name": "Nationwide Regression" },
+  { "increment": "money", "decrement": "internet", "action_name": "Asset Liquidation Focus" },
+  { "increment": "money", "decrement": "internet, law", "action_name": "Fiscal Focus over Digital-Legal" },
+  { "increment": "internet", "decrement": "money", "action_name": "Tech Over Economy Shift" },
+  { "increment": "internet", "decrement": "money, law", "action_name": "Digital Dominance Strategy" },
+  { "increment": "law", "decrement": "money", "action_name": "Regulatory Emphasis over Economy" },
+  { "increment": "law", "decrement": "money, internet", "action_name": "Governance over Growth" },
+  { "increment": "money, internet", "decrement": "law", "action_name": "Market-Tech Expansion at Legal Cost" },
+  { "increment": "money, law", "decrement": "internet", "action_name": "Fiscal-Legal Priority over Tech" },
+  { "increment": "internet, law", "decrement": "money", "action_name": "Cyber-Legal Advancement with Economic Sacrifice" },
+  { "increment": "money, internet, law", "decrement": null, "action_name": "All-Inclusive Progression" }
+]
