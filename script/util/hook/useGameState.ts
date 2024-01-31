@@ -32,7 +32,8 @@ const DEFAULT_ACTION_LIST = [
 
 const useGameState = (
   initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 24, addFinalObj:any):
-  [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void, s__isStarted:any,maxScores:any] => {
+  [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void, s__isStarted:any,maxScores:any, avail:any] => {
+  const [avail, s__avail] = useState<any>(initialState.stats.available);
   const [state, s__State] = useState<GameState>(initialState);
   const [liveThresHold, s__liveThresHold] = useState<any>(0);
   const [maxScore1, s__maxScore1] = useState<any>(0);
@@ -78,6 +79,32 @@ const useGameState = (
         [field]: updatedStat
       };
     });
+
+    // let oldAvail = null
+    // switch (field) {
+    //   case 'money':
+    //     console.log('less money')
+        
+    //     break;
+    //     case 'internet':
+    //       console.log('less internet')
+    //       oldAvail = {...avail}
+    // console.log(oldAvail["money"])
+    // if(!!oldAvail["money"]) {
+    //   oldAvail["money"] += 1
+    //   s__avail(oldAvail)
+    // }
+    //       break;
+    //       case 'law':
+    //         console.log('less law')
+    //         oldAvail = {...avail}
+    //   console.log(oldAvail["money"])
+    //   if(!!oldAvail["money"]) {
+    //     oldAvail["money"] += 1
+    //     s__avail(oldAvail)
+    //   }
+    //         break;
+    // }
   
     s__State({
       ...prevState,
@@ -99,11 +126,19 @@ useEffect(() => {
     const prevCounter = counter
       const newCounter = prevCounter + 1;
       console.log("*************prevCounter", prevCounter)
+      let oldAvail = {...avail}
 
     const prevState = {...state}
         // Object.keys(prevState.stats.zone).forEach(zoneId => {
           // // Update money every 10 seconds
           if (newCounter % 1 === 0) {
+            
+      console.log(oldAvail["money"])
+      if(!oldAvail["money"]) {
+        oldAvail["money"] += 1
+        s__avail(oldAvail)
+      }
+
             // console.log("zoneId", zoneId , "10s")
             const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
               return prevState.stats.zone[zoneId]['money'] > 0 && Math.random() > 0.5
@@ -114,22 +149,34 @@ useEffect(() => {
             }
           }
           if (newCounter % 2 === 0) {
+            
+      console.log(oldAvail["internet"])
+      if(!oldAvail["internet"] && Math.random() > 0.5) {
+        oldAvail["internet"] += 1
+        s__avail(oldAvail)
+      }
             // console.log("zoneId", zoneId , "10s")
             const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
               return prevState.stats.zone[zoneId]['internet'] > 0 && Math.random() > 0.5
             })
             if (toChange.length) {
-              s__maxScore1(maxScore1+1)
+              s__maxScore2(maxScore2+1)
               updateStats(toChange, 'internet', -1)
             }
           }
           if (newCounter % 3 === 0) {
+            
+      console.log(oldAvail["law"])
+      if(!oldAvail["law"] && Math.random() > 0.5) {
+        oldAvail["law"] += 1
+        s__avail(oldAvail)
+      }
             // console.log("zoneId", zoneId , "10s")
             const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
               return prevState.stats.zone[zoneId]['law'] > 0 && Math.random() > 0.5
             })
             if (toChange.length) {
-              s__maxScore1(maxScore1+1)
+              s__maxScore3(maxScore3+1)
               updateStats(toChange, 'law', -1)
             }
           }
@@ -159,6 +206,12 @@ useEffect(() => {
     
   if (!isStarted) return;
   if (!!isFinished) return;
+  const oldAvail = {...avail}
+    console.log(oldAvail[field])
+    if(!oldAvail[field]) {return}
+    
+    oldAvail[field] -= 1
+    s__avail(oldAvail)
     // Build the updated state object
     const updatedZoneSats = {
       ...state.stats.zone[zoneId],
@@ -212,7 +265,7 @@ useEffect(() => {
 
   return [state, s__State, increaseZoneFieldPoints, s__isStarted, {maxScore1,
     maxScore2,
-    maxScore3}];
+    maxScore3},avail];
 };
 
 export default useGameState;

@@ -47,24 +47,24 @@ export const RegionScene = ({ state, calls }: RegionSceneProps) => {
                         <meshStandardMaterial opacity={0.6} transparent  />
                     </Plane>
             <DynaText  onClick={()=>{}}
-           text={`${state.selectedZone.toUpperCase()}`} color="#115522" font={0.2}
+           text={`${state.selectedZone.toUpperCase()}`} color="#000000" font={0.2}
           position={[-0.0, 1, 0]} rotation={[0, 0, 0]}
         >
         </DynaText>
             <DynaText  onClick={()=>{}}
-           text={`m = ${state.selectedPlayerScore["money"]}`} color="#115522" font={0.3}
+           text={`m = ${state.selectedPlayerScore["money"]}`} color="#118822" font={0.3}
           position={[-0.0, 0.75, 0]} rotation={[0, 0, 0]}
         >
         </DynaText>
         
         <DynaText  onClick={()=>{}}
-           text={`i = ${state.selectedPlayerScore["internet"]}`} color="#002255" font={0.3}
+           text={`i = ${state.selectedPlayerScore["internet"]}`} color="#0022aa" font={0.3}
           position={[0, 0.5, 0]} rotation={[0, 0, 0]}
         >
         </DynaText>
         
         <DynaText  onClick={()=>{}}
-           text={`L = ${state.selectedPlayerScore["law"]}`} color="#552200" font={0.3}
+           text={`L = ${state.selectedPlayerScore["law"]}`} color="#aa2200" font={0.3}
           position={[0, 0.25, 0]} rotation={[0, 0, 0]}
         >
         </DynaText>

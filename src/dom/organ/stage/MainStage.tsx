@@ -43,6 +43,11 @@ export interface ZoneSats {
   
   export interface GameState {
     stats: {
+      available: {
+        money: number
+        internet: number
+        law: number
+      };
       zone: ZoneSats;
     };
   }
@@ -216,6 +221,11 @@ const ZONES = Object.keys(GLOBAL_SUPER_STATE)
 
 export const DEFAULT_INITIAL_STATE: GameState = {
   stats: {
+    available: {
+      money: 5,
+      internet: 5,
+      law: 5,
+    },
     zone: ZONES.reduce((acc:any, zone) => {
       acc[zone] = GLOBAL_SUPER_STATE[zone].INITIAL_STATS_ZONE;
       return acc;
@@ -277,7 +287,7 @@ export default function MainStage({mainAction}:any) {
     // s__isWinScreen(data)
 
   }
-    const [playerScore, s__playerScore, s__score, s__isGameStared, maxScores]:any = useGameState(DEFAULT_INITIAL_STATE, 24, addFinalObj);
+    const [playerScore, s__playerScore, s__score, s__isGameStared, maxScores, avail]:any = useGameState(DEFAULT_INITIAL_STATE, 24, addFinalObj);
     const [mounted, s__Mounted] = useState(false);
     const [selectedZone, s__selectedZone] = useState('america'); // Default to orange (Egypt)
     const selectedPlayerScore = useMemo(() => {
@@ -333,18 +343,20 @@ try {
 
     return (<>
       {!!finals?.length && !finals[0]?.win && 
-        <div className="pos-abs pa-4 mt-150 ml-4 z-800 bg-glass-20 bg-w-50 pa-8 border-white bord-r-50  w-50">
+        <div className="pos-abs pa-2 mt-150 ml-4 z-800 bg-glass-20 bg-w-50 pa-6 border-white bord-r-50  w-50">
           {/* <div>You've LOSS</div> */}
-          <button onClick={()=>{s__finals([])}} className='box-shadow-5-b bord-r-100 mr-8 mt-8 tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
+          <button onClick={()=>{s__finals([])}} className='Q_xs box-shadow-5-b bord-r-100 mr- mt- tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
+          <button onClick={()=>{s__finals([])}} className='Q_sm_x box-shadow-5-b bord-r-100 mr-8 mt-8 tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
           
-          <div className="tx-lgx ">{"Failed!"}</div>
+          <div className="tx-m tx-bold-8 pb-2">{"Quest Failed!"}</div>
+          <div className="tx-lgx ">{JSON.stringify(finals[0].alertmsg.replace("\n\n",""))}</div>
           {/* <div className="tx-lgx Q_xs">{isLoseScreen}</div> */}
           {/* <div className="tx-xl Q_sm_x">{isLoseScreen}</div> */}
       <hr />
           <div className="flex gap-1 flex">
-          <div className="bg-b-50  tx-white pa-1 flex-center"><div>1</div>: {maxScores.maxScore1}</div>
-          <div className="bg-b-50  tx-white pa-1 flex-center"><div>2</div>: {maxScores.maxScore2}</div>
-          <div className="bg-b-50  tx-white pa-1 flex-center"><div>3</div>: {maxScores.maxScore3}</div>
+          <div className="bg-b-50  tx-white pa-1 flex-center"><div>💰</div>: {maxScores.maxScore1}</div>
+          <div className="bg-b-50  tx-white pa-1 flex-center"><div>🌐</div>: {maxScores.maxScore2}</div>
+          <div className="bg-b-50  tx-white pa-1 flex-center"><div>⚖️</div>: {maxScores.maxScore3}</div>
           </div>
       <hr />
           <div className="flex-col gap-1">
@@ -382,10 +394,10 @@ try {
 
 
         <div className="pos-abs bottom-0 left-0 z-200">
-          {/* {JSON.stringify(selectedPlayerScore)} */}
+          {/* {JSON.stringify(avail)} */}
             <div className="pa-2 flex-col flex-align-start gap-1 ">
                 <PlayerScore zone={selectedZone} score={selectedPlayerScore}
-                  color={mutedColor}
+                  color={mutedColor} available={avail}
                 />
             </div>
         </div>
