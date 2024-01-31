@@ -1,6 +1,6 @@
 "use client";
 import MainStage from '@/dom/organ/stage/MainStage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AudioProvider } from '../../script/state/context/AudioContext';
 
 export function Home() {
@@ -8,14 +8,12 @@ export function Home() {
   const [isFirstPlayed, s__isFirstPlayed] = useState<any>(false);
   const [currentSpeech, s__currentSpeech] = useState<any>();
   const [currentSpeechBg, s__currentSpeechBg] = useState<any>();
-  // Function to adjust speech volume
   const adjustSpeechVolume = (volume: number) => {
     if (currentSpeech) {
       currentSpeech.volume = volume;
     }
   };
 
-  // Function to adjust background audio volume
   const adjustBgVolume = (volume: number) => {
     if (currentSpeechBg) {
       currentSpeechBg.volume = volume;
@@ -43,6 +41,40 @@ export function Home() {
     audio.play();
     s__currentSpeech(audio);
   };
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        currentSpeech && currentSpeech.pause();
+        currentSpeechBg && currentSpeechBg.pause();
+      } else if (document.visibilityState === "visible") {
+        if (isFirstPlayed) {
+          if (currentSpeech && !currentSpeech.playing) {
+            const playPromise = currentSpeech.play();
+            if (playPromise !== undefined) {
+              playPromise.catch((error:any) => {
+                console.error("Error attempting to play speech audio:", error);
+              });
+            }
+          }
+          if (currentSpeechBg && !currentSpeechBg.playing) {
+            const playPromiseBg = currentSpeechBg.play();
+            if (playPromiseBg !== undefined) {
+              playPromiseBg.catch((error:any) => {
+                console.error("Error attempting to play background audio:", error);
+              });
+            }
+          }
+        }
+      }
+    };
+  
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+  
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [currentSpeech, currentSpeechBg, isFirstPlayed]);
+  
 
   return (
     <main className={"h-100 bord-r-25 noverflow mt-2 "}
@@ -58,7 +90,6 @@ export function Home() {
               style={{ color: "#2E8CF0" }}
             >
               <div className='tx-altfont-1' style={{ color: "#4EaCF0" }}>MIL</div>
-              {/* <div className='tx-white'>-</div> */}
               <div className='flex tx-altfont-1 tx-white'>
                 <div>E</div>
                 <div className='pos-rel flex-col'>

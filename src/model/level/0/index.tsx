@@ -137,7 +137,7 @@ const $solCard:any = useRef()
                 </div>
 
             </div>)}
-        <div className="pos-abs right-0 top-0 mt-2 z-200 mt-100 pt-8 pr-2">
+        <div className="pos-abs right-0 top-0 mt-2 z-400 mt-100 pt-8 pr-2">
             
         <SolCard ref={$solCard}  name='phantom' />
         {/* <hr className='w-100' /> */}
@@ -152,7 +152,7 @@ const $solCard:any = useRef()
         </div>
         </Web3ReactContainer>
 
-    <div className="Q_xs pos-abs left-0 mt-8 pa-4 z-200">
+    <div className="Q_xs pos-abs left-0  pa-4 z-200" style={{transform:"translateY(50px)"}}>
         <div onClick={()=>{ if(!window.confirm("Stop Recording?")){return};startRecording(); s__startedRecording(true) }} className="tx-lx pt-1 opaci-chov--50"
           style={{textShadow: "2px 2px 2px #000000, 2px 8px 10px #003355"}}
         >
