@@ -8,7 +8,7 @@ import { MainContactMenu } from "./MainContactMenu";
 import { PlayerScore } from "./PlayerScore";
 import { StartScreen } from "./StartScreen";
 import { WagmiContainer } from "@/dom/WagmiContainer";
-import { WIP } from "@/app/lvl/1/WIP";
+import { SupportSection, WIP } from "@/app/lvl/1/WIP";
 
 
 
@@ -343,25 +343,31 @@ try {
 
     return (<>
       {!!finals?.length && !finals[0]?.win && 
-        <div className="pos-abs pa-2 mt-150 ml-4 z-800 bg-glass-20 bg-w-50 pa-6 border-white bord-r-50  w-50">
+        <div className="pos-abs w-70 pt-6 px-8 Q_xs_px-2 pa-2 mt-150 ml-4 z-800 bg-glass-20 bg-w-50  border-white bord-r-50  w-50">
           {/* <div>You've LOSS</div> */}
-          <button onClick={()=>{s__finals([])}} className='Q_xs box-shadow-5-b bord-r-100 mr- mt- tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
-          <button onClick={()=>{s__finals([])}} className='Q_sm_x box-shadow-5-b bord-r-100 mr-8 mt-8 tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
+          <button onClick={()=>{s__finals([])}} 
+          className='Q_xs box-shadow-5-b bord-r-100 mr- mt- tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
+          <button onClick={()=>{s__finals([])}} 
+          className='Q_sm_x box-shadow-5-b bord-r-100 mr-8 mt-8 tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
           
-          <div className="tx-m tx-bold-8 pb-2">{"Quest Failed!"}</div>
-          <div className="tx-lg ">{JSON.stringify(finals[0].alertmsg.replace("\n\n",""))}</div>
+          <div className="tx-m tx-bold-4 pb-2 px-8 Q_xs_px-2 tx-red opaci-50 tx-altfont-1">{"Quest Failed!"}</div>
+          <div className="tx-lx  tx-bold-6  tx-altfont-1  px-6 Q_sm_x">{JSON.stringify(finals[0].alertmsg.replace("\n\n",""))}</div>
+          <div className="tx-lg  tx-bold-6  tx-altfont-1 px-2 Q_xs">{JSON.stringify(finals[0].alertmsg.replace("\n\n",""))}</div>
           {/* <div className="tx-lgx Q_xs">{isLoseScreen}</div> */}
           {/* <div className="tx-xl Q_sm_x">{isLoseScreen}</div> */}
-      <hr />
-          <div className="flex gap-1 flex">
-          <div className="bg-b-50  tx-white pa-1 flex-center"><div>💰</div>: {maxScores.maxScore1}</div>
-          <div className="bg-b-50  tx-white pa-1 flex-center"><div>🌐</div>: {maxScores.maxScore2}</div>
-          <div className="bg-b-50  tx-white pa-1 flex-center"><div>⚖️</div>: {maxScores.maxScore3}</div>
+      <hr className="" />
+          <div className="flex gap-1 flex-wrap flex-justify-start px-8 Q_xs_px-2">
+            <div className="tx-altfont-1 tx-bold-8 opaci-40">Spent:</div>
+            <div className="flex gap-1">
+          <div className="bord-r-10 bg-b-50  tx-white pa-1 flex-center"><div>💰</div> {maxScores.maxScore1}</div>
+          <div className="bord-r-10 bg-b-50  tx-white pa-1 flex-center"><div>🌐</div> {maxScores.maxScore2}</div>
+          <div className="bord-r-10 bg-b-50  tx-white pa-1 flex-center"><div>⚖️</div> {maxScores.maxScore3}</div>
           </div>
-      <hr />
-          <div className="flex-col gap-1">
-          <WIP />
-      <hr />
+          </div>
+      <hr className="Q_xs" />
+          <div className="flex-col gap-1 py-4">
+          {/* <SupportSection /> */}
+      <hr className="" />
       <a href='/' className='tx-black tx-lg bord-r-50 px-8 border-white bg-w-10 tx-bold-8 bg-glass-10 py-2 tx-altfont-1 opaci-chov--50 '>
         Reload
       </a>
@@ -397,7 +403,7 @@ try {
           {/* {JSON.stringify(avail)} */}
             <div className="pa-2 flex-col flex-align-start gap-1 ">
                 <PlayerScore zone={selectedZone} score={selectedPlayerScore}
-                  color={mutedColor} available={avail}
+                  color={mutedColor} available={avail} maxScores={maxScores}
                 />
             </div>
         </div>

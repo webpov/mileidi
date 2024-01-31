@@ -146,14 +146,14 @@ useEffect(() => {
               return prevState.stats.zone[zoneId]['money'] > 0 && Math.random() > 0.5
             })
             if (toChange.length) {
-              s__maxScore1(maxScore1+1)
+              // s__maxScore1(maxScore1+1)
               updateStats(toChange, 'money', -1)
             }
           }
           if (newCounter % 2 === 0) {
             
       console.log(oldAvail["internet"])
-      if(!oldAvail["internet"] && Math.random() > 0.5) {
+      if(!oldAvail["internet"] && Math.random() > 0.75) {
         oldAvail["internet"] += 1
         s__avail(oldAvail)
       }
@@ -162,14 +162,14 @@ useEffect(() => {
               return prevState.stats.zone[zoneId]['internet'] > 0 && Math.random() > 0.5
             })
             if (toChange.length) {
-              s__maxScore2(maxScore2+1)
+              // s__maxScore2(maxScore2+1)
               updateStats(toChange, 'internet', -1)
             }
           }
           if (newCounter % 3 === 0) {
             
       console.log(oldAvail["law"])
-      if(!oldAvail["law"] && Math.random() > 0.5) {
+      if(!oldAvail["law"] && Math.random() > 0.9) {
         oldAvail["law"] += 1
         s__avail(oldAvail)
       }
@@ -178,7 +178,7 @@ useEffect(() => {
               return prevState.stats.zone[zoneId]['law'] > 0 && Math.random() > 0.5
             })
             if (toChange.length) {
-              s__maxScore3(maxScore3+1)
+              // s__maxScore3(maxScore3+1)
               updateStats(toChange, 'law', -1)
             }
           }
@@ -211,7 +211,11 @@ useEffect(() => {
   const oldAvail = {...avail}
     console.log(oldAvail[field])
     if(!oldAvail[field]) {return}
-    
+    switch (field) {
+      case("money"): s__maxScore1(maxScore1+1); break;
+      case("internet"): s__maxScore2(maxScore2+1); break;
+      case("law"): s__maxScore3(maxScore3+1); break;
+    }
     oldAvail[field] -= 1
     s__avail(oldAvail)
     // Build the updated state object
