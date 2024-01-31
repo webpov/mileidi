@@ -132,12 +132,14 @@ useEffect(() => {
         // Object.keys(prevState.stats.zone).forEach(zoneId => {
           // // Update money every 10 seconds
           if (newCounter % 1 === 0) {
+      console.log("*******************money**********************")
             
       console.log(oldAvail["money"])
       if(!oldAvail["money"]) {
-        oldAvail["money"] += 1
+        oldAvail["money"] = oldAvail["money"]+1
         s__avail(oldAvail)
-      }
+      console.log("*******************money**********************", avail)
+    }
 
             // console.log("zoneId", zoneId , "10s")
             const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
