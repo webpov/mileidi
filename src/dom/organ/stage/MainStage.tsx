@@ -270,9 +270,12 @@ export default function MainStage({mainAction}:any) {
   const [isWinScreen, s__isWinScreen] = useState(null)
   const [isLoseScreen, s__isLoseScreen] = useState<any>(null)
   const [finals, s__finals] = useState<any>([])
+  const [unixCount, s__unixCount] = useState<any>(0)
+  const [unixCountFinal, s__unixCountFinal] = useState<any>(0)
   // @ts-ignore
   // const isSolana = !!window ? window?.solana : null
   const addFinalObj = (data) => {
+
     if (isLoseScreen || isWinScreen) return
     if (!data) {
       // s__isLoseScreen("you lose")
@@ -284,10 +287,11 @@ export default function MainStage({mainAction}:any) {
     let finalObjs:any = [...finals]
     finalObjs.push(data)
     s__finals(finalObjs)
+    s__unixCountFinal(Date.now())
     // s__isWinScreen(data)
 
   }
-    const [playerScore, s__playerScore, s__score, s__isGameStared, maxScores, avail]:any = useGameState(DEFAULT_INITIAL_STATE, 24, addFinalObj);
+    const [playerScore, s__playerScore, s__score, s__isGameStared, maxScores, avail]:any = useGameState(DEFAULT_INITIAL_STATE, 7, addFinalObj);
     const [mounted, s__Mounted] = useState(false);
     const [selectedZone, s__selectedZone] = useState('america'); // Default to orange (Egypt)
     const selectedPlayerScore = useMemo(() => {
@@ -301,9 +305,13 @@ export default function MainStage({mainAction}:any) {
         const zone = zoneProp
         console.log("zone", zone)
         s__selectedZone(zone);
+        if (finals.length) {return}
+        s__unixCountFinal(Date.now())
     };
     const mainActionClick = () => {
-      mainAction()
+      console.log("s__unixCount(Date.now()); ", Date.now())
+    s__unixCount(Date.now())
+    mainAction()
       // s__Mounted(true);
       // s__isGameStared(true)      
     }
@@ -338,10 +346,14 @@ try {
 
     if (!mounted) return (
         <div className="w-100 h-100 flex-col ">
-            <StartScreen mainActionClick={mainActionClick} state={{ isPlaying: mounted }} calls={{ s__isPlaying: (val:boolean)=>{s__Mounted(val);s__isGameStared(val)} }} />
+            <StartScreen mainActionClick={mainActionClick} state={{ isPlaying: mounted }} calls={{ s__isPlaying: (val:boolean)=>{s__unixCount(Date.now()); s__Mounted(val);s__isGameStared(val)} }} />
         </div>)
 
     return (<>
+    {!!unixCount && !!unixCountFinal &&
+      <div className="tx-red z-800 pos-abs bottom-0 left-50p translate-x--50">{parseInt(`${(unixCountFinal-unixCount)/1000}`)}s</div>
+    }
+
       {!!finals?.length && !finals[0]?.win && 
         <div className="pos-abs w-70 pt-6 px-8 Q_xs_px-2 pa-2 mt-150 ml-4 z-800 bg-glass-20 bg-w-50  border-white bord-r-50  w-50">
           {/* <div>You've LOSS</div> */}
@@ -362,7 +374,9 @@ try {
           <div className="bord-r-10 bg-b-50  tx-white pa-1 flex-center"><div>💰</div> {maxScores.maxScore1}</div>
           <div className="bord-r-10 bg-b-50  tx-white pa-1 flex-center"><div>🌐</div> {maxScores.maxScore2}</div>
           <div className="bord-r-10 bg-b-50  tx-white pa-1 flex-center"><div>⚖️</div> {maxScores.maxScore3}</div>
+          
           </div>
+          <div className="border-white px-2 py-1 bord-r-10 bg-b-10 tx-altfont-1 tx-bold-8">{parseInt(`${(unixCountFinal-unixCount)/1000}`)}s</div>
           </div>
       <hr className="Q_xs" />
           <div className="flex-col gap-1 py-4">
@@ -375,20 +389,23 @@ try {
         </div>
       }
       {!!finals?.length && !!finals[0]?.win && 
-        <div className="pos-abs pa-4 mt-150 ml-4 z-800 bg-glass-20 bg-w-50 pa-8 border-white bord-r-50  w-50">
+        <div className="pos-abs tx-altfont-1 pa-4 mt-150 ml-4 Q_xs_px-5 z-800 bg-glass-20 bg-w-50 pa-8 border-white bord-r-50  w-50">
           {/* <div>You've LOSS</div> */}
-          <div className="tx-lgx pt-4 Q_xs">{"Congratulations!"}</div>
+          <div className="tx-lg pt-4 Q_xs">{"Congratulations!"}</div>
           <div className="tx-xl Q_sm_x">{"Congratulations!"}</div>
           <button onClick={()=>{s__finals([])}} className='Q_xs box-shadow-5-b bord-r-100 mr- mt- tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
           <button onClick={()=>{s__finals([])}} className='Q_sm_x box-shadow-5-b bord-r-100 mr-8 mt-8 tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
-      <hr />
-          <div className="flex-col gap-1">
-          <div>maxScore1: {maxScores.maxScore1}</div>
-          <div>maxScore2: {maxScores.maxScore2}</div>
-          <div>maxScore3: {maxScores.maxScore3}</div>
+      <hr className="w-80 Q_sm_x" />
+      <div className="flex-wrap my-2 gap-1 ">
+          <div className="bord-r-10 bg-b-50  tx-white pa-1 flex-center"><div>💰</div> {maxScores.maxScore1}</div>
+          <div className="bord-r-10 bg-b-50  tx-white pa-1 flex-center"><div>🌐</div> {maxScores.maxScore2}</div>
+          <div className="bord-r-10 bg-b-50  tx-white pa-1 flex-center"><div>⚖️</div> {maxScores.maxScore3}</div>
+          <div className=" tx-center border-white px-2 py-1 bord-r-10 bg-b-10 tx-altfont-1 tx-bold-8">Time: {parseInt(`${(unixCountFinal-unixCount)/1000}`)}s</div>
+          
           </div>
-      <hr />
+      {/* <hr className="w-80" /> */}
           <div className="flex-col gap-1">
+          <SupportSection />
           {/* <WIP /> */}
       <hr />
       <a href='/' className='tx-black tx-lg bord-r-50 px-8 border-white bg-w-10 tx-bold-8 bg-glass-10 py-2 tx-altfont-1 opaci-chov--50 '>

@@ -31,7 +31,7 @@ const DEFAULT_ACTION_LIST = [
 
 
 const useGameState = (
-  initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 24, addFinalObj:any):
+  initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 12, addFinalObj:any):
   [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void, s__isStarted:any,maxScores:any, avail:any] => {
   const [avail, s__avail] = useState<any>(initialState.stats.available);
   const [state, s__State] = useState<GameState>(initialState);
@@ -211,11 +211,22 @@ useEffect(() => {
   const oldAvail = {...avail}
     console.log(oldAvail[field])
     if(!oldAvail[field]) {return}
+    let maxOfMax = 0
     switch (field) {
-      case("money"): s__maxScore1(maxScore1+1); break;
-      case("internet"): s__maxScore2(maxScore2+1); break;
-      case("law"): s__maxScore3(maxScore3+1); break;
+      case("money"):
+        s__maxScore1(maxScore1+1);
+        maxOfMax = maxScore1+1
+      break;
+      case("internet"):
+        s__maxScore2(maxScore2+1);
+        maxOfMax = maxScore2+1
+      break;
+      case("law"):
+        s__maxScore3(maxScore3+1);
+        maxOfMax = maxScore3+1
+      break;
     }
+
     oldAvail[field] -= 1
     s__avail(oldAvail)
     // Build the updated state object
@@ -224,8 +235,9 @@ useEffect(() => {
       [field]: (state.stats.zone[zoneId]?.[field] ?? 0) + points
     };
     s__liveThresHold((state.stats.zone[zoneId]?.[field] ?? 0) + points);
-    console.log("liveThresHold"), liveThresHold
-    if (liveThresHold >= thresHold) { 
+    console.log("liveThresHold", liveThresHold, maxOfMax, thresHold)
+    if (maxOfMax >= thresHold) { 
+    // if (liveThresHold >= thresHold) { 
       let msg = (`You've won!\n\n ${zoneId.toUpperCase()} overdelivered, ${field} was very productive!`)
       const lvlBaseURL = process.env.NODE_ENV == "production" ? "https://mileidi.vercel.app" : "http://localhost:1234"
       let nextLevel = 0
