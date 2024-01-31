@@ -291,7 +291,7 @@ export default function MainStage({mainAction}:any) {
     // s__isWinScreen(data)
 
   }
-    const [playerScore, s__playerScore, s__score, s__isGameStared, maxScores, avail, isFinished]:any = useGameState(DEFAULT_INITIAL_STATE, 7, addFinalObj);
+    const [playerScore, s__playerScore, s__score, s__isGameStared, maxScores, avail, isFinished]:any = useGameState(DEFAULT_INITIAL_STATE, 12, addFinalObj);
     const [mounted, s__Mounted] = useState(false);
     const [selectedZone, s__selectedZone] = useState('america'); // Default to orange (Egypt)
     const selectedPlayerScore = useMemo(() => {
