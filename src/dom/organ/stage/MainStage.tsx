@@ -1,7 +1,7 @@
 "use client"
 
 import FirstLevel from "@/model/level/0";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import useGameState from "@/../script/util/hook/useGameState";
 import { BaseActionButtons } from "./BaseActionButtons";
 import { MainContactMenu } from "./MainContactMenu";
@@ -9,13 +9,18 @@ import { PlayerScore } from "./PlayerScore";
 import { StartScreen } from "./StartScreen";
 import { WagmiContainer } from "@/dom/WagmiContainer";
 import { SupportSection, WIP } from "@/app/lvl/1/WIP";
+import { AudioContext } from "../../../../script/state/context/AudioContext";
 
 
 
 
 
 
-
+const STATS_SFX_MAIN = {
+  "money": "../sound/cash2.wav",
+  "internet": "../sound/ping.wav",
+  "law": "../sound/law.wav",
+}
 
 
 
@@ -286,12 +291,19 @@ export default function MainStage({mainAction}:any) {
     }
     let finalObjs:any = [...finals]
     finalObjs.push(data)
+    if (data.win) {
+      audioCtx.play("../sound/clap.ogg")
+    } else {
+      audioCtx.play("../sound/404.wav")
+    }
+    
     s__finals(finalObjs)
     s__unixCountFinal(Date.now())
     // s__isWinScreen(data)
 
   }
-    const [playerScore, s__playerScore, s__score, s__isGameStared, maxScores, avail, isFinished]:any = useGameState(DEFAULT_INITIAL_STATE, 12, addFinalObj);
+  const audioCtx = useContext(AudioContext)
+    const [playerScore, s__playerScore, s__score, s__isGameStared, maxScores, avail, isFinished]:any = useGameState(DEFAULT_INITIAL_STATE, 9, addFinalObj);
     const [mounted, s__Mounted] = useState(false);
     const [selectedZone, s__selectedZone] = useState('america'); // Default to orange (Egypt)
     const selectedPlayerScore = useMemo(() => {
@@ -303,21 +315,31 @@ export default function MainStage({mainAction}:any) {
     // Function to update selectedZone based on color, translating it to zone name
     const triggerSelectChange = (zoneProp: string) => {
         const zone = zoneProp
-        console.log("zone", zone)
+        // console.log("zone", zone)
         s__selectedZone(zone);
         if (isFinished) {return}
+          console.log("../sound/click58.wav")
+        // audioCtx.s__playingTrack("../sound/click47.wav")
+        if (Math.random() > 0.5) {
+          audioCtx.play("../sound/click58.wav")
+        } else {
+          audioCtx.play("../sound/click47.wav")
+        }
         s__unixCountFinal(Date.now())
     };
     const mainActionClick = () => {
-      console.log("s__unixCount(Date.now()); ", Date.now())
+      // console.log("s__unixCount(Date.now()); ", Date.now())
     s__unixCount(Date.now())
     mainAction()
       // s__Mounted(true);
       // s__isGameStared(true)      
     }
     const triggerClickedAction = (statName: StatType) => {
-        console.log("triggerClickedAction", statName)
-        s__score(selectedZone, statName, 1)
+        console.log("triggerClickedAction", statName, STATS_SFX_MAIN[statName])
+
+          audioCtx.play(STATS_SFX_MAIN[statName])
+          
+          s__score(selectedZone, statName, 1)
     }
     
 // =============================================================================

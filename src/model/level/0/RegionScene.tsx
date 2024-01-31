@@ -21,10 +21,10 @@ export const RegionScene = ({ state, calls }: RegionSceneProps) => {
     const handleBoxSelect = (zone: string) => {
         if (!$wireframeRef.current) { return }
         const position = ZONES_TO_POSITIONS[zone]
-        console.log("zone", zone, ZONES_TO_POSITIONS[zone])
-        console.log("position", ZONES_TO_POSITIONS, $wireframeRef.current)
+        // console.log("zone", zone, ZONES_TO_POSITIONS[zone])
+        // console.log("position", ZONES_TO_POSITIONS, $wireframeRef.current)
         $wireframeRef.current.position.set(...position);
-        console.log("position", position)
+        // console.log("position", position)
         // const color = POSITION_COLOR_LOOKUP[position.join(',')];
         // console.log("color", color)
         calls.triggerSelectChange(zone);

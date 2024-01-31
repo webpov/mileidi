@@ -18,9 +18,9 @@ export const RegionScene = ({ state, calls }: RegionSceneProps) => {
     const handleBoxSelect = (position: [number, number, number]) => {
         if (!$wireframeRef.current) return;
         $wireframeRef.current.position.set(...position);
-        console.log("position", position)
+        // console.log("position", position)
         const color = POSITION_COLOR_LOOKUP[position.join(',')];
-        console.log("color", color)
+        // console.log("color", color)
         calls.triggerSelectChange(color);
     };
 

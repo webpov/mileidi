@@ -14,7 +14,7 @@ async function createOrUpdateWallet(supabase: any, publicKey: any, amount:any, i
             created_ip: ip, // Set the IP address at wallet creation
             updated_ip: ip  // Both fields are set at creation
         }
-        console.log("insObj", insObj)
+        // console.log("insObj", insObj)
         const { data: newWallet, error: insertError } = await supabase.from('wallet').insert(insObj);
 
         if (insertError) {
@@ -51,10 +51,10 @@ async function createOrUpdateWallet(supabase: any, publicKey: any, amount:any, i
 export async function POST(req: any) {  
 
 
-    console.log("asdasdasd wallet endpoint wallet endpointwallet endpoint")
+    // console.log("asdasdasd wallet endpoint wallet endpointwallet endpoint")
     const supabase = getSupabaseClient()
   const { publicKey, amount } = await req.json()
-    console.log("publicKey, amount", publicKey, amount)
+    // console.log("publicKey, amount", publicKey, amount)
     const headersList = headers();
     let player
     const ip = headersList.get("x-forwarded-for") || "121.0.0.1"

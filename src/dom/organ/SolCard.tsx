@@ -38,15 +38,15 @@ export const SolCard = forwardRef(({ name}:any, ref:any ) => {
   const trySolAddress = async () => {
     // @ts-ignore
     let ggg =  window.solana.connect()
-    console.log("ggg", ggg)
+    // console.log("ggg", ggg)
     let gg22 = await ggg
     // @ts-ignore
     let gg244442 = await window.solana
-    console.log("gg244442gg244442gg244442", gg244442)
-    console.log("gg22110", gg22)
-    console.log("gg22110", JSON.stringify(gg22))
-    console.log(gg22.publicKey, "gg22123", JSON.stringify(gg22.publicKey))
-    console.log(gg22.publicKey.toString(), "gg2224455", gg22)
+    // console.log("gg244442gg244442gg244442", gg244442)
+    // console.log("gg22110", gg22)
+    // console.log("gg22110", JSON.stringify(gg22))
+    // console.log(gg22.publicKey, "gg22123", JSON.stringify(gg22.publicKey))
+    // console.log(gg22.publicKey.toString(), "gg2224455", gg22)
     let solAd = gg22.publicKey.toString()
     s__solAddress(solAd)
     setConnectionLabel("✅ "+shortAd(solAd))
@@ -141,7 +141,7 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
 
   const info22 = await connection.getTokenAccountBalance(new PublicKey(MY_TOKEN));
     if (!info22.value.uiAmount) throw new Error('No balance found');
-    console.log('Balance (using Solana-Web3.js): ', info22.value.uiAmount);
+    // console.log('Balance (using Solana-Web3.js): ', info22.value.uiAmount);
     // return info22.value.uiAmount;
 
 //   const accounts = await connection.getParsedProgramAccounts(
@@ -182,7 +182,7 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
 
   if (phantom !== false) {
 
-    console.log("Phantom Wallet Found, Connecting..", phantom);
+    // console.log("Phantom Wallet Found, Connecting..", phantom);
     // const connection123 = new Connection("https://api.mainnet-beta.solana.com");
     // const connection123 = new Connection("https://api.devnet.solana.com");
     const connection123 = new Connection("https://solana-mainnet.g.alchemy.com/v2/KyPv5ltJS3W9NXyKAUwG9OFSxf5HEI4r");
@@ -196,9 +196,9 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
       // callUpdateSupabase(publicKey.toString(),balance / LAMPORTS_PER_SOL)
     })();
     (async () => {
-      console.log("await getTokenBalanceWeb3", publicKey, )
+      // console.log("await getTokenBalanceWeb3", publicKey, )
       let asd = await getTokenBalanceSpl(connection123, publicKey)
-      console.log("token balance asd", publicKey, asd)
+      // console.log("token balance asd", publicKey, asd)
     //   // @ts-ignore
     //   let balance = await window.solana.request({
     //       method: "getBalance",
@@ -226,7 +226,7 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
   // });
   // console.log("walletinfo..", walletinfo111);
   // console.log("walletinfo2222..", await walletinfo111);
-  console.log("***********************..", );
+  // console.log("***********************..", );
   // var walletinfo = phantom.connect()?.getSolbalance?.("AbeujwVGomZLR5WejXQ5JXDQadHbyPhsxLPvrrsHk9fc");
   // console.log("walletinfo..", walletinfo);
   // console.log("walletinfo2222..", await walletinfo);
@@ -237,11 +237,11 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
   phantom.on("connect", () => {
 
     // Check Connection
-    console.log("Phantom Connected: " + phantom.isConnected);
+    // console.log("Phantom Connected: " + phantom.isConnected);
 
     // Get Wallet Address
     var wallet_address = phantom.publicKey.toString();
-    console.log("Solana Wallet Address: " + wallet_address);
+    // console.log("Solana Wallet Address: " + wallet_address);
   })
 
     // let ggg =  window.solana.getTokenAccountsByOwner()
@@ -259,10 +259,10 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
         
       // @ts-ignore
       let sol:any = window.phantom?.solana
-            console.log("window.phantom?.solana", sol )
+            // console.log("window.phantom?.solana", sol )
       // @ts-ignore
             let sol2:any = window.solana
-                  console.log("window.sol2", sol2 )
+                  // console.log("window.sol2", sol2 )
       trySolAddress()
         //     connector.watchAsset && connector.watchAsset({
         //     "address": "",

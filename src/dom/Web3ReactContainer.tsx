@@ -11,7 +11,7 @@ const connections: [Connector, Web3ReactHooks][] = allConnections.map(([connecto
 
 
 export const Web3ReactContainer = ({children}:any) => {
-  console.log("connections", connections)
+  // console.log("connections", connections)
     return (<>
       <Web3ReactProvider connectors={connections}>
         {children}

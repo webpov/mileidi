@@ -65,7 +65,7 @@ const useGameState = (
   
     zoneIds.forEach(zoneId => {
       if (!prevState.stats.zone.hasOwnProperty(zoneId)) { return; }
-      console.log("updateStats", zoneId, field, points);
+      // console.log("updateStats", zoneId, field, points);
       const currentStat = prevState.stats.zone[zoneId][field];
   
       if (currentStat + points <= 0 && !finishTriggered) {
@@ -125,20 +125,20 @@ useEffect(() => {
     // console.log("interval spin")
     const prevCounter = counter
       const newCounter = prevCounter + 1;
-      console.log("*************prevCounter", prevCounter)
+      // console.log("*************prevCounter", prevCounter)
       let oldAvail = {...avail}
 
     const prevState = {...state}
         // Object.keys(prevState.stats.zone).forEach(zoneId => {
           // // Update money every 10 seconds
           if (newCounter % 1 === 0) {
-      console.log("*******************money**********************")
+      // console.log("*******************money**********************")
             
-      console.log(oldAvail["money"])
+      // console.log(oldAvail["money"])
       if(!oldAvail["money"]) {
         oldAvail["money"] = oldAvail["money"]+1
         s__avail(oldAvail)
-      console.log("*******************money**********************", avail)
+      // console.log("*******************money**********************", avail)
     }
 
             // console.log("zoneId", zoneId , "10s")
@@ -152,7 +152,7 @@ useEffect(() => {
           }
           if (newCounter % 2 === 0) {
             
-      console.log(oldAvail["internet"])
+      // console.log(oldAvail["internet"])
       if(!oldAvail["internet"] && Math.random() > 0.75) {
         oldAvail["internet"] += 1
         s__avail(oldAvail)
@@ -168,7 +168,7 @@ useEffect(() => {
           }
           if (newCounter % 3 === 0) {
             
-      console.log(oldAvail["law"])
+      // console.log(oldAvail["law"])
       if(!oldAvail["law"] && Math.random() > 0.9) {
         oldAvail["law"] += 1
         s__avail(oldAvail)
@@ -209,7 +209,7 @@ useEffect(() => {
   if (!isStarted) return;
   if (!!isFinished) return;
   const oldAvail = {...avail}
-    console.log(oldAvail[field])
+    // console.log(oldAvail[field])
     if(!oldAvail[field]) {return}
     let maxOfMax = 0
     switch (field) {

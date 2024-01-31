@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Box, Cylinder, MapControls, OrbitControls } from '@react-three/drei';
 import { useMediaQuery } from 'usehooks-ts';
@@ -14,12 +14,14 @@ import { useAccount, useConnect } from 'wagmi';
 import { polygon } from 'wagmi/chains';
 import { phantomWallet } from '@rainbow-me/rainbowkit/wallets';
 import { Web3ReactContainer } from '@/dom/Web3ReactContainer';
+import { AudioContext } from "../../../../script/state/context/AudioContext";
 
 const FirstLevel = ({state, calls}:any) => {
 
   // const { address } = useAccount()
   // const { connect, connectors, isLoading, pendingConnector } = useConnect()
 const $solCard:any = useRef()
+  const audioCtx = useContext(AudioContext)
 
   const [isMileiModal, s__isMileiModal] = useState(false)
     const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
@@ -36,11 +38,12 @@ const $solCard:any = useRef()
   }, [camRecorder2.isRecording])
   const onMileiClick = () => {
     // alert("asd")
+    audioCtx.play("../sound/magic.wav")
     s__isMileiModal(!isMileiModal)
   }
   const solBal = useMemo(()=>{
     if (!$solCard.current) return null
-    console.log("$solCard.current.solBal", $solCard.current.solBal)
+    // console.log("$solCard.current.solBal", $solCard.current.solBal)
     $solCard.current.solBal
   },[$solCard?.current?.solBal])
   return (<>
@@ -61,13 +64,13 @@ const $solCard:any = useRef()
                           {!!$solCard.current && $solCard.current.solBal &&
                             <div className='opaci-chov--50 border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lx pa-1 '>☀️</div>
                           }
-                          <div className='opaci-chov--50 border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lx pa-1 '>d</div>
-                          <div className='opaci-chov--50 border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lx pa-1 '>f</div>
+                          {/* <div className='opaci-chov--50 border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lx pa-1 '>d</div> */}
+                          {/* <div className='opaci-chov--50 border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lx pa-1 '>f</div> */}
                         </div>
                       </div>
                     <div className='autoverflow-y pos-rel' style={{maxHeight:"50vh"}}>
                       
-                      <div><h2 className='mb-0 pb-0  pl-8'>Game Description</h2></div>
+                      {/* <div><h2 className='mb-0 pb-0  pl-8'>Game Description</h2></div> */}
                       
                       <div className='flex-col Q_md_x  pl-8'>
                         <p className='tx-lgx pr-8 flex-wrap'>
