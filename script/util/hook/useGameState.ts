@@ -31,8 +31,8 @@ const DEFAULT_ACTION_LIST = [
 
 
 const useGameState = (
-  initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 12, addFinalObj:any):
-  [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void, s__isStarted:any,maxScores:any, avail:any] => {
+  initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 12, addFinalObj:any,):
+  [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void, s__isStarted:any,maxScores:any, avail:any, isFinished:any] => {
   const [avail, s__avail] = useState<any>(initialState.stats.available);
   const [state, s__State] = useState<GameState>(initialState);
   const [liveThresHold, s__liveThresHold] = useState<any>(0);
@@ -283,7 +283,7 @@ useEffect(() => {
 
   return [state, s__State, increaseZoneFieldPoints, s__isStarted, {maxScore1,
     maxScore2,
-    maxScore3},avail];
+    maxScore3},avail,isFinished];
 };
 
 export default useGameState;

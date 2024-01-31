@@ -291,7 +291,7 @@ export default function MainStage({mainAction}:any) {
     // s__isWinScreen(data)
 
   }
-    const [playerScore, s__playerScore, s__score, s__isGameStared, maxScores, avail]:any = useGameState(DEFAULT_INITIAL_STATE, 7, addFinalObj);
+    const [playerScore, s__playerScore, s__score, s__isGameStared, maxScores, avail, isFinished]:any = useGameState(DEFAULT_INITIAL_STATE, 7, addFinalObj);
     const [mounted, s__Mounted] = useState(false);
     const [selectedZone, s__selectedZone] = useState('america'); // Default to orange (Egypt)
     const selectedPlayerScore = useMemo(() => {
@@ -305,7 +305,7 @@ export default function MainStage({mainAction}:any) {
         const zone = zoneProp
         console.log("zone", zone)
         s__selectedZone(zone);
-        if (finals.length) {return}
+        if (isFinished) {return}
         s__unixCountFinal(Date.now())
     };
     const mainActionClick = () => {
@@ -351,7 +351,7 @@ try {
 
     return (<>
     {!!unixCount && !!unixCountFinal &&
-      <div className="tx-red z-800 pos-abs bottom-0 left-50p translate-x--50">{parseInt(`${(unixCountFinal-unixCount)/1000}`)}s</div>
+      <div className="tx-red z-800 pos-abs bottom-0 left-50p translate-y-100 tx-sans bord-r-10 bg-w-50 border-white px-2 tx-shadow- py-1 tx-bold-6">{parseInt(`${(unixCountFinal-unixCount)/1000}`)}s</div>
     }
 
       {!!finals?.length && !finals[0]?.win && 
