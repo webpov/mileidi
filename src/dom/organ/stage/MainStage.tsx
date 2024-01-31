@@ -349,7 +349,7 @@ try {
           <button onClick={()=>{s__finals([])}} className='Q_sm_x box-shadow-5-b bord-r-100 mr-8 mt-8 tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
           
           <div className="tx-m tx-bold-8 pb-2">{"Quest Failed!"}</div>
-          <div className="tx-lgx ">{JSON.stringify(finals[0].alertmsg.replace("\n\n",""))}</div>
+          <div className="tx-lg ">{JSON.stringify(finals[0].alertmsg.replace("\n\n",""))}</div>
           {/* <div className="tx-lgx Q_xs">{isLoseScreen}</div> */}
           {/* <div className="tx-xl Q_sm_x">{isLoseScreen}</div> */}
       <hr />
