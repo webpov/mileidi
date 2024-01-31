@@ -38,7 +38,7 @@ const $solCard:any = useRef()
   }, [camRecorder2.isRecording])
   const onMileiClick = () => {
     // alert("asd")
-    audioCtx.play("../sound/magic.wav")
+    audioCtx.play("../sound/thunder.mp3")
     s__isMileiModal(!isMileiModal)
   }
   const solBal = useMemo(()=>{

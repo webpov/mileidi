@@ -1,5 +1,6 @@
-import { ZoneSats, DEFAULT_INITIAL_STATE, GameState, StatType } from '@/dom/organ/stage/MainStage';
-import { useState, useEffect, Dispatch, SetStateAction, useCallback } from 'react';
+import { AudioContext } from "@/../script/state/context/AudioContext";
+import { ZoneSats, DEFAULT_INITIAL_STATE, GameState, StatType, STATS_SFX_MAIN } from '@/dom/organ/stage/MainStage';
+import { useState, useEffect, Dispatch, SetStateAction, useCallback, useContext } from 'react';
 
 const DEFAULT_ACTION_LIST = [
   {"increment": "money", "decrement": null, "action_name": "Financial Growth Initiative"},
@@ -41,6 +42,7 @@ const useGameState = (
   const [maxScore3, s__maxScore3] = useState<any>(0);
   const [isStarted, s__isStarted] = useState<number>(0);
   const [isFinished, s__isFinished] = useState<number>(0);
+  const audioCtx = useContext(AudioContext)
   const triggerFinish = (zoneId:any, field:any) => {
     if (isFinished) { return } 
     s__isFinished((prev:number)=>prev+1)
@@ -147,6 +149,7 @@ useEffect(() => {
             })
             if (toChange.length) {
               // s__maxScore1(maxScore1+1)
+              audioCtx.play("../sound/bridge.wav")
               updateStats(toChange, 'money', -1)
             }
           }
@@ -163,6 +166,7 @@ useEffect(() => {
             })
             if (toChange.length) {
               // s__maxScore2(maxScore2+1)
+              audioCtx.play("../sound/bridge.wav")
               updateStats(toChange, 'internet', -1)
             }
           }
@@ -179,6 +183,7 @@ useEffect(() => {
             })
             if (toChange.length) {
               // s__maxScore3(maxScore3+1)
+              audioCtx.play("../sound/bridge.wav")
               updateStats(toChange, 'law', -1)
             }
           }
@@ -210,7 +215,11 @@ useEffect(() => {
   if (!!isFinished) return;
   const oldAvail = {...avail}
     // console.log(oldAvail[field])
-    if(!oldAvail[field]) {return}
+    if(!oldAvail[field]) {
+      audioCtx.play("../sound/404.wav")
+
+      return
+    }
     let maxOfMax = 0
     switch (field) {
       case("money"):
@@ -226,6 +235,7 @@ useEffect(() => {
         maxOfMax = maxScore3+1
       break;
     }
+    audioCtx.play(STATS_SFX_MAIN[field])
 
     oldAvail[field] -= 1
     s__avail(oldAvail)

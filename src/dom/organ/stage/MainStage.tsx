@@ -16,10 +16,10 @@ import { AudioContext } from "../../../../script/state/context/AudioContext";
 
 
 
-const STATS_SFX_MAIN = {
+export const STATS_SFX_MAIN = {
   "money": "../sound/cash2.wav",
   "internet": "../sound/ping.wav",
-  "law": "../sound/law.wav",
+  "law": "../sound/info.wav",
 }
 
 
@@ -292,9 +292,9 @@ export default function MainStage({mainAction}:any) {
     let finalObjs:any = [...finals]
     finalObjs.push(data)
     if (data.win) {
-      audioCtx.play("../sound/clap.ogg")
+      setTimeout(()=>{audioCtx.play("../sound/clap.ogg")},250)
     } else {
-      audioCtx.play("../sound/404.wav")
+      setTimeout(()=>{audioCtx.play("../sound/dead.wav")},250)
     }
     
     s__finals(finalObjs)
@@ -320,16 +320,17 @@ export default function MainStage({mainAction}:any) {
         if (isFinished) {return}
           console.log("../sound/click58.wav")
         // audioCtx.s__playingTrack("../sound/click47.wav")
-        if (Math.random() > 0.5) {
+        // if (Math.random() > 0.5) {
           audioCtx.play("../sound/click58.wav")
-        } else {
-          audioCtx.play("../sound/click47.wav")
-        }
+        // } else {
+          // audioCtx.play("../sound/click47.wav")
+        // }
         s__unixCountFinal(Date.now())
     };
     const mainActionClick = () => {
       // console.log("s__unixCount(Date.now()); ", Date.now())
     s__unixCount(Date.now())
+    audioCtx.play("../sound/light.mp3")
     mainAction()
       // s__Mounted(true);
       // s__isGameStared(true)      
@@ -337,7 +338,7 @@ export default function MainStage({mainAction}:any) {
     const triggerClickedAction = (statName: StatType) => {
         console.log("triggerClickedAction", statName, STATS_SFX_MAIN[statName])
 
-          audioCtx.play(STATS_SFX_MAIN[statName])
+          
           
           s__score(selectedZone, statName, 1)
     }
@@ -368,7 +369,7 @@ try {
 
     if (!mounted) return (
         <div className="w-100 h-100 flex-col ">
-            <StartScreen mainActionClick={mainActionClick} state={{ isPlaying: mounted }} calls={{ s__isPlaying: (val:boolean)=>{s__unixCount(Date.now()); s__Mounted(val);s__isGameStared(val)} }} />
+            <StartScreen mainActionClick={mainActionClick} state={{ isPlaying: mounted }} calls={{ s__isPlaying: (val:boolean)=>{audioCtx.play("../sound/click58.wav");s__unixCount(Date.now()); s__Mounted(val);s__isGameStared(val)} }} />
         </div>)
 
     return (<>

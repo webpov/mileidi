@@ -17,7 +17,9 @@ export const PlayerScore = ({ color, score, zone, available, maxScores }: any) =
                 <div key={key} className="pa-1 flex-col">
                     <div className="flex-center tx-altfont-1">
                     
-                        {Object.keys(DEFAULT_ICON_LOOKUP).find(icon => DEFAULT_ICON_LOOKUP[icon] === key) || key}
+                        <div className="tx-shadow-2 tx-mdl">
+                            {Object.keys(DEFAULT_ICON_LOOKUP).find(icon => DEFAULT_ICON_LOOKUP[icon] === key) || key}
+                        </div>
                         <div className="tx-lgx pr-1 tx-bold-5">
                             {value}
                         </div>

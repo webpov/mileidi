@@ -23,7 +23,7 @@ export const StartScreen = ({ state, calls, showStart=true, mainActionClick }: a
         <div className="">
             {showStart && <>
         <button className="noborder noselect bg-trans z-300 pos-rel tx-xxxl opaci-chov--50 tx-altfont-1 tx-bold-8 tx-white tx-shadow-5 hover-4 mt-100"
-        title={!!counter?`${counter}`:"Start"}
+        // title={!!counter?`${counter}`:"Start"}
         style={{textShadow: "2px 2px 0 #000000, 0 8px 20px #00336677"}}
                 onClick={() => {
                     if (state.isPlaying) { return; }
