@@ -1,5 +1,5 @@
 //SolCard.tsx
-import { useEffect, useState } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import { Web3ReactSelectedHooks, useWeb3React } from '@web3-react/core'
 import { Connector } from '@web3-react/types'
 import { Connection, Keypair, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
@@ -16,7 +16,7 @@ import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
 import { shortWeb3Address } from '../../../script/util/webhelp';
 
 
-export default function SolCard({ name}: {name: string}) {
+export const SolCard = forwardRef(({ name}:any, ref:any ) => {
   const { connector, hooks } = useWeb3React();
 
   
@@ -53,6 +53,14 @@ export default function SolCard({ name}: {name: string}) {
 
     getSolBalance(gg244442, gg22.publicKey)
   }
+  useImperativeHandle(ref, 
+    () => {
+      return {
+        solAddress,
+        solBal,
+      };
+    },
+  )
   const callUpdateSupabase = async (publicKey:string, amount:number) => {
     try {
       const response = await fetch('/api/auth/wallet', {
@@ -184,6 +192,7 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
       // console.log(`${balance / LAMPORTS_PER_SOL} SOL`);
       let solBale:any = parseFloat((balance / LAMPORTS_PER_SOL).toFixed(4))
       s__solBal(solBale)
+      s__solBal(solBale)
       // callUpdateSupabase(publicKey.toString(),balance / LAMPORTS_PER_SOL)
     })();
     (async () => {
@@ -300,7 +309,7 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
   ,[isActive])
   
   return (
-    <details className='tx-altfont-1  bord-r-25 border-white bg-b-50 bg-glass-10 tx-white'>
+    <details ref={ref} className='tx-altfont-1  bord-r-25 border-white bg-b-50 bg-glass-10 tx-white'>
       <summary className='tx-xsm opaci-chov--50 tx-center flex-wrap py-2 px-2'>{(error?.message) ? ("Error: " + error.message) : connectionLabel}</summary>
       <div className='px-2 pb-2'>
         <hr className=' opaci-10' />
@@ -331,7 +340,10 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
       </div>
     </details>
   )
-}
+})
+SolCard.displayName = "SolCard"
+export default SolCard
+
 export function shortAd(address:string)
 {
   return address.substr(0,2)+"-"+address.substr(address.length-2,address.length)

@@ -8,6 +8,7 @@ import { MainContactMenu } from "./MainContactMenu";
 import { PlayerScore } from "./PlayerScore";
 import { StartScreen } from "./StartScreen";
 import { WagmiContainer } from "@/dom/WagmiContainer";
+import { WIP } from "@/app/lvl/1/WIP";
 
 
 
@@ -256,19 +257,32 @@ export const REGION_LOCAL_POSITIONS = ZONES.reduce((acc:any, zone) => {
 }, {});
 // New mapping from color to zone name
 export default function MainStage() {
+  const [isWinScreen, s__isWinScreen] = useState(null)
+  const [isLoseScreen, s__isLoseScreen] = useState<any>(null)
+  const [finals, s__finals] = useState<any>([])
   // @ts-ignore
   // const isSolana = !!window ? window?.solana : null
-  const reloadGame = () => {
-      if (!!window && window.confirm("Reload Game?")) {
-        window?.location.reload()
-      }
+  const addFinalObj = (data) => {
+    if (isLoseScreen || isWinScreen) return
+    if (!data) {
+      // s__isLoseScreen("you lose")
+      // // if (!!window && window.confirm(msg+"\n\n\n Do you wish to reload the page?")) {
+      // //   window?.location.reload()
+      // // }
+      return
     }
-    const [playerScore, s__playerScore, s__score, s__isGameStared]:any = useGameState(DEFAULT_INITIAL_STATE, 24, reloadGame);
+    let finalObjs:any = [...finals]
+    finalObjs.push(data)
+    s__finals(finalObjs)
+    // s__isWinScreen(data)
+
+  }
+    const [playerScore, s__playerScore, s__score, s__isGameStared, maxScores]:any = useGameState(DEFAULT_INITIAL_STATE, 24, addFinalObj);
     const [mounted, s__Mounted] = useState(false);
     const [selectedZone, s__selectedZone] = useState('america'); // Default to orange (Egypt)
     const selectedPlayerScore = useMemo(() => {
         return playerScore.stats.zone[selectedZone]
-    }, [playerScore.stats.zone, selectedZone]);
+    }, [playerScore, playerScore.stats.zone, selectedZone]);
     const mutedColor = useMemo(() => {
       return ZONE_TO_MUTECOLOR[selectedZone]
     }, [selectedZone]);
@@ -314,10 +328,57 @@ try {
         </div>)
 
     return (<>
-
+      {!!finals?.length && !finals[0]?.win && 
+        <div className="pos-abs pa-4 mt-150 ml-4 z-800 bg-glass-20 bg-w-50 pa-8 border-white bord-r-50  w-50">
+          {/* <div>You've LOSS</div> */}
+          <button onClick={()=>{s__finals([])}} className='box-shadow-5-b bord-r-100 mr-8 mt-8 tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
+          
+          <div className="tx-lgx ">{"Failed!"}</div>
+          {/* <div className="tx-lgx Q_xs">{isLoseScreen}</div> */}
+          {/* <div className="tx-xl Q_sm_x">{isLoseScreen}</div> */}
+      <hr />
+          <div className="flex gap-1 flex">
+          <div className="bg-b-50  tx-white pa-1 flex-center"><div>1</div>: {maxScores.maxScore1}</div>
+          <div className="bg-b-50  tx-white pa-1 flex-center"><div>2</div>: {maxScores.maxScore2}</div>
+          <div className="bg-b-50  tx-white pa-1 flex-center"><div>3</div>: {maxScores.maxScore3}</div>
+          </div>
+      <hr />
+          <div className="flex-col gap-1">
+          <WIP />
+      <hr />
+      <a href='/' className='tx-black tx-lg bord-r-50 px-8 border-white bg-w-10 tx-bold-8 bg-glass-10 py-2 tx-altfont-1 opaci-chov--50 '>
+        Reload
+      </a>
+          </div>
+        </div>
+      }
+      {!!finals?.length && !!finals[0]?.win && 
+        <div className="pos-abs pa-4 mt-150 ml-4 z-800 bg-glass-20 bg-w-50 pa-8 border-white bord-r-50  w-50">
+          {/* <div>You've LOSS</div> */}
+          <div className="tx-lgx pt-4 Q_xs">{"Congratulations!"}</div>
+          <div className="tx-xl Q_sm_x">{"Congratulations!"}</div>
+          <button onClick={()=>{s__finals([])}} className='Q_xs box-shadow-5-b bord-r-100 mr- mt- tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
+          <button onClick={()=>{s__finals([])}} className='Q_sm_x box-shadow-5-b bord-r-100 mr-8 mt-8 tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
+      <hr />
+          <div className="flex-col gap-1">
+          <div>maxScore1: {maxScores.maxScore1}</div>
+          <div>maxScore2: {maxScores.maxScore2}</div>
+          <div>maxScore3: {maxScores.maxScore3}</div>
+          </div>
+      <hr />
+          <div className="flex-col gap-1">
+          {/* <WIP /> */}
+      <hr />
+      <a href='/' className='tx-black tx-lg bord-r-50 px-8 border-white bg-w-10 tx-bold-8 bg-glass-10 py-2 tx-altfont-1 opaci-chov--50 '>
+        Reload
+      </a>
+          </div>
+        </div>
+      }
 
 
         <div className="pos-abs bottom-0 left-0 z-200">
+          {/* {JSON.stringify(selectedPlayerScore)} */}
             <div className="pa-2 flex-col flex-align-start gap-1 ">
                 <PlayerScore zone={selectedZone} score={selectedPlayerScore}
                   color={mutedColor}
@@ -330,7 +391,7 @@ try {
         <div className="pos-abs bottom-0 right-0 z-100">
             <BaseActionButtons calls={{ triggerClickedAction }} />
         </div>
-        <div className="pos-abs top-0 left-0 bord-r-25 noverflow mt-2"
+        <div className="pos-abs top-0 left-0 bord-r-25 noverflow  mt-2"
                 style={{height: "96vh", width: "100%"}}
           >
 {/* {isSolana && <WagmiContainer > */}

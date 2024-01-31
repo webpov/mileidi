@@ -31,11 +31,13 @@ const DEFAULT_ACTION_LIST = [
 
 
 const useGameState = (
-  initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 24, reloadGame:VoidFunction):
-  [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void, s__isStarted:any] => {
+  initialState: GameState = DEFAULT_INITIAL_STATE, thresHold = 24, addFinalObj:any):
+  [GameState, Dispatch<SetStateAction<GameState>>, (zoneId: string, field: keyof ZoneSats[string], points: number) => void, s__isStarted:any,maxScores:any] => {
   const [state, s__State] = useState<GameState>(initialState);
   const [liveThresHold, s__liveThresHold] = useState<any>(0);
-  const [maxScore, s__maxScore] = useState<any>(0);
+  const [maxScore1, s__maxScore1] = useState<any>(0);
+  const [maxScore2, s__maxScore2] = useState<any>(0);
+  const [maxScore3, s__maxScore3] = useState<any>(0);
   const [isStarted, s__isStarted] = useState<number>(0);
   const [isFinished, s__isFinished] = useState<number>(0);
   const triggerFinish = (zoneId:any, field:any) => {
@@ -44,9 +46,15 @@ const useGameState = (
     s__isStarted(0)
     const zones:any = state.stats.zone
     const currentStat = zones[zoneId][field]
-    alert(`You lost!\n\n ${zoneId.toUpperCase()} failed, ${field} was not found!`)
-    if (!!reloadGame) { reloadGame() }
-    else { return window?.location.reload() }
+    let alertmsg:any = `You lost!\n\n ${zoneId.toUpperCase()} failed, ${field} was not found!`
+    if (!!addFinalObj) {
+      addFinalObj({
+          win:false,
+          alertmsg
+      })
+    }
+    // if (!!addFinalObj) { addFinalObj(0,alertmsg) }
+    // else { return window?.location.reload() }
   }
   function updateStats(zoneIds: string[], field: StatType, points: number): void {
     if (isFinished) { return; }
@@ -64,7 +72,7 @@ const useGameState = (
         finishTriggered = true; // Set the flag after the first call
       }
       const updatedStat = currentStat + points >= 0 ? currentStat + points : 0;
-  
+      
       prevState.stats.zone[zoneId] = {
         ...prevState.stats.zone[zoneId],
         [field]: updatedStat
@@ -101,7 +109,28 @@ useEffect(() => {
               return prevState.stats.zone[zoneId]['money'] > 0 && Math.random() > 0.5
             })
             if (toChange.length) {
+              s__maxScore1(maxScore1+1)
               updateStats(toChange, 'money', -1)
+            }
+          }
+          if (newCounter % 2 === 0) {
+            // console.log("zoneId", zoneId , "10s")
+            const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
+              return prevState.stats.zone[zoneId]['internet'] > 0 && Math.random() > 0.5
+            })
+            if (toChange.length) {
+              s__maxScore1(maxScore1+1)
+              updateStats(toChange, 'internet', -1)
+            }
+          }
+          if (newCounter % 3 === 0) {
+            // console.log("zoneId", zoneId , "10s")
+            const toChange = Object.keys(prevState.stats.zone).filter(zoneId => {
+              return prevState.stats.zone[zoneId]['law'] > 0 && Math.random() > 0.5
+            })
+            if (toChange.length) {
+              s__maxScore1(maxScore1+1)
+              updateStats(toChange, 'law', -1)
             }
           }
           // if (newCounter % 1 === 0 && Math.random() > 0.5) {
@@ -138,23 +167,30 @@ useEffect(() => {
     s__liveThresHold((state.stats.zone[zoneId]?.[field] ?? 0) + points);
     console.log("liveThresHold"), liveThresHold
     if (liveThresHold >= thresHold) { 
-      alert(`You've won!\n\n ${zoneId.toUpperCase()} overdelivered, ${field} was very productive!`)
+      let msg = (`You've won!\n\n ${zoneId.toUpperCase()} overdelivered, ${field} was very productive!`)
       const lvlBaseURL = process.env.NODE_ENV == "production" ? "https://mileidi.vercel.app" : "http://localhost:1234"
       let nextLevel = 0
+      let window_location_href = ""
+      triggerFinish(zoneId, field);
       if (thresHold < 25 && !!window?.location) {
         // do window open
-        return window.location.href = `${lvlBaseURL}/lvl/1`
+        window_location_href = `${lvlBaseURL}/lvl/1`
       }
       if (thresHold < 50 && !!window?.location) {
         // do window open
-        return window.location.href = `${lvlBaseURL}/lvl/2`
+        window_location_href = `${lvlBaseURL}/lvl/2`
       }
       if (thresHold < 75 && !!window?.location) {
         // do window open
-        return window.location.href = `${lvlBaseURL}/lvl/3`
+        window_location_href = `${lvlBaseURL}/lvl/3`
       }
       if (!nextLevel) {
-        if (!!reloadGame) { reloadGame() }
+        if (!!addFinalObj) { addFinalObj({
+          win:true,
+          points: 1,
+          msg,
+          window_location_href
+        }) }
         else { return window?.location.reload() }
       }
       
@@ -174,7 +210,9 @@ useEffect(() => {
     s__State(updatedState);
   };
 
-  return [state, s__State, increaseZoneFieldPoints, s__isStarted];
+  return [state, s__State, increaseZoneFieldPoints, s__isStarted, {maxScore1,
+    maxScore2,
+    maxScore3}];
 };
 
 export default useGameState;
