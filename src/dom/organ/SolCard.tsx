@@ -116,7 +116,7 @@ async function getTokenBalanceSpl(connection:any, connectedWallet:any) {
 // })
 // console.log("resres",resres)
 
-let MY_TOKEN:any  = 'dHzMLx2RLS9s33iPghRt6kb4xv88z9qE1shqkcuaMXq'
+let MY_TOKEN:any  = 'mdnhtNYShfmkToZRmnS4y33pyopnYcMhyF3V3Hyo8eg'
 // let MY_TOKEN:any  = '8AG4ZFCu8V3C2zkmyLtSorgGT6odFbKLFWnqykTiijZ6'
 const mintAccountPublicKey = new PublicKey(MY_TOKEN);
 // let mintAccount = await getMint(connection, mintAccountPublicKey);
