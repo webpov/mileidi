@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from 'react';
-import { DEFAULT_ICON_LOOKUP } from "./MainStage";
+import { DEFAULT_ICON_LOOKUP } from '../../../../script/constant/zones';
 
 export interface ActionButtonProps {
     title: string;

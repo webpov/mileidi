@@ -1,6 +1,7 @@
 import { AudioContext } from "@/../script/state/context/AudioContext";
-import { ZoneSats, DEFAULT_INITIAL_STATE, GameState, StatType, STATS_SFX_MAIN } from '@/dom/organ/stage/MainStage';
 import { useState, useEffect, Dispatch, SetStateAction, useContext } from 'react';
+import { GameState, STATS_SFX_MAIN, StatType, ZoneSats } from "../../constant/zones";
+import { DEFAULT_INITIAL_STATE } from "../../constant";
 
 
 const useGameState = (

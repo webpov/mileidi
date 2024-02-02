@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import { Box } from "@react-three/drei";
 import { Mesh } from 'three';
-import {  ZONES_COLOR_POSITIONS, POSITION_COLOR_LOOKUP } from '@/dom/organ/stage/MainStage';
 import { ZoneContainer } from './ZoneContainer';
+import { POSITION_COLOR_LOOKUP, ZONES_COLOR_POSITIONS } from '../../../../script/constant';
 
 
 interface RegionSceneProps {

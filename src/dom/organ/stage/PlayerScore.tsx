@@ -1,6 +1,7 @@
 "use client";
 
-import { DEFAULT_ICON_LOOKUP } from "./MainStage";
+import { DEFAULT_ICON_LOOKUP } from "../../../../script/constant/zones";
+
 
 export const PlayerScore = ({ color, score, zone, available, maxScores }: any) => (
     <div className="bg-glass-10 bord-r-25 bg-w-50 px-2 py-1 box-shadow-i-2-b"

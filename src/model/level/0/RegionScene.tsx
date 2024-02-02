@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import { Box, Plane, RoundedBox, useTexture } from "@react-three/drei";
 import { Mesh } from 'three';
-import {  ZONES_COLOR_POSITIONS,ZONES_TO_POSITIONS, POSITION_COLOR_LOOKUP } from '@/dom/organ/stage/MainStage';
 import { ZoneContainer } from './ZoneContainer';
 import DynaText from '@/model/text/DynaText';
+import { ZONES_COLOR_POSITIONS, ZONES_TO_POSITIONS } from '../../../../script/constant';
 
 
 interface RegionSceneProps {
