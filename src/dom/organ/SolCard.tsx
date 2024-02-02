@@ -89,7 +89,7 @@ export const SolCard = forwardRef(({ name}:any, ref:any ) => {
   async function getTokenBalanceWeb3(connection:any, tokenAccount:any) {
     const info = await connection.getTokenAccountBalance(tokenAccount);
     if (!info.value.uiAmount) throw new Error('No balance found');
-    console.log('Balance (using Solana-Web3.js): ', info.value.uiAmount);
+    // console.log('Balance (using Solana-Web3.js): ', info.value.uiAmount);
     return info.value.uiAmount;
 }
 async function getTokenBalanceSpl(connection:any, connectedWallet:any) {
@@ -116,14 +116,15 @@ async function getTokenBalanceSpl(connection:any, connectedWallet:any) {
 // })
 // console.log("resres",resres)
 
-let MY_TOKEN:any  = 'mdnhtNYShfmkToZRmnS4y33pyopnYcMhyF3V3Hyo8eg'
+let MY_TOKEN_ADDRESS:any  = 'mdnhtNYShfmkToZRmnS4y33pyopnYcMhyF3V3Hyo8eg'
+let MY_TOKEN_ACCOUNT:any  = '6zDLHeA1jXLUqMpVvrxScuXEvCEXG2hwbaGKS87fLgN9'
 // let MY_TOKEN:any  = '8AG4ZFCu8V3C2zkmyLtSorgGT6odFbKLFWnqykTiijZ6'
-const mintAccountPublicKey = new PublicKey(MY_TOKEN);
-// let mintAccount = await getMint(connection, mintAccountPublicKey);
+// const mintAccountPublicKey = new PublicKey(MY_TOKEN);
+// let mintAccount = await getMint(connection, new PublicKey("mdnhtNYShfmkToZRmnS4y33pyopnYcMhyF3V3Hyo8eg"));
 
-  // console.log("bs58.decodebs58.decode", mintAccount)
-  // let balance = await connection.getTokenAccountsByOwner(connectedWallet,{mint:mintAccount});
-  // console.log(`${balance / LAMPORTS_PER_SOL} SOL`);
+//   console.log("bs58.decodebs58.decode", mintAccount)
+//   let balanceOfTokens = await connection.getTokenAccountsByOwner(connectedWallet,{mint:mintAccount});
+//   console.log(`${balanceOfTokens / LAMPORTS_PER_SOL} SOL`);
   // callUpdateSupabase(connectedWallet.toString(),balance / LAMPORTS_PER_SOL)
 
 //   console.log("asd connection.getParsedProgramAccounts", )
@@ -139,7 +140,44 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
 //     }
 //  ];
 
-  const info22 = await connection.getTokenAccountBalance(new PublicKey(MY_TOKEN));
+  const info22 = await connection.getTokenAccountBalance(new PublicKey(MY_TOKEN_ACCOUNT));
+  // console.log("info22", info22, connectedWallet)
+  
+  // const info233 = await connection.getTokenLargestAccounts  (new PublicKey(MY_TOKEN_ADDRESS))
+  // const info233 = await connection.getTokenAccountsByOwner  (new PublicKey("EcBKZoU5BjYUXzEa4GagmyrRF34ZNUi9WqDfqAGRAfM2"),{ //connectedWallet
+  //   mint: new PublicKey(MY_TOKEN_ADDRESS)
+  // });
+
+  const accountsList = await connection.getTokenAccountsByOwner(connectedWallet, {
+    mint: new PublicKey(MY_TOKEN_ADDRESS)
+  });
+
+    
+
+    // console.log("******************accountsList.value[0].pubkey.toString()******************");
+    const walletSpecificAccoutn = accountsList.value[0].pubkey
+
+
+    const accountBalance = await connection.getTokenAccountBalance(walletSpecificAccoutn)
+    // console.log("accountBalance", accountBalance.value.uiAmount)
+  
+
+  // console.log("getTokenAccountsByOwner info233info233", info233.uiAmount, connectedWallet.toString())
+  // const matched = info233.value.filter((anAcc:any)=>{
+  //   console.log("anAcc.address.toString()", anAcc.address.toString())
+  //   return anAcc.address.toString() == connectedWallet.toString()
+  // })
+  // console.log("matchedmatched", matched)
+  // if (matched.length) {
+  //   // console.log("matched", matched.uiAmount)
+  //   console.log("matched.uiAmount", matched[0].uiAmount)
+  // } else {return} 
+  // console.log("getTokenAccountsByOwner info233info233", info233.value[0].account)
+  // console.log("getTokenAccountsByOwner info233info233", info233.value[0].account.owner)
+  // console.log("getTokenAccountsByOwner info233info233", info233.value[0].account.owner.toString())
+  // console.log("getTokenAccountsByOwner info233info233", info233.value[0].account.lamports / LAMPORTS_PER_SOL)
+  
+
     if (!info22.value.uiAmount) throw new Error('No balance found');
     // console.log('Balance (using Solana-Web3.js): ', info22.value.uiAmount);
     // return info22.value.uiAmount;
@@ -162,7 +200,7 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
   // return balance;
 
   // callUpdateSupabase(publicKey.toString(),balance / LAMPORTS_PER_SOL)
-  let actualVal = parseInt(info22.value.uiAmount)
+  let actualVal = parseInt(accountBalance.value.uiAmount) // parseInt(info22.value.uiAmount)
   
   // const priceSol:any = await (await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd`)).json()
   // console.log("priceSol", priceSol)
@@ -172,7 +210,7 @@ const mintAccountPublicKey = new PublicKey(MY_TOKEN);
   
   s__tokBal(stringVal)
   s__tokBalance(actualVal)
-  callUpdateSupabase(connectedWallet.toString(),info22.value.uiAmount)
+  callUpdateSupabase(connectedWallet.toString(),actualVal)
 
 }
 

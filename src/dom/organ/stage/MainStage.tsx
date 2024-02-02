@@ -318,7 +318,7 @@ export default function MainStage({mainAction}:any) {
         // console.log("zone", zone)
         s__selectedZone(zone);
         if (isFinished) {return}
-          console.log("../sound/click58.wav")
+          // console.log("../sound/click58.wav")
         // audioCtx.s__playingTrack("../sound/click47.wav")
         // if (Math.random() > 0.5) {
           audioCtx.play("../sound/click58.wav")
@@ -336,7 +336,7 @@ export default function MainStage({mainAction}:any) {
       // s__isGameStared(true)      
     }
     const triggerClickedAction = (statName: StatType) => {
-        console.log("triggerClickedAction", statName, STATS_SFX_MAIN[statName])
+        // console.log("triggerClickedAction", statName, STATS_SFX_MAIN[statName])
 
           
           
