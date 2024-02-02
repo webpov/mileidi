@@ -54,7 +54,8 @@ export const SolCard = forwardRef(({ name}:any, ref:any ) => {
 const MY_TOKEN_ADDRESS:any  = 'mdnhtNYShfmkToZRmnS4y33pyopnYcMhyF3V3Hyo8eg'
 const MY_USD_ADDRESS:any  = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'
 const MY_TOKEN_ACCOUNT:any  = '6zDLHeA1jXLUqMpVvrxScuXEvCEXG2hwbaGKS87fLgN9'
-const MIL_TOKEN_ADDRESS:any  = ''
+const MIL_TOKEN_ADDRESS:any  = 'miL2tTuTfd9nGKDSDcBXsEi1HMu2ANyiMasSnph44tn'
+// const MIL_TOKEN_ADDRESS:any  = '5npdQmci19YYiJoCkfqZ35zJyaGsFcVQUeSvKXhxPi9P '
 
 async function getTokenBalanceSpl(connection:any, connectedWallet:any) {
   const accountsList = await connection.getTokenAccountsByOwner(connectedWallet, {
@@ -71,9 +72,11 @@ async function getTokenBalanceSpl(connection:any, connectedWallet:any) {
   
   s__tokBal(stringVal)
   s__tokBalance(actualVal)
-
+  // console.log("logggg", new PublicKey(MIL_TOKEN_ADDRESS))
   const mil_accountsList = await connection.getTokenAccountsByOwner(connectedWallet, {
+    // mint: MIL_TOKEN_ADDRESS
     mint: new PublicKey(MIL_TOKEN_ADDRESS)
+    // mint: new PublicKey(MY_TOKEN_ADDRESS)
   });
   const mil_walletSpecificAccoutn = mil_accountsList.value[0].pubkey
   const mil_accountBalance = await connection.getTokenAccountBalance(mil_walletSpecificAccoutn)
@@ -81,7 +84,7 @@ async function getTokenBalanceSpl(connection:any, connectedWallet:any) {
   let mil_stringVal:any = formatter.format(mil_actualVal)
   
   s__milBal(mil_stringVal)
-  s__milBalance(actualVal)
+  s__milBalance(mil_actualVal)
   callUpdateSupabase(connectedWallet.toString(),actualVal)
 }
 const getSolBalance = async (provider:any, publicKey:any) => {
