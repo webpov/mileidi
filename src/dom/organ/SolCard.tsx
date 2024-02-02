@@ -75,6 +75,7 @@ const getSolBalance = async (provider:any, publicKey:any) => {
       let balance = await connection123.getBalance(publicKey);
       let solBale:any = parseFloat((balance / LAMPORTS_PER_SOL).toFixed(4))
       s__solBal(solBale)
+      await getTokenBalanceSpl(connection123, publicKey)
     })();
   }
   }
