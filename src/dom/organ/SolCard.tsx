@@ -153,19 +153,30 @@ const getSolBalance = async (provider:any, publicKey:any) => {
   return (<>
   
     <details ref={ref} className='tx-altfont-1  bord-r-25 border-white bg-b-50 bg-glass-10 tx-white'>
-      <summary className='tx-xsm opaci-chov--50 tx-center flex-wrap py-2 px-2'>
-        {(error?.message) ? ("Error: " + error.message) : connectionLabel}
-        {milBal &&
-          <div className='translate-y--100  bg-glass-10 box-shadow-2-b bord-r-10 px-2 py-1 right-0 mb-2 pos-abs flex gap-1 flex-justify-between flex-aligin-center' title={milBal}
+      <summary className='tx-xsm tx-center flex-wrap'>
+        <div className='opaci-chov--50  py-2 px-2'>
+          {(error?.message) ? ("Error: " + error.message) : connectionLabel}
+        </div>
+        {milBal && <>
+          <div className='Q_sm_x  pointer bg-glass-10 box-shadow-2-b bord-r-10 px-2 py-1 right-0 mb-2 pos-abs  flex gap-1 flex-justify-between flex-aligin-center mr-100' title={milBal}
             style={{background: "linear-gradient(45deg, #ffffff88, #ffffff11"}}
           >
             <div>
               <img src='favicon-32x32.png' alt="logo" />
               {/* <span className='Q_md_x opaci-50'>$MIL: </span> */}
             </div>
-            <div className='tx-lg tx-shadow-5'>{milBal ? milBal : 'N/A'}</div>
+            <div className='bg-w-50  bg-glass-10 px-1 bord-r-10 tx-lg tx-shadow-5'>{milBal ? milBal : 'N/A'}</div>
           </div>
-        }
+          <div className='Q_xs translate-y--100  bg-glass-10 box-shadow-2-b bord-r-10 px-2 py-1 right-0 mb-2 mt-100 mr-100 pos-abs flex gap-1 flex-justify-between flex-aligin-center' title={milBal}
+            style={{background: "linear-gradient(45deg, #ffffff88, #ffffff11"}}
+          >
+            <div className=''>
+              <img src='favicon-32x32.png' alt="logo" />
+              {/* <span className='Q_md_x opaci-50'>$MIL: </span> */}
+            </div>
+            <div className='bg-w-50  bg-glass-10 px-1 bord-r-10 tx-lg tx-shadow-5'>{milBal ? milBal : 'N/A'}</div>
+          </div>
+        </>}
       </summary>
       <div className='px-2 pb-2'>
         <hr className=' opaci-10' />
@@ -174,23 +185,23 @@ const getSolBalance = async (provider:any, publicKey:any) => {
         <hr className=' opaci-10' />
         <div className='Q_sm_x tx-center w-100 opaci-30 tx-bold-6'>Extra </div>
         <div className='flex gap-1 flex-justify-between flex-aligin-center' title={usdBal}>
-          <div>
-            💸
-            <span className='Q_md_x opaci-50'>USDc: </span>
+          <div className='flex-col flex-align-start'>
+            <div>💸</div>
+            <div className='Q_md_x opaci-50'>USDc: </div>
           </div>
           <div className='tx-lg'>{usdBal ? usdBal : 'N/A'}</div>
         </div>
         <div className='flex gap-1 flex-justify-between flex-aligin-center' title={tokBalance}>
-          <div>
-            🛜
-            <span className='Q_md_x opaci-50'>Wifi: </span>
+          <div className='flex-col flex-align-start'>
+            <div>🛜</div>
+            <div className='Q_md_x opaci-50'>Wifi: </div>
           </div>
           <div className='tx-lg'>{tokBal ? tokBal : 'N/A'}</div>
         </div>
         <div className='flex gap-1 flex-justify-between flex-aligin-center'>
-          <div>
-          📜
-            <span className='Q_md_x opaci-50'>Power: </span>
+          <div className='flex-col flex-align-start'>
+          <div>📜</div>
+            <div className='Q_md_x opaci-50'>Power: </div>
           </div>
           <div className='tx-lg'>{solBal ? solBal : 'N/A'}</div>
         </div>
