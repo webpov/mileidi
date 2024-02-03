@@ -5,7 +5,7 @@ import useGameState from "@/../script/util/hook/useGameState";
 import { BaseActionButtons } from "./BaseActionButtons";
 import { MainContactMenu } from "./MainContactMenu";
 import { PlayerScore } from "./PlayerScore";
-import { StartScreen } from "./StartScreen";
+import { PointerFollowInit, StartScreen } from "./StartScreen";
 import { SupportSection, WIP } from "@/app/lvl/1/WIP";
 import { AudioContext } from "../../../../script/state/context/AudioContext";
 import { DEFAULT_INITIAL_STATE, ZONE_TO_MUTECOLOR } from "../../../../script/constant";
@@ -60,7 +60,7 @@ export default function MainStage({mainAction}:any) {
   const audioCtx = useContext(AudioContext)
     const [playerScore, s__playerScore,
       s__score, s__isGameStared, maxScores, avail, isFinished
-    ]:any = useGameState(DEFAULT_INITIAL_STATE, 9, addFinalObj);
+    ]:any = useGameState(DEFAULT_INITIAL_STATE, 2, addFinalObj);
     const [mounted, s__Mounted] = useState(false);
     const [selectedZone, s__selectedZone] = useState('america')
     const selectedPlayerScore = useMemo(() => {
@@ -130,6 +130,10 @@ export default function MainStage({mainAction}:any) {
 
       {!!finals?.length && !finals[0]?.win && 
         <div className="pos-abs w-70 pt-6 px-8 Q_xs_px-2 pa-2 mt-150 ml-4 z-800 bg-glass-20 bg-w-50  border-white bord-r-50  w-50">
+    <div className="pos-abs w-100 h-95 Q_lg_x">
+    <PointerFollowInit counter={0} onMileiFigureClick={()=>{}} />
+    </div>
+
           <CloseWinLoseModal {...{s__finals}} />          
           <div className="tx-m tx-bold-4 pb-2 px-8 Q_xs_px-2 tx-red opaci-50 w-50 tx-altfont-1">{"Quest Failed!"}</div>
           <CountryLoseMessage {...{finals}} />
@@ -147,6 +151,9 @@ export default function MainStage({mainAction}:any) {
       }
       {!!finals?.length && !!finals[0]?.win && 
         <div className="pos-abs tx-altfont-1 pa-4 mt-150 ml-4 Q_xs_px-5 z-800 bg-glass-20 bg-w-50 pa-8 border-white bord-r-50  w-50">
+              <div className="pos-abs w-100  Q_lg_x" style={{height:"93%"}}>
+    <PointerFollowInit counter={0} onMileiFigureClick={()=>{}} />
+    </div>
           <div className="tx-lgx tx-bold-8 pt-2 pb-4  Q_xs">{"Congratulations!"}</div>
           <div className="tx-lx Q_sm_md">{"Congratulations!"} <br /> <div className="tx-shadow-5 tx-bold-8 hover-jump" style={{color:"gold"}}>You've Won!</div></div>
           <div className="tx-xl flex-justify-start flex-wrap gap-2 Q_lg_x"><div>{"Congratulations!"} </div><br /> <div className="px-2 tx-shadow-5 tx-bold-8 hover-jump" style={{color:"gold"}}>You've Won!</div></div>
