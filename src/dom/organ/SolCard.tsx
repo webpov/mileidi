@@ -13,6 +13,23 @@ declare global {
     solana?: Solana;
   }
 }
+
+export const getCurrentPrice = async (requestToken:string) => {
+  let theToken = requestToken || "SOLUSDT";
+
+  let url = `https://api.binance.com/api/v3/ticker/price?symbol=${theToken}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    const currentPrice = parseFloat(data.price);
+    return currentPrice;
+  } catch (error) {
+    console.log("FETCH FAILED");
+    // You might want to handle the error here or return a default value
+    return null;
+  }
+};
 export const SolCard = forwardRef(({ name}:any, ref:any ) => {
   const { connector, hooks } = useWeb3React();
   const { useSelectedAccount, useSelectedIsActive, useSelectedIsActivating } = hooks
@@ -20,6 +37,7 @@ export const SolCard = forwardRef(({ name}:any, ref:any ) => {
   const isActive = useSelectedIsActive(connector)
   const account = useSelectedAccount(connector)
   const [usdBal, s__usdBal] = useState()
+  const [solPrice, s__solPrice] = useState()
   const [milBal, s__milBal] = useState()
   const [solBal, s__solBal] = useState()
    const [tokBal, s__tokBal] = useState<any>()
@@ -118,6 +136,10 @@ const getSolBalance = async (provider:any, publicKey:any) => {
         let solBalpercent:any = `${formatter.format(parseFloat(solBal)*100)} %`
         s__solBal(solBalpercent)
         s__usdBal(usdAmountUI)
+
+        const theSolPrice:any = await getCurrentPrice("SOLUSDT")
+        console.log("theSolPrice", theSolPrice)
+        s__solPrice(theSolPrice)
       }
 
 
@@ -182,6 +204,9 @@ const getSolBalance = async (provider:any, publicKey:any) => {
         <hr className=' opaci-10' />
         <div>☀️ <span className='opaci-50 Q_sm_x'>SOL: </span><span>{solAddress ? shortWeb3Address(solAddress) : 'N/A'}</span></div>
         <div>💎 <span className='opaci-50 Q_sm_x'>EVM: </span><span>{account ? shortWeb3Address(account) : 'N/A'}</span></div>
+        {!!solPrice && <>
+            <div className='w-100 tx-end'> <span className='opaci-50 tx-right '>sol: </span><span>{solPrice}</span></div>
+        </>}
         <hr className=' opaci-10' />
         <div className='Q_sm_x tx-center w-100 opaci-30 tx-bold-6'>Extra </div>
         <div className='flex gap-1 flex-justify-between flex-aligin-center' title={usdBal}>
