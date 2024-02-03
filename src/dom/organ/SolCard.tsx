@@ -42,7 +42,7 @@ export const SolCard = forwardRef(({ name}:any, ref:any ) => {
     }
   };
   
-  useImperativeHandle(ref, () => ({ solAddress, solBal }))
+  useImperativeHandle(ref, () => ({ solAddress, solBal, tokBal, usdBal, milBalance }))
   
   async function getTokenBalanceWeb3(connection:any, tokenAccount:any) {
 
@@ -185,21 +185,21 @@ const getSolBalance = async (provider:any, publicKey:any) => {
         <hr className=' opaci-10' />
         <div className='Q_sm_x tx-center w-100 opaci-30 tx-bold-6'>Extra </div>
         <div className='flex gap-1 flex-justify-between flex-aligin-center' title={usdBal}>
-          <div className='flex-col flex-align-start'>
+          <div className='flex pt-1 flex-align-start'>
             <div>💸</div>
             <div className='Q_md_x opaci-50'>USDc: </div>
           </div>
           <div className='tx-lg'>{usdBal ? usdBal : 'N/A'}</div>
         </div>
         <div className='flex gap-1 flex-justify-between flex-aligin-center' title={tokBalance}>
-          <div className='flex-col flex-align-start'>
+          <div className='flex pt-1 flex-align-start'>
             <div>🛜</div>
             <div className='Q_md_x opaci-50'>Wifi: </div>
           </div>
           <div className='tx-lg'>{tokBal ? tokBal : 'N/A'}</div>
         </div>
         <div className='flex gap-1 flex-justify-between flex-aligin-center'>
-          <div className='flex-col flex-align-start'>
+          <div className='flex pt-1 flex-align-start'>
           <div>📜</div>
             <div className='Q_md_x opaci-50'>Power: </div>
           </div>
@@ -209,6 +209,11 @@ const getSolBalance = async (provider:any, publicKey:any) => {
         <button className='bord-r-10 opaci-chov--50 border-white py-1 w-100' onClick={handleToggleConnect} disabled={false}>
           {isActive ? "Disconnect" : "Connect"}
         </button>
+        <a href="https://fluxbeam.xyz/app/tokens/miL2tTuTfd9nGKDSDcBXsEi1HMu2ANyiMasSnph44tn" target="_blank"
+      className='   pt-2 tx-altfont-5 opaci-chov--50 tx-white tx-shadow-5 block 4'> 
+        <div className="Q_sm_x tx-sm px-8 ">SUPPORT</div>
+        <div className="Q_xs tx-xs px-2">SUPPORT</div>
+      </a>
       </div>
     </details>
   </>)

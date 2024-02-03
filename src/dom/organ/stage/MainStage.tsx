@@ -124,12 +124,13 @@ export default function MainStage({mainAction}:any) {
       {!!finals?.length && !finals[0]?.win && 
         <div className="pos-abs w-70 pt-6 px-8 Q_xs_px-2 pa-2 mt-150 ml-4 z-800 bg-glass-20 bg-w-50  border-white bord-r-50  w-50">
           <CloseWinLoseModal {...{s__finals}} />          
-          <div className="tx-m tx-bold-4 pb-2 px-8 Q_xs_px-2 tx-red opaci-50 tx-altfont-1">{"Quest Failed!"}</div>
+          <div className="tx-m tx-bold-4 pb-2 px-8 Q_xs_px-2 tx-red opaci-50 w-50 tx-altfont-1">{"Quest Failed!"}</div>
           <CountryLoseMessage {...{finals}} />
           <hr className="" />
           <SpentBadges {...{maxScores, unixCount, unixCountFinal}} />
           <hr className="Q_xs" />
           <div className="flex-col gap-1 py-4">
+            <SupportSection />
             <hr className="" />
             <WinLoseReloadButton />
           </div>

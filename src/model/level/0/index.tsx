@@ -48,31 +48,54 @@ const $solCard:any = useRef()
   },[$solCard?.current?.solBal])
   return (<>
           <Web3ReactContainer>
-          {isMileiModal && (<div className='  pos-abs top-0 z-600 mt-100 ml-2   left-0'>
-                <div className=' bg-glass-10  box-shadow-i-5-b tx-altfont-1 border-white bg-b-50 tx-white px-1 bord-r-100'>
+          {isMileiModal && (<div className='  pos-abs top-0 z-600 mt-100 ml-2   left-0 '>
+                <div className=' bg-glass-10  box-shadow-i-5-b tx-altfont-1 border-white  bg-b-50 tx-white px-1 bord-r-100'>
                   <button onClick={()=>{s__isMileiModal(false)}} className='box-shadow-5-b bord-r-100 mr-8 mt-8 tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
                   <div className='tx-shadow-5 px-8 pt-8 ml- '>
                     <div className='Q_xs pt-4 tx-lgx'>
                       <div>Milei</div>
-                      <div>DiChan</div>
+                      <div>Di Chan</div>
                     </div>
-                    <div className='Q_sm_x  tx-xl'>MileiDiChan</div>
+                    <div className='Q_sm_x  tx-xl'>Milei Di Chan</div>
                   </div>
                   <div className='tx-shadow-5 pb-4  ' style={{maxHeight:"60vh",width:"60vw"}}>
                   <div className='pos-abs bottom-0 w-100 '>
-                        <div className='flex translate-y-50 w-100 flex-justify-center gap-2 '>
+                        <div className='flex  flex-align-start translate-y-50 w-100 flex-justify-center gap-2 Q_sm_x'>
+                          {!!$solCard.current && $solCard.current.milBalance &&
+                            <div title={$solCard.current.milBalance} className='nocursor border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lx py-1 px-1'>
+                              <div className='pos-abs left-0 top-0 translate-xy--100 Q_xs nowrap flex-center gap-1'>
+                                <div className='tx-sm'>$MILEI:</div>
+                                <div>{$solCard.current.milBalance}</div>
+                              </div>
+                              <div className='pos-abs left-0 top-0 translate-y--100 Q_sm nowrap flex-center gap-1'>
+                                <div className='tx-sm'>$MILEI:</div>
+                                <div>{$solCard.current.milBalance}</div>
+                              </div>
+                              <div className='pos-abs left-0 top-0 translate-xy--100 Q_md_x nowrap flex-center gap-1'>
+                                <div className='tx-sm'>$MILEI:</div>
+                                <div>{$solCard.current.milBalance}</div>
+                              </div>
+                              <img style={{boxSizing:"content-box"}} className='block' src='android-chrome-192x192.png' alt="logo" width={64} height={64} />
+                            </div>
+                          }
+                          {!!$solCard.current && $solCard.current.usdBal &&
+                            <div title={$solCard.current.usdBal} className='nocursor border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lgx pa-1 '>💸</div>
+                          }
+                          {!!$solCard.current && $solCard.current.tokBal &&
+                            <div title={$solCard.current.tokBal} className='nocursor border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lgx pa-1 '>🛜</div>
+                          }
                           {!!$solCard.current && $solCard.current.solBal &&
-                            <div className='opaci-chov--50 border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lx pa-1 '>☀️</div>
+                            <div title={$solCard.current.solBal} className='nocursor border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lgx pa-1 '>📜</div>
                           }
                           {/* <div className='opaci-chov--50 border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lx pa-1 '>d</div> */}
                           {/* <div className='opaci-chov--50 border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lx pa-1 '>f</div> */}
                         </div>
                       </div>
-                    <div className='autoverflow-y pos-rel' style={{maxHeight:"50vh"}}>
+                    <div className='bord-r-l-50 bg-b-50 mt-3 mb-8 autoverflow-y box-shadow-2-b pos-rel w-90  ' style={{left:"5%",maxHeight:"50vh"}}>
                       
                       {/* <div><h2 className='mb-0 pb-0  pl-8'>Game Description</h2></div> */}
                       
-                      <div className='flex-col Q_md_x  pl-8'>
+                      <div className='flex-col Q_md_x  pl-8 '>
                         <p className='tx-lgx pr-8 flex-wrap'>
                           <div className='Q_xs_lg'>Strategy and resource management browser game inspired by Javier Milei.</div>
                           <div className='Q_lg_x'>Strategy and resource management browser game inspired by the libertarian ideologies and economic principles of

@@ -17,23 +17,25 @@ export const WIP = () => {
 };
 export const SupportSection = () => {
   return (<>
+        <div className=" flex-col Q_xs tx-altfont-1 tx-lgx">Support the Game: <br /> <div>$MILEI</div></div>
 <div className="Q_sm_x flex-col">
       <div className='tx-altfont-1 tx-md flex-wrap gap-1 '>
         <div>Support the Game</div>
         <div>{"->"} $MIL</div>
       </div>
       <div className='flex-wrap gap-1 tx-altfont-1 tx-md '>
-        <div className='Q_sm_x'>$MIL = Money, Inter & Law</div>
-        <div className='Q_sm_x'>(Milei Tribute Solana Token)</div>
+        <div className='Q_sm_x'>(Milei Di Chan game level authorization system)</div>
         <div className='Q_sm_x'>{"[ExtT22]"}</div>
       </div>
-      <div className='tx-altfont-1 tx-md'>{"<address>"}</div>
       </div>
+      <div className='Q_sm_x tx-altfont-1 tx-md tx-bold-8'>{"miL2tTuTfd9nGKDSDcBXsEi1HMu2ANyiMasSnph44tn"}</div>
+      <div className='Q_xs tx-xsm tx-altfont-1 tx-bold-8'>{"miL2tTuTfd9nGKDSDcBXsEi1HMu2ANyiMasSnph44tn"}</div>
       <hr className="Q_sm_x" />
-      <button className=' bord-r-50 border-white bg-w-50 bg-glass-10 py-2 tx-altfont-5 opaci-chov--50 tx-white tx-shadow-5'>
+      <a href="https://fluxbeam.xyz/app/tokens/miL2tTuTfd9nGKDSDcBXsEi1HMu2ANyiMasSnph44tn" target="_blank"
+      className=' bord-r-25 border-white bg-w-50 bg-glass-10 py-2 tx-altfont-5 opaci-chov--50 tx-white tx-shadow-5'> 
         <div className="Q_sm_x tx-xl px-8 ">SUPPORT</div>
         <div className="Q_xs tx-lx px-2">SUPPORT</div>
-      </button>
+      </a>
       
   </>);
 };
