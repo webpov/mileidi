@@ -15,6 +15,7 @@ import { WinLoseReloadButton } from "./WinLoseReloadButton";
 import { SpentBadges } from "./SpentBadges";
 import { CountryLoseMessage } from "./CountryLoseMessage";
 import { StatType } from "../../../../script/constant/zones";
+import { useLocalStorage } from "usehooks-ts";
 
 
 // import '@rainbow-me/rainbowkit/styles.css';
@@ -33,6 +34,7 @@ export default function MainStage({mainAction}:any) {
   const [finals, s__finals] = useState<any>([])
   const [unixCount, s__unixCount] = useState<any>(0)
   const [unixCountFinal, s__unixCountFinal] = useState<any>(0)
+  const [LS_lastLevelReached, s__LS_lastLevelReached] = useLocalStorage<any>("lastLevelReached",0)
   
   
   const addFinalObj = (data:any) => {
@@ -44,6 +46,11 @@ export default function MainStage({mainAction}:any) {
     finalObjs.push(data)
     if (data.win) {
       setTimeout(()=>{audioCtx.play("../sound/clap.ogg")},250)
+      if (LS_lastLevelReached >= 1){
+        s__LS_lastLevelReached(2)
+      } else {
+        s__LS_lastLevelReached(1)
+      }
     } else {
       setTimeout(()=>{audioCtx.play("../sound/dead.wav")},250)
     }
@@ -105,7 +112,7 @@ export default function MainStage({mainAction}:any) {
 
     if (!mounted) return (
         <div className="w-100 h-100 flex-col ">
-            <StartScreen mainActionClick={mainActionClick} state={{ isPlaying: mounted }}
+            <StartScreen mainActionClick={mainActionClick} state={{ LS_lastLevelReached, isPlaying: mounted }}
               calls={{ s__isPlaying: (val:boolean)=>{
                 audioCtx.play("../sound/click58.wav");
                 s__unixCount(Date.now());
@@ -132,21 +139,29 @@ export default function MainStage({mainAction}:any) {
           <div className="flex-col gap-1 py-4">
             <SupportSection />
             <hr className="" />
-            <WinLoseReloadButton />
+            <div className="flex-center gap-2">
+              <WinLoseReloadButton />
+            </div>
           </div>
         </div>
       }
       {!!finals?.length && !!finals[0]?.win && 
         <div className="pos-abs tx-altfont-1 pa-4 mt-150 ml-4 Q_xs_px-5 z-800 bg-glass-20 bg-w-50 pa-8 border-white bord-r-50  w-50">
-          <div className="tx-lg pt-4 Q_xs">{"Congratulations!"}</div>
-          <div className="tx-xl Q_sm_x">{"Congratulations!"}</div>
+          <div className="tx-lgx tx-bold-8 pt-2 pb-4  Q_xs">{"Congratulations!"}</div>
+          <div className="tx-lx Q_sm_md">{"Congratulations!"} <br /> <div className="tx-shadow-5 tx-bold-8 hover-jump" style={{color:"gold"}}>You've Won!</div></div>
+          <div className="tx-xl flex-justify-start flex-wrap gap-2 Q_lg_x"><div>{"Congratulations!"} </div><br /> <div className="px-2 tx-shadow-5 tx-bold-8 hover-jump" style={{color:"gold"}}>You've Won!</div></div>
           <CloseWinLoseModal {...{s__finals}} />
           <hr className="w-80 Q_sm_x" />
           <SpentBadges {...{maxScores, unixCount, unixCountFinal}} />
           <div className="flex-col gap-1">
             <SupportSection />
-            <hr />
-            <WinLoseReloadButton />
+            <br />
+            <div className="flex-center gap-2">
+              <WinLoseReloadButton />
+              <a href='/' className=' tx-black tx-lg bord-r-50 px-8 border-white bg-w-10 tx-bold-8 bg-glass-10 py-2 tx-altfont-1 opaci-chov--75 '>
+                Continue Lvl#{LS_lastLevelReached}
+              </a>
+            </div>
           </div>
         </div>
       }
@@ -167,7 +182,7 @@ export default function MainStage({mainAction}:any) {
         style={{height: "96vh", width: "100%"}}
       >
       {/* {isSolana && <WagmiContainer > */}
-        <FirstLevel state={{selectedPlayerScore, playerScore, selectedZone}} calls={{ triggerSelectChange }} />
+        <FirstLevel state={{selectedPlayerScore, playerScore, selectedZone, LS_lastLevelReached}} calls={{ triggerSelectChange }} />
       {/* </WagmiContainer>} */}
     </div>
   </>)

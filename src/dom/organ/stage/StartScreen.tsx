@@ -41,7 +41,7 @@ export const StartScreen = ({ state, calls, showStart=true, mainActionClick }: a
             >
                 <div className="noselect Q_sm_x tx-lx"> Continue </div>
                 <div className="noselect Q_xs tx-lgx"> Continue </div>
-                <div className="noselect tx-lg"> Level 1 </div>
+                <div className="noselect tx-lg"> Level {state.LS_lastLevelReached} </div>
             </div>
             </>}
             <div className="pos-abs top-0 left-0 flex-col "
