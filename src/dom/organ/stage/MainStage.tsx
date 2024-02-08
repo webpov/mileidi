@@ -156,7 +156,7 @@ export default function MainStage({mainAction}:any) {
     </div>
           <div className="tx-lgx tx-bold-8 pt-2 pb-4  Q_xs">{"Congratulations!"}</div>
           <div className="tx-lx Q_sm_md">{"Congratulations!"} <br /> <div className="tx-shadow-5 tx-bold-8 hover-jump" style={{color:"gold"}}>You've Won!</div></div>
-          <div className="tx-xl flex-justify-start flex-wrap gap-2 Q_lg_x"><div>{"Congratulations!"} </div><br /> <div className="px-2 tx-shadow-5 tx-bold-8 hover-jump" style={{color:"gold"}}>You've Won!</div></div>
+          <div className="tx-xl flex-justify-start flex-wrap gap-2 Q_lg_x"><div>{"Congratulations!"} </div><br /> <div className="px-2 tx-shadow-5 tx-bold-8 hover-jump" style={{color:"gold"}}>You Won!</div></div>
           <CloseWinLoseModal {...{s__finals}} />
           <hr className="w-80 Q_sm_x" />
           <SpentBadges {...{maxScores, unixCount, unixCountFinal}} />
