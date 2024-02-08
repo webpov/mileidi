@@ -76,7 +76,7 @@ export const PointerFollowInit = ({onMileiFigureClick, counter}:any) => {
         
         {!isReadyOnClient && <>
             <div className="pos-abs bottom-0">
-                <Image alt="milei" width={298} height={360} src="/img/mileidithumb.png" style={{transform:"translateY(20px)"}} />
+                <Image alt="milei" width={298} height={360} src="/img/mileithumb.png" style={{transform:"translateY(20px)"}} />
             </div>
         </>}
         {!!isReadyOnClient && <>

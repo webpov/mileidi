@@ -54,9 +54,9 @@ const $solCard:any = useRef()
                   <div className='tx-shadow-5 px-8 pt-8 ml- '>
                     <div className='Q_xs pt-4 tx-lgx'>
                       <div>Milei</div>
-                      <div>Di Chan</div>
+                      <div>Sol</div>
                     </div>
-                    <div className='Q_sm_x  tx-xl'>Milei Di Chan</div>
+                    <div className='Q_sm_x  tx-xl'>Milei Solana Game</div>
                   </div>
                   <div className='tx-shadow-5 pb-4  ' style={{maxHeight:"60vh",width:"60vw"}}>
                   <div className='pos-abs bottom-0 w-100 '>
@@ -126,7 +126,7 @@ const $solCard:any = useRef()
                         <div className='w-100'>
                           <h2 className='Q_sm_x px-4'>Important Links</h2>
                           <a target='_blank' className='tx-white px-8 pb-4 block' href="https://fluxbeam.xyz/app/tokens/miL2tTuTfd9nGKDSDcBXsEi1HMu2ANyiMasSnph44tn">Get $MILEI</a>
-                          <a target='_blank' className='tx-white px-8 pb-4 block' href="https://x.com/mileidichan">Follow @MileiDiChan</a>
+                          <a target='_blank' className='tx-white px-8 pb-4 block' href="https://x.com/mileisol">Follow @MileiSol</a>
                           <a target='_blank' className='tx-white px-8 pb-4 block' href="https://youtube.com/@webpov">Learn to code</a>
                         </div>
                         <div className='w-100 tx-end '>
@@ -137,13 +137,13 @@ const $solCard:any = useRef()
                       <div className='Q_lg_x flex-col'>
                         <div className='px-8 mx-8 py-4 bord-r-25 bg-b-50'><p>
                          <div className='tx-lg'>We aim on achieving this through expanding our growing list of integrations across our open source web3 community</div>
-                         <a href="https://twitter.com/mileidichan" className='tx-mdl tx-white tx-altfont-1 tx-bold-8 block py-2'>Free airdrops to the Solana dev community until April 1st</a>
+                         <a href="https://twitter.com/mileisol" className='tx-mdl tx-white tx-altfont-1 tx-bold-8 block py-2'>Free airdrops to the Solana dev community until April 1st</a>
                         </p></div>
                         <div className='flex flex-justify-around tx-altfont-1'>
                           <a target='_blank' href='https://fluxbeam.xyz/app/tools/token_airdrop/?token=miL2tTuTfd9nGKDSDcBXsEi1HMu2ANyiMasSnph44tn' className='tx-white'>
                             <h2 className='px-4 opaci-chov--50'>Faucet</h2>
                           </a>
-                          <a target='_blank' href='https://twitter.com/mileidichan' className='tx-white'>
+                          <a target='_blank' href='https://twitter.com/mileisol' className='tx-white'>
                             <h2 className='px-4 opaci-chov--50'>Airdrops</h2>
                           </a>
                           <a href='#' className='tx-white opaci-50'>

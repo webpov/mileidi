@@ -53,11 +53,11 @@ export const MainContactMenu = () => {
         </div>
       )}
       {/* <hr className='w-50' /> */}
-                    <a href="https://x.com/mileidichan" target="_blank">
+                    <a href="https://x.com/mileisol" target="_blank">
                         <button className="noborder  bg-glass-10 bg-w-50 bord-r-25  opaci-chov--50 "
                           style={{background: "linear-gradient(45deg, cyan, #66aaff)", padding: "2px !important"}}
                         >
-                          <div className='bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 py-1 pa-2'>Twitter: @MileiDiChan</div>
+                          <div className='bg-w-90 tx-bold-6 tx-altfont-1 bord-r-25 py-1 pa-2'>Twitter: @MileiSol</div>
                         </button>
                     </a>
                     <a href="https://fluxbeam.xyz/app/tokens/miL2tTuTfd9nGKDSDcBXsEi1HMu2ANyiMasSnph44tn" target="_blank">

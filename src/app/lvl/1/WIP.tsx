@@ -44,7 +44,7 @@ export const SupportSection = () => {
       </div>
       <div className='flex-wrap gap-1 flex-col tx-altfont-1 tx-md '>
         <div className='Q_sm_x tx-lgx pt-2 flex gap-2'>Get <div className="tx-milei tx-altfont-4">MILEI</div></div>
-        <div className='Q_sm_x tx-center'>Milei Di Chan game <br /> level authorization system</div>
+        <div className='Q_sm_x tx-center'>Milei Solana game <br /> level authorization system</div>
         {/* <div className='Q_sm_x'>{"[ExtT22]"}</div> */}
       </div>
       </div>

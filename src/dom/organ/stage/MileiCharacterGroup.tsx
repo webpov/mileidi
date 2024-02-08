@@ -34,7 +34,7 @@ export const MileiCharacterGroup = ({onClick, motionRange=[4,1]}:any) => {
     );
 };
 export function MileiBody({}: any) {
-    const { scene: biglandscape01 } = useGLTF('../models/mileid-body.glb')
+    const { scene: biglandscape01 } = useGLTF('../models/milei-body.glb')
     return (<>
       <group scale={[1,1,1]} position={[0,0,0]}>
         <primitive object={biglandscape01} children-0-material-wireframe={true} 
@@ -46,7 +46,7 @@ export function MileiBody({}: any) {
   }
 
   export function MileiHead({}: any) {
-    const { scene: biglandscape01 } = useGLTF('../models/mileid-head.glb')
+    const { scene: biglandscape01 } = useGLTF('../models/milei-head.glb')
     return (<>
       <group scale={[1,1,1]} position={[0,0,0]}>
         <primitive object={biglandscape01} children-0-material-wireframe={true} 

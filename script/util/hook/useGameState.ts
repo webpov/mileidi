@@ -162,7 +162,7 @@ const useGameState = (
     
     if (maxOfMax >= thresHold) {
       let msg = (`You've won!\n\n ${zoneId.toUpperCase()} overdelivered, ${field} was very productive!`)
-      const lvlBaseURL = process.env.NODE_ENV == "production" ? "https://mileidi.vercel.app" : "http://localhost:1234"
+      const lvlBaseURL = process.env.NODE_ENV == "production" ? "https://mileisol.vercel.app" : "http://localhost:1234"
       let nextLevel = 0
       let window_location_href = ""
       triggerFinish(zoneId, field);

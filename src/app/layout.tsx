@@ -4,7 +4,7 @@ import './theme.css'
 
 
 export const metadata: Metadata = {
-  title: 'Milei Di Chan',
+  title: 'Milei Solana Game',
   description: '3D Economic Freedom Game inspired by the insights of Javier Milei',
 }
 

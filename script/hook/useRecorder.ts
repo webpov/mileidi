@@ -89,7 +89,7 @@ export function useRecorder({
   verbose = false,
   motionBlurFrames = 0,
   showWidget = false,
-  filename = 'MileiDiChan_Session',
+  filename = 'MileiSol_Session',
 }: RecorderProps): RecorderContext {
 
   const [isModuleLoaded, s__isModuleLoaded] = useState(false)

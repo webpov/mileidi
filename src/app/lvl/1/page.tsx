@@ -21,10 +21,10 @@ export default function Home() {
                 <div className="pos-abs pa-1  mb-5 box-shadow-5-b border-white bord-r-100p" style={{background: "gold"}}></div>
                 i
               </div>
-              <div>D</div>
+              {/* <div>D</div> */}
             </div>
-            <div className='tx-altfont-1' style={{color: "#4EaCF0"}}>I</div>
-            <div className='tx-sm pt-2 tx-altfont-1' style={{color: "#4EaCF0"}}>chan</div>
+            <div className='tx-altfont-1' style={{color: "#4EaCF0"}}>SOL</div>
+            {/* <div className='tx-sm pt-2 tx-altfont-1' style={{color: "#4EaCF0"}}>chan</div> */}
           </a>
         </div>
       </div>
