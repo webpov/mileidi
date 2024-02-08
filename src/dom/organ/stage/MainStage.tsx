@@ -60,7 +60,7 @@ export default function MainStage({mainAction}:any) {
   const audioCtx = useContext(AudioContext)
     const [playerScore, s__playerScore,
       s__score, s__isGameStared, maxScores, avail, isFinished
-    ]:any = useGameState(DEFAULT_INITIAL_STATE, 2, addFinalObj);
+    ]:any = useGameState(DEFAULT_INITIAL_STATE, 9, addFinalObj);
     const [mounted, s__Mounted] = useState(false);
     const [selectedZone, s__selectedZone] = useState('america')
     const selectedPlayerScore = useMemo(() => {
@@ -130,7 +130,7 @@ export default function MainStage({mainAction}:any) {
 
       {!!finals?.length && !finals[0]?.win && 
         <div className="pos-abs w-70 pt-6 px-8 Q_xs_px-2 pa-2 mt-150 ml-4 z-800 bg-glass-20 bg-w-50  border-white bord-r-50  w-50">
-    <div className="pos-abs w-100 h-95 Q_lg_x">
+    <div className="pos-abs w-60 h-95 Q_lg_x">
     <PointerFollowInit counter={0} onMileiFigureClick={()=>{}} />
     </div>
 
@@ -151,7 +151,7 @@ export default function MainStage({mainAction}:any) {
       }
       {!!finals?.length && !!finals[0]?.win && 
         <div className="pos-abs tx-altfont-1 pa-4 mt-150 ml-4 Q_xs_px-5 z-800 bg-glass-20 bg-w-50 pa-8 border-white bord-r-50  w-50">
-              <div className="pos-abs w-100  Q_lg_x" style={{height:"93%"}}>
+              <div className="pos-abs w-60  Q_lg_x" style={{height:"93%"}}>
     <PointerFollowInit counter={0} onMileiFigureClick={()=>{}} />
     </div>
           <div className="tx-lgx tx-bold-8 pt-2 pb-4  Q_xs">{"Congratulations!"}</div>

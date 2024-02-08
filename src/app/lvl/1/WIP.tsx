@@ -20,18 +20,23 @@ export const WIP = () => {
 export const SupportSection = () => {
   return (<>
   <div className="flex  w-100">
-  <div className="flex  Q_md_x pt-8  flex-col  w-100 h-100 flex-col ">
+    <div className="flex  Q_md_x   flex-col  w-100 h-100 flex-col "></div>
+  {/* <div className="flex  Q_md_x pt-8  flex-col  w-100 h-100 flex-col ">
     <div className="bord-r-25 bg-w-50 box-shadow-2-b pa-2">
     
 
     <div className="bord-r-100p box-shadow-2-b" style={{padding: "3px", background:"linear-gradient(45deg, grey, lightgrey)"}}>
-    <div>
-      <div className="bord-r-100p noverflow Q_xl_x"><img  className='block' src='825bc567-d24f-4b55-95fa-a5abae3493a0.jpeg' alt="logo" width={260} height={260} /></div>
-      <div className="bord-r-100p noverflow Q_md_lg"><img  className='block' src='825bc567-d24f-4b55-95fa-a5abae3493a0.jpeg' alt="logo" width={128} height={128} /></div>
+      <div>
+        <div className="bord-r-100p noverflow Q_xl_x">
+          <img  className='block' src='825bc567-d24f-4b55-95fa-a5abae3493a0.jpeg' alt="logo" width={260} height={260} />
+        </div>
+        <div className="bord-r-100p noverflow Q_md_lg">
+          <img  className='block' src='825bc567-d24f-4b55-95fa-a5abae3493a0.jpeg' alt="logo" width={128} height={128} />
+        </div>
+      </div>
     </div>
     </div>
-    </div>
-  </div>
+  </div> */}
 
   <div className="flex-col w-100">
         <div className=" flex-col Q_xs tx-altfont-1 tx-lg pt-2">Support the Game: <br /> <div className="flex">Get <div className="tx-altfont-4">MILEI</div></div></div>

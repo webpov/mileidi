@@ -2,7 +2,7 @@ export const GLOBAL_SUPER_STATE: any = {
     "africa": {
       "POSITION": [0, 0, 0],
       "INITIAL_STATS_ZONE": {
-        "money": 1,
+        "money": 3,
         "internet": 3,
         "law": 3,
       },
@@ -24,7 +24,7 @@ export const GLOBAL_SUPER_STATE: any = {
     "america": {
       "POSITION": [-3, 0, 1.25],
       "INITIAL_STATS_ZONE": {
-        "money": 1,
+        "money": 3,
         "internet": 3,
         "law": 3,
       },
@@ -46,7 +46,7 @@ export const GLOBAL_SUPER_STATE: any = {
     "antartic": {
       "POSITION": [1, 0, -2.5],
       "INITIAL_STATS_ZONE": {
-        "money": 1,
+        "money": 3,
         "internet": 3,
         "law": 3,
       },
@@ -68,7 +68,7 @@ export const GLOBAL_SUPER_STATE: any = {
     "n.america": {
       "POSITION": [-3.5, 0, -0.5],
       "INITIAL_STATS_ZONE": {
-        "money": 1,
+        "money": 3,
         "internet": 3,
         "law": 3,
       },
@@ -91,7 +91,7 @@ export const GLOBAL_SUPER_STATE: any = {
     "asia": {
       "POSITION": [2.25, 0, -0.75],
       "INITIAL_STATS_ZONE": {
-        "money": 1,
+        "money": 3,
         "internet": 3,
         "law": 3,
       },
@@ -112,7 +112,7 @@ export const GLOBAL_SUPER_STATE: any = {
     "europe": {
       "POSITION":  [0.2, 0, -1],
       "INITIAL_STATS_ZONE": {
-        "money": 1,
+        "money": 3,
         "internet": 3,
         "law": 3,
       },
@@ -131,7 +131,7 @@ export const GLOBAL_SUPER_STATE: any = {
     "oceania": {
       "POSITION":  [2.5, 0, 2],
       "INITIAL_STATS_ZONE": {
-        "money": 1,
+        "money": 3,
         "internet": 3,
         "law": 3,
       },
