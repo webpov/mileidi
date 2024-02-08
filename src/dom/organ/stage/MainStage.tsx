@@ -5,7 +5,7 @@ import useGameState from "@/../script/util/hook/useGameState";
 import { BaseActionButtons } from "./BaseActionButtons";
 import { MainContactMenu } from "./MainContactMenu";
 import { PlayerScore } from "./PlayerScore";
-import { PointerFollowInit, StartScreen } from "./StartScreen";
+import { PointerFollowInit2, StartScreen } from "./StartScreen";
 import { SupportSection, WIP } from "@/app/lvl/1/WIP";
 import { AudioContext } from "../../../../script/state/context/AudioContext";
 import { DEFAULT_INITIAL_STATE, ZONE_TO_MUTECOLOR } from "../../../../script/constant";
@@ -16,6 +16,7 @@ import { SpentBadges } from "./SpentBadges";
 import { CountryLoseMessage } from "./CountryLoseMessage";
 import { StatType } from "../../../../script/constant/zones";
 import { useLocalStorage } from "usehooks-ts";
+import { MileiCharacterGroup } from "./MileiCharacterGroup";
 
 
 // import '@rainbow-me/rainbowkit/styles.css';
@@ -133,7 +134,9 @@ export default function MainStage({mainAction}:any) {
         style={{maxHeight:"50vh"}}
         >
     <div className="pos-abs w-60 h-95 Q_lg_x vert-sm_x" style={{height:"93%"}} >
-    <PointerFollowInit isMainContactMenu={false} counter={0} onMileiFigureClick={()=>{}} />
+    <PointerFollowInit2 isMainContactMenu={false} counter={0} onMileiFigureClick={()=>{}} />
+    {/* <MileiCharacterGroup onClick={null} motionRange={[4,1]} /> */}
+
     </div>
 
           <CloseWinLoseModal {...{s__finals}} />          
@@ -169,7 +172,8 @@ export default function MainStage({mainAction}:any) {
       {!!finals?.length && !!finals[0]?.win && 
         <div className="pos-abs tx-altfont-1 pa-4 mt-150 ml-4 Q_xs_px-5 z-800 bg-glass-20 bg-w-50 pa-8 border-white bord-r-50  w-50">
               <div className="pos-abs w-60  Q_lg_x vert-md_x" style={{height:"90%"}}>
-    <PointerFollowInit isMainContactMenu={false} counter={0} onMileiFigureClick={()=>{}} />
+    {/* <MileiCharacterGroup onClick={null} motionRange={[4,1]} /> */}
+    <PointerFollowInit2 isMainContactMenu={false} counter={0} onMileiFigureClick={()=>{}} />
     </div>
           <div className="tx-lgx tx-bold-8 pt-2 pb-4  Q_xs">{"Congratulations!"}</div>
           <div className="tx-lx Q_sm_md">{"Congratulations!"} <br /> <div className="tx-shadow-5 tx-bold-8 hover-jump" style={{color:"gold"}}>You Won!</div></div>

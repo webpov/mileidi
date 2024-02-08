@@ -8,6 +8,7 @@ import { Suspense, useEffect, useState } from "react";
 import { UnrealBloomPass } from 'three-stdlib'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { useSearchParams } from 'next/navigation';
+import { MileiCharacterGroupCopy } from './MileiCharacterGroupCopy';
 
 
 export const StartScreen = ({ state, calls, showStart=true, mainActionClick }: any) => {
@@ -54,73 +55,142 @@ export const StartScreen = ({ state, calls, showStart=true, mainActionClick }: a
 };
 
 export const PointerFollowInit = ({isMainContactMenu=true,onMileiFigureClick, counter}:any) => {
-  const searchParams = useSearchParams()
-  const bloom = searchParams.has("hd")
-  const wef = searchParams.has("wef")
-    const [isReadyOnClient, s__isReadyOnClient] = useState(false)
-    useEffect(()=>{
-        s__isReadyOnClient(true)
-    },[])
-
-    const onMileiClick = () => {
-        // alert("asd")
-        onMileiFigureClick()
-      }
-    return (<>
-    
-    
-     
-        {isMainContactMenu &&
-            <div className="pos-abs top-0 mt-2 right-0 z-200">
-                <MainContactMenu />
-            </div>
+    const searchParams = useSearchParams()
+    const bloom = searchParams.has("hd")
+    const wef = searchParams.has("wef")
+      const [isReadyOnClient, s__isReadyOnClient] = useState(false)
+      useEffect(()=>{
+          s__isReadyOnClient(true)
+      },[])
+  
+      const onMileiClick = () => {
+          // alert("asd")
+          onMileiFigureClick()
         }
-        
-        {!isReadyOnClient && <>
-            <div className="pos-abs bottom-0">
-                <Image alt="milei" width={298} height={360} src="/img/mileithumb.png" style={{transform:"translateY(20px)"}} />
-            </div>
-        </>}
-        {!!isReadyOnClient && <>
-
-            <Canvas camera={{fov:50,position:[-2,0,-4]}} shadows>
-                         
-          {!!bloom &&
-            <EffectComposer multisampling={4}>
-              <Bloom kernelSize={2} luminanceThreshold={0} luminanceSmoothing={0} intensity={0.5} />
-            </EffectComposer>
+      return (<>
+      
+      
+       
+          {isMainContactMenu &&
+              <div className="pos-abs top-0 mt-2 right-0 z-200">
+                  <MainContactMenu />
+              </div>
           }
-                <OrbitControls autoRotateSpeed={0.3} autoRotate={true} enablePan={false} enableZoom={false} maxPolarAngle={Math.PI/2+.4} minPolarAngle={Math.PI/2} 
-                    maxAzimuthAngle={Math.PI+0.5}
-                    minAzimuthAngle={Math.PI-0.5}
-                />
-                <pointLight position={[3, 3, -3]} castShadow />
-                <ambientLight intensity={0.25} />
-                
-            <Sparkles
-    color="white"
-    size={2}
-    scale={7}
-    count={100+(counter*2)}
-    noise={1}
-    opacity={1}
-    
-    speed={0.3}
-  />    
-  <group position={[0,-2.3,-0.2]}>
-    {wef && <WefBG />}
-  <Box args={[1.5,1,0.3]}>
-    <meshStandardMaterial color="white" />
-  </Box>
-  <Box args={[1.4,0.2,0.29]} position={[0,.35,-0.01]}>
-    <meshStandardMaterial color="blue" />
-  </Box>
-  </group>
-                <MileiCharacterGroup onClick={onMileiClick} motionRange={[4,1]} />
-            </Canvas>
-            </>}
-    </>)
-}
+          
+          {!isReadyOnClient && <>
+              <div className="pos-abs bottom-0">
+                  <Image alt="milei" width={298} height={360} src="/img/mileithumb.png" style={{transform:"translateY(20px)"}} />
+              </div>
+          </>}
+          {!!isReadyOnClient && <>
+  
+              <Canvas camera={{fov:50,position:[-2,0,-4]}} shadows>
+                           
+            {!!bloom &&
+              <EffectComposer multisampling={4}>
+                <Bloom kernelSize={2} luminanceThreshold={0} luminanceSmoothing={0} intensity={0.5} />
+              </EffectComposer>
+            }
+                  <OrbitControls autoRotateSpeed={0.3} autoRotate={true} enablePan={false} enableZoom={false} maxPolarAngle={Math.PI/2+.4} minPolarAngle={Math.PI/2} 
+                      maxAzimuthAngle={Math.PI+0.5}
+                      minAzimuthAngle={Math.PI-0.5}
+                  />
+                  <pointLight position={[3, 3, -3]} castShadow />
+                  <ambientLight intensity={0.25} />
+                  
+              <Sparkles
+      color="white"
+      size={2}
+      scale={7}
+      count={100+(counter*2)}
+      noise={1}
+      opacity={1}
+      
+      speed={0.3}
+    />    
+    <group position={[0,-2.3,-0.2]}>
+      {wef && <WefBG />}
+    <Box args={[1.5,1,0.3]}>
+      <meshStandardMaterial color="white" />
+    </Box>
+    <Box args={[1.4,0.2,0.29]} position={[0,.35,-0.01]}>
+      <meshStandardMaterial color="blue" />
+    </Box>
+    </group>
+                  <MileiCharacterGroup onClick={onMileiClick} motionRange={[4,1]} />
+              </Canvas>
+              </>}
+      </>)
+  }
+
+  export const PointerFollowInit2 = ({isMainContactMenu=true,onMileiFigureClick, counter}:any) => {
+    const searchParams = useSearchParams()
+    const bloom = searchParams.has("hd")
+    const wef = searchParams.has("wef")
+      const [isReadyOnClient, s__isReadyOnClient] = useState(false)
+      useEffect(()=>{
+          s__isReadyOnClient(true)
+      },[])
+  
+      const onMileiClick = () => {
+          // alert("asd")
+          onMileiFigureClick()
+        }
+      return (<>
+      
+      
+       
+          {isMainContactMenu &&
+              <div className="pos-abs top-0 mt-2 right-0 z-200">
+                  <MainContactMenu />
+              </div>
+          }
+          
+          {!isReadyOnClient && <>
+              <div className="pos-abs bottom-0">
+                  <Image alt="milei" width={298} height={360} src="/img/mileithumb.png" style={{transform:"translateY(20px)"}} />
+              </div>
+          </>}
+          {!!isReadyOnClient && <>
+  
+              <Canvas camera={{fov:50,position:[-2,0,-4]}} shadows>
+                           
+            {!!bloom &&
+              <EffectComposer multisampling={4}>
+                <Bloom kernelSize={2} luminanceThreshold={0} luminanceSmoothing={0} intensity={0.5} />
+              </EffectComposer>
+            }
+                  <OrbitControls autoRotateSpeed={0.3} autoRotate={true} enablePan={false} enableZoom={false} maxPolarAngle={Math.PI/2+.4} minPolarAngle={Math.PI/2} 
+                      maxAzimuthAngle={Math.PI+0.5}
+                      minAzimuthAngle={Math.PI-0.5}
+                  />
+                  <pointLight position={[3, 3, -3]} castShadow />
+                  <ambientLight intensity={0.25} />
+                  
+              <Sparkles
+      color="white"
+      size={2}
+      scale={7}
+      count={100+(counter*2)}
+      noise={1}
+      opacity={1}
+      
+      speed={0.3}
+    />    
+    <group position={[0,-2.3,-0.2]}>
+      {wef && <WefBG />}
+    <Box args={[1.5,1,0.3]}>
+      <meshStandardMaterial color="white" />
+    </Box>
+    <Box args={[1.4,0.2,0.29]} position={[0,.35,-0.01]}>
+      <meshStandardMaterial color="blue" />
+    </Box>
+    </group>
+                  <MileiCharacterGroupCopy onClick={onMileiClick} motionRange={[4,1]} />
+              </Canvas>
+              </>}
+      </>)
+  }
 
 
 
