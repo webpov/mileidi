@@ -74,6 +74,26 @@
 }
 
 
+@media only screen and (max-height: 0601px) {
+  .vert-sm_x { display: none !important }
+}
+@media only screen and (max-height: 0901px) {
+  .vert-md_x { display: none !important }
+}
+@media only screen and (max-height: 1201px) {
+  .vert-lg_x { display: none !important }
+}
+@media only screen and (min-height: 0600px) {
+  .vert-xs_sm { display: none !important }
+}
+@media only screen and (min-height: 0900px) {
+  .vert-xs_md { display: none !important }
+}
+@media only screen and (min-height: 1200px) {
+  .vert-xs_lg { display: none !important }
+}
+
+
 @keyframes hoverjump {
 	0%{transform: translateY(0px)}
 	33%{transform: translateY(0px)}

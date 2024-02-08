@@ -64,7 +64,7 @@ export const MainContactMenu = () => {
                         <button className="noborder bg-glass-10 bg-w-50 bord-r-25  opaci-chov--50 "
                           style={{background: "linear-gradient(45deg, cyan, #66ffaa)", padding: "2px !important"}}
                         >
-                          <div className='noselect bg-w-90 tx-bold-8 tx-altfont-1 bord-r-25 py-1 pa-2'>Get $MILEI</div>
+                          <div className='noselect bg-w-90 tx-altfont-1 bord-r-25 py-1 pa-2 flex gap-1'>Get <div className='flex'><div className='opaci-'>$</div><div className='tx-bold-8'>MILEI</div></div></div>
                         </button>
                     </a>
                 </div>

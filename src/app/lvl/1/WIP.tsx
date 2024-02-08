@@ -40,20 +40,20 @@ export const SupportSection = () => {
 
   <div className="flex-col w-100">
         <div className=" flex-col Q_xs tx-altfont-1 tx-lg pt-2">Support the Game: <br /> <div className="flex">Get <div className="tx-altfont-4">MILEI</div></div></div>
-<div className="Q_sm_x flex-col">
-      <div className='hover-6 tx-altfont-1 tx-md pt-4 flex-wrap gap-1 '>
-        <div className="tx-lx tx-altfont-5  tx-shadow-2"
+<div className="Q_sm_x flex-col vert-sm_x">
+      <div className='hover-6 tx-altfont-1 tx-md pt-4 flex-wrap gap-1  vert-md_x'>
+        <div className="tx-lgx tx-altfont-5  tx-shadow-2"
           style={{color:"#2EaCf0"}}
         >Support the Game</div>
         {/* <div>{"Buy"} $MIL</div> */}
       </div>
-      <div className='flex-wrap gap-1 flex-col tx-altfont-1 tx-md '>
-        <div className='Q_sm_x tx-lgx pt-2 flex gap-2'>Get <div className="tx-milei tx-altfont-4">MILEI</div></div>
+      <div className='flex-wrap gap-1 flex-col tx-altfont-1 tx-md vert-md_x'>
+        <div className='Q_sm_x tx-lgx pt-2 flex gap-2'>Get <div className="flex-center "><div className="tx-lg">$</div><div className="tx-milei tx-altfont-4">MILEI</div></div></div>
         <div className='Q_sm_x tx-center'>Milei Solana game <br /> level authorization system</div>
         {/* <div className='Q_sm_x'>{"[ExtT22]"}</div> */}
       </div>
       </div>
-      <div className='Q_md_x tx-altfont-1 tx-mdl   z-200 tx-bold-8'>
+      <div className='Q_md_x tx-altfont-1 tx-mdl   z-200 tx-bold-8 vert-sm_x'>
       <a href="https://fluxbeam.xyz/app/tokens/miL2tTuTfd9nGKDSDcBXsEi1HMu2ANyiMasSnph44tn" target="_blank" className="tx-white tx-shadow-5">
         
         {"miL2tTuTf . . . sSnph44tn"}

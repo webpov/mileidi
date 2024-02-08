@@ -49,7 +49,9 @@ const $solCard:any = useRef()
   return (<>
           <Web3ReactContainer>
           {isMileiModal && (<div className='  pos-abs top-0 z-600 mt-100 ml-2   left-0 '>
-                <div className=' bg-glass-10  box-shadow-i-5-b tx-altfont-1 border-white  bg-b-50 tx-white px-1 bord-r-100'>
+                <div className=' bg-glass-10  box-shadow-i-5-b tx-altfont-1 border-white  bg-b-50 tx-white px-1 bord-r-100'
+                style={{maxHeight:"75vh"}}
+                >
                   <button onClick={()=>{s__isMileiModal(false)}} className='box-shadow-5-b bord-r-100 mr-8 mt-8 tx-white tx-shadow-5 opaci-chov--50 pos-abs top-0 right-0 tx-shadow-5 px-3 tx-altfont-4 bg-w-50 bg-glass-10  ml- tx-lx'>X</button>
                   <div className='tx-shadow-5 px-8 pt-8 ml- '>
                     <div className='Q_xs pt-4 tx-lgx'>
@@ -58,21 +60,21 @@ const $solCard:any = useRef()
                     </div>
                     <div className='Q_sm_x  tx-xl'>Milei Solana Game</div>
                   </div>
-                  <div className='tx-shadow-5 pb-4  ' style={{maxHeight:"60vh",width:"60vw"}}>
+                  <div className='tx-shadow-5 pb-4  ' style={{maxHeight:"50vh",width:"60vw"}}>
                   <div className='pos-abs bottom-0 w-100 '>
                         <div className='flex  flex-align-start translate-y-50 w-100 flex-justify-center gap-2 Q_sm_x'>
                           {!!$solCard.current && $solCard.current.milBalance &&
                             <div title={$solCard.current.milBalance} className='nocursor border-w-10 bg-b-50 bg-glass-10 border-white bord-r-100 tx-lx py-1 px-1'>
                               <div className='pos-abs left-0 top-0 translate-xy--100 Q_xs nowrap flex-center gap-1'>
-                                <div className='tx-sm'>$MILEI:</div>
+                                <div className='tx-sm'>MILEI:</div>
                                 <div>{$solCard.current.milBalance}</div>
                               </div>
                               <div className='pos-abs left-0 top-0 translate-y--100 Q_sm nowrap flex-center gap-1'>
-                                <div className='tx-sm'>$MILEI:</div>
+                                <div className='tx-sm'>MILEI:</div>
                                 <div>{$solCard.current.milBalance}</div>
                               </div>
                               <div className='pos-abs left-0 top-0 translate-xy--100 Q_md_x nowrap flex-center gap-1'>
-                                <div className='tx-sm'>$MILEI:</div>
+                                <div className='tx-sm'>MILEI:</div>
                                 <div>{$solCard.current.milBalance}</div>
                               </div>
                               <img style={{boxSizing:"content-box"}} className='block' src='android-chrome-192x192.png' alt="logo" width={64} height={64} />
@@ -125,7 +127,7 @@ const $solCard:any = useRef()
                       <div className='flex-col '>
                         <div className='w-100'>
                           <h2 className='Q_sm_x px-4'>Important Links</h2>
-                          <a target='_blank' className='tx-white px-8 pb-4 block' href="https://fluxbeam.xyz/app/tokens/miL2tTuTfd9nGKDSDcBXsEi1HMu2ANyiMasSnph44tn">Get $MILEI</a>
+                          <a target='_blank' className='tx-white px-8 pb-4 block' href="https://fluxbeam.xyz/app/tokens/miL2tTuTfd9nGKDSDcBXsEi1HMu2ANyiMasSnph44tn">Get MILEI</a>
                           <a target='_blank' className='tx-white px-8 pb-4 block' href="https://x.com/mileisol">Follow @MileiSol</a>
                           <a target='_blank' className='tx-white px-8 pb-4 block' href="https://youtube.com/@webpov">Learn to code</a>
                         </div>
@@ -162,9 +164,10 @@ const $solCard:any = useRef()
                 </div>
 
             </div>)}
-        <div className="pos-abs right-0 top-0 mt-2 z-400 mt-100 pt-8 pr-2">
-            
+        <div className="pos-abs right-0 top-0 mt-2  mt-100  pr-2">
+            <div className='mt-8 noclick z-400'>
         <SolCard ref={$solCard}  name='phantom' />
+        </div>
         {/* <hr className='w-100' /> */}
         {/* <ConnectButton />  */}
          {/* {connectors.map((connector) => (

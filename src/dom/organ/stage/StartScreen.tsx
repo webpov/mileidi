@@ -53,7 +53,7 @@ export const StartScreen = ({ state, calls, showStart=true, mainActionClick }: a
     </>);
 };
 
-export const PointerFollowInit = ({onMileiFigureClick, counter}:any) => {
+export const PointerFollowInit = ({isMainContactMenu=true,onMileiFigureClick, counter}:any) => {
   const searchParams = useSearchParams()
   const bloom = searchParams.has("hd")
   const wef = searchParams.has("wef")
@@ -70,9 +70,11 @@ export const PointerFollowInit = ({onMileiFigureClick, counter}:any) => {
     
     
      
-        <div className="pos-abs top-0 mt-2 right-0 z-200">
-            <MainContactMenu />
-        </div>
+        {isMainContactMenu &&
+            <div className="pos-abs top-0 mt-2 right-0 z-200">
+                <MainContactMenu />
+            </div>
+        }
         
         {!isReadyOnClient && <>
             <div className="pos-abs bottom-0">
