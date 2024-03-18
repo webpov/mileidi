@@ -97,7 +97,7 @@
 @keyframes hoverjump {
 	0%{transform: translateY(0px)}
 	33%{transform: translateY(0px)}
-  35%{transform: translateY(-15px) rotate(7deg);}
+  35%{transform: translateY(-15px) rotate(2deg);}
   36%{transform: translateY(-12px) rotate(-3deg);}
   38%{transform: translateY(0px)}
   39%{transform: translateY(-4px)}
